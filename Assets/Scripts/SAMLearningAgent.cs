@@ -23,11 +23,14 @@ namespace DefaultNamespace
 
         private float initialDistance;
         private int decisionPeriod;
+        private ArticulationChainComponent articulationChain;
+        private bool resetBody;
 
         protected override void Awake()
         {
             base.Awake();
             samControl = GetComponent<SAMUnityNormalizedController>();
+            articulationChain = GetComponent<ArticulationChainComponent>();
             var decisionRequester = gameObject.GetComponent<DecisionRequester>();
             decisionPeriod = decisionRequester.DecisionPeriod;
             decisionRequester.DecisionStep = Random.Range(0, decisionPeriod - 1);
@@ -36,10 +39,15 @@ namespace DefaultNamespace
         public override void OnEpisodeBegin()
         {
             transform.localPosition = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
-            body.TeleportRoot(transform.position, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
-            body.angularVelocity = Vector3.zero;
-            body.velocity = Vector3.zero;
-
+            samControl.SetRpm(0, 0);
+            samControl.SetBatteryPack(0.5f);
+            samControl.SetWaterPump(0.5f);
+            samControl.SetElevatorAngle(0);
+            samControl.SetRudderAngle(0);
+            
+            articulationChain.Restart(transform.position, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
+            resetBody = true;
+          
             InitializeTarget();
         }
 
@@ -49,6 +57,15 @@ namespace DefaultNamespace
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
             targetObject.localRotation = Quaternion.Euler(new Vector3(Random.Range(-15, 15), Random.Range(0, 360), 0));
             initialDistance = (transform.localPosition - targetObject.localPosition).magnitude;
+        }
+
+        private void FixedUpdate()
+        {
+            if (resetBody)
+            {
+                body.immovable = false;
+                resetBody = false;
+            }
         }
 
         public override void CollectObservations(VectorSensor sensor)

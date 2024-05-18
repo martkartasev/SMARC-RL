@@ -456,6 +456,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6882827061601369648, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
       insertIndex: -1
       addedObject: {fileID: 7389979798627408912}
+    - targetCorrespondingSourceObject: {fileID: 6882827061601369648, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6653927646517369187}
   m_SourcePrefab: {fileID: 100100000, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
 --- !u!114 &219789277179407010 stripped
 MonoBehaviour:
@@ -556,6 +559,20 @@ MonoBehaviour:
   batteryControl: {fileID: 507526580709327553}
   propeller1Control: {fileID: 8170108843628969417}
   propeller2Control: {fileID: 664906791178541998}
+--- !u!114 &6653927646517369187
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 225708387814489808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8d8a2fff6cc44f2a94a920914e0420d3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bodyParts: []
+  root: {fileID: 6332949552510434607}
 --- !u!114 &507526580709327553 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6606304116707443233, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
