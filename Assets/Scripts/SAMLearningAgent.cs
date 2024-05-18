@@ -38,14 +38,14 @@ namespace DefaultNamespace
 
         public override void OnEpisodeBegin()
         {
-            transform.localPosition = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
+            Vector3 newPos = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
             samControl.SetRpm(0, 0);
             samControl.SetBatteryPack(0.5f);
             samControl.SetWaterPump(0.5f);
             samControl.SetElevatorAngle(0);
             samControl.SetRudderAngle(0);
             
-            articulationChain.Restart(transform.position, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
+            articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
           
             InitializeTarget();
@@ -56,7 +56,7 @@ namespace DefaultNamespace
             targetSpeed = Random.Range(0.1f, 0.5f);
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
             targetObject.localRotation = Quaternion.Euler(new Vector3(Random.Range(-15, 15), Random.Range(0, 360), 0));
-            initialDistance = (transform.localPosition - targetObject.localPosition).magnitude;
+            initialDistance = (body.transform.localPosition - targetObject.localPosition).magnitude;
         }
 
         private void FixedUpdate()
@@ -83,21 +83,21 @@ namespace DefaultNamespace
         {
             SetControlInputs(actions);
 
-            var reward = Mathf.Max(0, 1 - (targetObject.localPosition - transform.localPosition).magnitude / initialDistance);
+            var reward = Mathf.Max(0, 1 - (targetObject.localPosition - body.transform.localPosition).magnitude / initialDistance);
 
 
-            if ((targetObject.localPosition - transform.localPosition).magnitude < 0.5f)
+            if ((targetObject.localPosition - body.transform.localPosition).magnitude < 0.5f)
             {
                 reward += 1;
             }
             else
             {
-                var matchSpeedReward = GetMatchingVelocityReward(transform.forward * targetSpeed, body.velocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - transform.localPosition).normalized, transform.forward) + 1) * .5F;
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+                var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - body.transform.localPosition).normalized, body.transform.forward) + 1) * .5F;
                 reward += matchSpeedReward * lookAtTargetReward;
             }
 
-            if ((Vector3.zero - transform.localPosition).magnitude > 45)
+            if ((Vector3.zero - body.transform.localPosition).magnitude > 45)
             {
                 reward += -50;
                 EndEpisode();
