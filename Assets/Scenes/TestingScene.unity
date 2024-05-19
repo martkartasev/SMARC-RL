@@ -403,7 +403,7 @@ PrefabInstance:
     - target: {fileID: 1788103692463165556, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: bff9147347f73724382c81edab984472, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 276822f637b96b24cbbaf747e260c570, type: 3}
     - target: {fileID: 6418056862332886652, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_XDrive.forceLimit
       value: 10

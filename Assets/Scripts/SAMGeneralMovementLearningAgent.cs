@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 namespace DefaultNamespace
 {
     [RequireComponent(typeof(DecisionRequester))]
-    public class SAMLearningAgent : Agent
+    public class SAMGeneralMovementLearningAgent : Agent
     {
         [Header("Target Speed")] [Range(0.1f, 0.5f)] [SerializeField]
         //The walking speed to try and achieve
