@@ -102,7 +102,7 @@ namespace DefaultNamespace
             }
 
             Debug.Log(poolRewarder.collisionReward + glassRewarder.collisionReward);
-            reward += poolRewarder.collisionReward + glassRewarder.collisionReward / 10;
+            reward += poolRewarder.collisionReward + glassRewarder.collisionReward * 3;
 
             if (float.IsNaN(reward))
             {
