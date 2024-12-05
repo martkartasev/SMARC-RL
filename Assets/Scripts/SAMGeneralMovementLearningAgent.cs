@@ -55,7 +55,7 @@ namespace DefaultNamespace
             targetSpeed = Random.Range(0.1f, 0.5f);
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
             targetObject.localRotation = Quaternion.Euler(new Vector3(Random.Range(-15, 15), Random.Range(0, 360), 0));
-            initialDistance = (body.transform.localPosition - targetObject.localPosition).magnitude;
+            initialDistance = (body.transform.position - targetObject.position).magnitude;
         }
 
         private void FixedUpdate()
@@ -71,46 +71,50 @@ namespace DefaultNamespace
         {
             //TODO: Replace with sensor data from Vehicle
             sensor.AddObservation(body.transform.localPosition / 45);
-            sensor.AddObservation(body.transform.localRotation);
+            sensor.AddObservation(body.transform.localRotation.eulerAngles / 360);
             sensor.AddObservation(targetObject.localRotation);
-            sensor.AddObservation(body.transform.InverseTransformDirection(body.velocity) / 0.5f);
-            sensor.AddObservation(body.transform.InverseTransformDirection(body.angularVelocity) / 0.3f);
-            sensor.AddObservation((body.transform.localPosition - targetObject.localPosition) / 45);
+            sensor.AddObservation(body.transform.InverseTransformVector(body.velocity) / 0.5f);
+            sensor.AddObservation(body.transform.InverseTransformVector(body.angularVelocity) / 0.3f);
+            sensor.AddObservation((body.transform.position - targetObject.position) / 90);
             sensor.AddObservation(targetSpeed / 0.5f);
         }
 
         public override void OnActionReceived(ActionBuffers actions)
         {
             SetControlInputs(actions);
-
-            var reward = Mathf.Max(0, 1 - (targetObject.localPosition - body.transform.localPosition).magnitude / initialDistance);
-
-
-            if ((targetObject.localPosition - body.transform.localPosition).magnitude < 0.5f)
-            {
-                reward += 1;
-            }
-            else
-            {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - body.transform.localPosition).normalized, body.transform.forward) + 1) * .5F;
-                reward += matchSpeedReward * lookAtTargetReward;
-            }
-
-            if ((Vector3.zero - body.transform.localPosition).magnitude > 45)
-            {
-                reward += -50;
-                EndEpisode();
-            }
-
+            
+            var reward = ComputeReward();
             if (float.IsNaN(reward))
             {
                 Debug.Log("Warning nan");
             }
             else
             {
-                AddReward(reward / Mathf.Max(2500, MaxStep) * decisionPeriod);
+                AddReward(reward / 2 / Mathf.Max(2500, MaxStep) * decisionPeriod);
             }
+            
+            if ((Vector3.zero - body.transform.localPosition).magnitude > 45)
+            {
+                EndEpisode();
+            }
+        }
+
+        private float ComputeReward()
+        {
+            var reward = Mathf.Max(0, 1 - (targetObject.position - body.transform.position).magnitude / initialDistance);
+            
+            if ((targetObject.localPosition - body.transform.localPosition).magnitude < 1f)
+            {
+                reward += 1;
+            }
+            else
+            {
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+                var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - body.transform.localPosition).normalized, body.transform.forward) + 1);
+                reward += matchSpeedReward * lookAtTargetReward;
+            }
+
+            return reward;
         }
 
 
