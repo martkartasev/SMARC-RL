@@ -92,7 +92,7 @@ namespace DefaultNamespace
             }
             else
             {
-                Debug.Log(GetCumulativeReward());
+           //     Debug.Log(GetCumulativeReward());
                 AddReward(reward);
             }
 
