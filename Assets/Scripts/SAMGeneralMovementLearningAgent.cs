@@ -83,14 +83,15 @@ namespace DefaultNamespace
         {
             SetControlInputs(actions);
 
-            var reward = ComputeReward();
+            var reward = ComputeReward() / 2 / Mathf.Max(2500, MaxStep) / decisionPeriod;
             if (float.IsNaN(reward))
             {
                 Debug.Log("Warning nan");
             }
             else
             {
-                AddReward(reward / 2 / Mathf.Max(2500, MaxStep) * decisionPeriod);
+                Debug.Log(GetCumulativeReward());
+                AddReward(reward);
             }
 
             if ((Vector3.zero - transform.InverseTransformPoint(body.transform.position)).magnitude > 45)
