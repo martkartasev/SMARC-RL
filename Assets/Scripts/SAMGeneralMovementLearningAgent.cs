@@ -46,7 +46,7 @@ namespace DefaultNamespace
             articulationChain.root.immovable = true;
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
-          
+
             InitializeTarget();
         }
 
@@ -70,9 +70,9 @@ namespace DefaultNamespace
         public override void CollectObservations(VectorSensor sensor)
         {
             //TODO: Replace with sensor data from Vehicle
-            sensor.AddObservation(body.transform.localPosition / 45);
+            sensor.AddObservation(transform.InverseTransformPoint(body.transform.position) / 45); // Do we need a local reference point?
             sensor.AddObservation(body.transform.localRotation.eulerAngles / 360);
-            sensor.AddObservation(targetObject.localRotation);
+            sensor.AddObservation(targetObject.localRotation.eulerAngles / 360);
             sensor.AddObservation(body.transform.InverseTransformVector(body.velocity) / 0.5f);
             sensor.AddObservation(body.transform.InverseTransformVector(body.angularVelocity) / 0.3f);
             sensor.AddObservation((body.transform.position - targetObject.position) / 90);
@@ -82,7 +82,7 @@ namespace DefaultNamespace
         public override void OnActionReceived(ActionBuffers actions)
         {
             SetControlInputs(actions);
-            
+
             var reward = ComputeReward();
             if (float.IsNaN(reward))
             {
@@ -92,9 +92,10 @@ namespace DefaultNamespace
             {
                 AddReward(reward / 2 / Mathf.Max(2500, MaxStep) * decisionPeriod);
             }
-            
-            if ((Vector3.zero - body.transform.localPosition).magnitude > 45)
+
+            if ((Vector3.zero - transform.InverseTransformPoint(body.transform.position)).magnitude > 45)
             {
+                SetReward(-1);
                 EndEpisode();
             }
         }
@@ -102,15 +103,15 @@ namespace DefaultNamespace
         private float ComputeReward()
         {
             var reward = Mathf.Max(0, 1 - (targetObject.position - body.transform.position).magnitude / initialDistance);
-            
-            if ((targetObject.localPosition - body.transform.localPosition).magnitude < 1f)
+
+            if ((targetObject.position - body.transform.position).magnitude < 1f)
             {
                 reward += 1;
             }
             else
             {
                 var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - body.transform.localPosition).normalized, body.transform.forward) + 1);
+                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
                 reward += matchSpeedReward * lookAtTargetReward;
             }
 
