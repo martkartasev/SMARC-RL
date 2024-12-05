@@ -105,9 +105,9 @@ namespace DefaultNamespace
 
         private float ComputeReward()
         {
-            var reward = _distance.Compute(); //* 0.5f;
+            var reward = _distance.Compute() * 0.5f;
             
-            // reward += AlignmentReward(reward) / MaxStep * 0.5f;
+            reward += AlignmentReward(reward) / MaxStep * 0.5f;
 
             return reward;
         }
@@ -122,7 +122,7 @@ namespace DefaultNamespace
             {
                 var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
                 var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-                reward += matchSpeedReward * lookAtTargetReward / MaxStep;
+                reward += matchSpeedReward * lookAtTargetReward;
             }
 
             return reward;
