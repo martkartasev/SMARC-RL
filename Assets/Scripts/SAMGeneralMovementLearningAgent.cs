@@ -1,4 +1,5 @@
 using Force;
+using Learning.Rewards;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -19,7 +20,7 @@ namespace DefaultNamespace
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        private float initialDistance;
+        private RewardFunction _distance;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
@@ -48,6 +49,7 @@ namespace DefaultNamespace
             resetBody = true;
 
             InitializeTarget();
+            _distance = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude);
         }
 
         private void InitializeTarget()
@@ -55,7 +57,6 @@ namespace DefaultNamespace
             targetSpeed = Random.Range(0.1f, 0.5f);
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
             targetObject.localRotation = Quaternion.Euler(new Vector3(Random.Range(-15, 15), Random.Range(0, 360), 0));
-            initialDistance = (body.transform.position - targetObject.position).magnitude;
         }
 
         private void FixedUpdate()
@@ -83,7 +84,8 @@ namespace DefaultNamespace
         {
             SetControlInputs(actions);
 
-            var reward = ComputeReward() / 2 / Mathf.Max(2500, MaxStep) / decisionPeriod;
+            var reward = ComputeReward();
+            
             if (float.IsNaN(reward))
             {
                 Debug.Log("Warning nan");
@@ -103,18 +105,18 @@ namespace DefaultNamespace
 
         private float ComputeReward()
         {
-            var reward = Mathf.Max(0, 1 - (targetObject.position - body.transform.position).magnitude / initialDistance);
+            var reward = _distance.Compute();
 
-            if ((targetObject.position - body.transform.position).magnitude < 1f)
-            {
-                reward += 1;
-            }
-            else
-            {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-                reward += matchSpeedReward * lookAtTargetReward;
-            }
+            // if ((targetObject.position - body.transform.position).magnitude < 1f)
+            // {
+            //     reward += 1;
+            // }
+            // else
+            // {
+            //     var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+            //     var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
+            //     reward += matchSpeedReward * lookAtTargetReward;
+            // }
 
             return reward;
         }
