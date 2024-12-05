@@ -5,13 +5,13 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/GeneralMoveTrainingScene.unity
     guid: a09b006f76d3acf42841d5aaceab5b0b
   - enabled: 0
     path: Assets/Scenes/TestingConstrainedMove.unity
     guid: dc281bef9b9a41642b4bb05241f7ddcf
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/ConstrainedMoveTraining.unity
     guid: f27f6332ff3782240a171b66942caefd
   m_configObjects: {}
