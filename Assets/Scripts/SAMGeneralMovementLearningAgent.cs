@@ -1,10 +1,8 @@
-using System;
 using Force;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
@@ -44,7 +42,8 @@ namespace DefaultNamespace
             samControl.SetWaterPump(0.5f);
             samControl.SetElevatorAngle(0);
             samControl.SetRudderAngle(0);
-            
+
+            articulationChain.root.immovable = true;
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
           
@@ -70,6 +69,7 @@ namespace DefaultNamespace
 
         public override void CollectObservations(VectorSensor sensor)
         {
+            //TODO: Replace with sensor data from Vehicle
             sensor.AddObservation(body.transform.localPosition / 45);
             sensor.AddObservation(body.transform.localRotation);
             sensor.AddObservation(targetObject.localRotation);
