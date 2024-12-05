@@ -39,6 +39,6 @@ behaviors:
 engine_settings:
   width: 84
   height: 84
-  time_scale: 50
+  time_scale: 75
   target_frame_rate: -1
   no_graphics: true
