@@ -245,6 +245,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e920cbbf408fbfb6d98fe04d68f7a8b0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &6421519498299733784 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5886241916135219392, guid: 78d04dcbae40bc646a35e455b2c6fc2b, type: 3}
+  m_PrefabInstance: {fileID: 625419943758223320}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0488af2a38628407dba8adb3eb1a253b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7258910892811426161 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7787045772659936937, guid: 78d04dcbae40bc646a35e455b2c6fc2b, type: 3}
@@ -518,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5884092907814737200, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -100.34
       objectReference: {fileID: 0}
     - target: {fileID: 5884092907814737200, guid: 5f27a8e7ba8bef94f9ded7b3dd8f09e7, type: 3}
       propertyPath: m_LocalPosition.y
@@ -807,9 +818,10 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 3500
   targetSpeed: 1
   targetObject: {fileID: 1317109355320741630}
+  odometry: {fileID: 6421519498299733784}
   body: {fileID: 8384646829626215778}
 --- !u!114 &1011010468150833774
 MonoBehaviour:

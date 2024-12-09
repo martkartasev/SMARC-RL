@@ -75,7 +75,7 @@ namespace DefaultNamespace
            // ODOM. Usually where we do the first GPS ping after coming online.
             var pose = odometry.GetRosMsg().pose.pose;
             var twist = odometry.GetRosMsg().twist.twist;
-
+            
             sensor.AddObservation(
                 new Quaternion((float)pose.orientation.x,
                     (float)pose.orientation.y,
@@ -84,14 +84,14 @@ namespace DefaultNamespace
             sensor.AddObservation(new Vector3(
                 (float)twist.linear.x,
                 (float)twist.linear.y,
-                (float)twist.linear.z) / 5f);
+                (float)twist.linear.z) );
             sensor.AddObservation(new Vector3(
                 (float)twist.angular.x,
                 (float)twist.angular.y,
                 (float)twist.angular.z) / 0.5f); // Need to check for normalization
 
             sensor.AddObservation(((body.transform.position - targetObject.position) / 90).To<FLU>().ToUnityVec3());
-        //   sensor.AddObservation((targetObject.localRotation.eulerAngles / 360).To<FLU>().ToUnityVec3()); Add vel and target angle back.
+        //    sensor.AddObservation((targetObject.rotation.eulerAngles / 360).To<FLU>().ToUnityVec3()); // Add vel and target angle back.
         //   sensor.AddObservation(targetSpeed / 0.5f);
         }
 
@@ -132,15 +132,16 @@ namespace DefaultNamespace
         {
             if ((targetObject.position - body.transform.position).magnitude < 1f)
             {
-                reward += (Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
+                reward += 1f; //0.25f + 0.75f*(Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
             }
-            else
-            {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-                reward += matchSpeedReward * lookAtTargetReward / 2;
-            }
-
+            // else
+            // {
+            //     var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+            //     var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
+            //     reward += matchSpeedReward * lookAtTargetReward / 2;
+            // }
+        
+            //TODO: For now, no alignment reward
             return reward;
         }
 
