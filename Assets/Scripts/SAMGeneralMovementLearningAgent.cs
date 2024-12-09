@@ -130,9 +130,9 @@ namespace DefaultNamespace
 
         private float AlignmentReward(float reward)
         {
-            if ((targetObject.position - body.transform.position).magnitude < 1f)
+            if ((targetObject.position - body.transform.position).magnitude < 2f)
             {
-                reward += 1f; //0.25f + 0.75f*(Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
+                reward += 1 - (targetObject.position - body.transform.position).magnitude/2f; //0.25f + 0.75f*(Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
             }
             // else
             // {

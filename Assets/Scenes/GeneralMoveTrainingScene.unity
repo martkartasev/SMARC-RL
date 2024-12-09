@@ -1302,10 +1302,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: sam_learner (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 225708387814489808, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 940453496120055248, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100.34
@@ -1345,22 +1341,6 @@ PrefabInstance:
     - target: {fileID: 940453496120055248, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1402942279054843689, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: m_ParentAnchorPosition.x
-      value: 0.04799652
-      objectReference: {fileID: 0}
-    - target: {fileID: 4542955114875759421, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: m_ParentAnchorPosition.x
-      value: -0.04799652
-      objectReference: {fileID: 0}
-    - target: {fileID: 6316822626723548680, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: m_ParentAnchorPosition.x
-      value: -0.025001526
-      objectReference: {fileID: 0}
-    - target: {fileID: 6990051590849545742, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: MaxStep
-      value: 3500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6142,10 +6122,6 @@ PrefabInstance:
     - target: {fileID: 940453496120055248, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6990051590849545742, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
-      propertyPath: MaxStep
-      value: 3500
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
