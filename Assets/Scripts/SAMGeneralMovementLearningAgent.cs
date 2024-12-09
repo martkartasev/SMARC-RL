@@ -3,6 +3,7 @@ using Learning.Rewards;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
+using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -16,6 +17,7 @@ namespace DefaultNamespace
         public float targetSpeed = 1;
 
         public Transform targetObject;
+        public VehicleComponents.ROS.Publishers.Odometry_Pub odometry;
 
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
@@ -70,29 +72,43 @@ namespace DefaultNamespace
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            //TODO: Replace with sensor data from Vehicle
-            sensor.AddObservation(transform.InverseTransformPoint(body.transform.position) / 45); // Do we need a local reference point?
-            sensor.AddObservation(body.transform.localRotation.eulerAngles / 360);
-            sensor.AddObservation(targetObject.localRotation.eulerAngles / 360);
-            sensor.AddObservation(body.transform.InverseTransformVector(body.velocity) / 0.5f);
-            sensor.AddObservation(body.transform.InverseTransformVector(body.angularVelocity) / 0.3f);
-            sensor.AddObservation((body.transform.position - targetObject.position) / 90);
-            sensor.AddObservation(targetSpeed / 0.5f);
+           // ODOM. Usually where we do the first GPS ping after coming online.
+            var pose = odometry.GetRosMsg().pose.pose;
+            var twist = odometry.GetRosMsg().twist.twist;
+
+            sensor.AddObservation(
+                new Quaternion((float)pose.orientation.x,
+                    (float)pose.orientation.y,
+                    (float)pose.orientation.z,
+                    (float)pose.orientation.w)); // 
+            sensor.AddObservation(new Vector3(
+                (float)twist.linear.x,
+                (float)twist.linear.y,
+                (float)twist.linear.z) / 5f);
+            sensor.AddObservation(new Vector3(
+                (float)twist.angular.x,
+                (float)twist.angular.y,
+                (float)twist.angular.z) / 0.5f); // Need to check for normalization
+
+            sensor.AddObservation(((body.transform.position - targetObject.position) / 90).To<FLU>().ToUnityVec3());
+        //   sensor.AddObservation((targetObject.localRotation.eulerAngles / 360).To<FLU>().ToUnityVec3()); Add vel and target angle back.
+        //   sensor.AddObservation(targetSpeed / 0.5f);
         }
+
 
         public override void OnActionReceived(ActionBuffers actions)
         {
             SetControlInputs(actions);
 
             var reward = ComputeReward();
-            
+
             if (float.IsNaN(reward))
             {
                 Debug.Log("Warning nan");
             }
             else
             {
-           //     Debug.Log(GetCumulativeReward());
+                //     Debug.Log(GetCumulativeReward());
                 AddReward(reward);
             }
 
@@ -106,7 +122,7 @@ namespace DefaultNamespace
         private float ComputeReward()
         {
             var reward = _distance.Compute() * 0.5f;
-            
+
             reward += AlignmentReward(reward) / MaxStep * 0.5f;
 
             return reward;
