@@ -1302,6 +1302,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sam_learner (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 225708387814489808, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 940453496120055248, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -100.34

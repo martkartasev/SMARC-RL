@@ -91,8 +91,17 @@ namespace DefaultNamespace
                 (float)twist.angular.z) / 0.5f); // Need to check for normalization
 
             sensor.AddObservation(((body.transform.position - targetObject.position) / 90).To<FLU>().ToUnityVec3());
-        //    sensor.AddObservation((targetObject.rotation.eulerAngles / 360).To<FLU>().ToUnityVec3()); // Add vel and target angle back.
-        //   sensor.AddObservation(targetSpeed / 0.5f);
+            // if (odometry.useNED)
+            // {
+            //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<NED>();
+            // }
+            // else
+            // {
+            //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<ENU>();
+            // }
+            //    
+            // sensor.AddObservation(vector3.ToUnityVec3()); // Add vel and target angle back.
+            sensor.AddObservation(targetSpeed / 0.5f);
         }
 
 
@@ -132,16 +141,16 @@ namespace DefaultNamespace
         {
             if ((targetObject.position - body.transform.position).magnitude < 2f)
             {
-                reward += 1 - (targetObject.position - body.transform.position).magnitude/2f; //0.25f + 0.75f*(Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
+                reward += 1f * (1 - (targetObject.position - body.transform.position).magnitude/2f); 
+                // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f);
             }
-            // else
-            // {
-            //     var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
-            //     var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-            //     reward += matchSpeedReward * lookAtTargetReward / 2;
-            // }
+            else
+            {
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
+                reward += matchSpeedReward * lookAtTargetReward ;
+            }
         
-            //TODO: For now, no alignment reward
             return reward;
         }
 
