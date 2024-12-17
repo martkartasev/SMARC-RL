@@ -872,7 +872,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 3500
+  MaxStep: 5000
   targetSpeed: 1
   targetObject: {fileID: 1317109355320741630}
   odometry: {fileID: 6421519498299733784}
