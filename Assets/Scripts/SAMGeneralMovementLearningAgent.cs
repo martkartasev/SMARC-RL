@@ -27,6 +27,8 @@ namespace DefaultNamespace
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
 
+        private bool beenAtGoal = false;
+
         protected override void Awake()
         {
             base.Awake();
@@ -49,7 +51,7 @@ namespace DefaultNamespace
             articulationChain.root.immovable = true;
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
-
+            beenAtGoal = false;
             InitializeTarget();
             _distance = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude);
         }
@@ -89,8 +91,8 @@ namespace DefaultNamespace
                 (float)twist.angular.x,
                 (float)twist.angular.y,
                 (float)twist.angular.z) / 0.5f); // Need to check for normalization
-
-            sensor.AddObservation(((body.transform.position - targetObject.position) / 90).To<FLU>().ToUnityVec3());
+            
+            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 90).To<FLU>().ToUnityVec3());
             // if (odometry.useNED)
             // {
             //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<NED>();
@@ -139,12 +141,13 @@ namespace DefaultNamespace
 
         private float AlignmentReward(float reward)
         {
-            if ((targetObject.position - body.transform.position).magnitude < 2f)
+            if ((targetObject.position - body.transform.position).magnitude < 3f)
             {
-                reward += 1f * (1 - (targetObject.position - body.transform.position).magnitude/2f); 
+                reward += 1f * (1 - (targetObject.position - body.transform.position).magnitude/3f);
+                beenAtGoal = true;
                 // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f);
             }
-            else
+            else if (!beenAtGoal)
             {
                 var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
                 var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
