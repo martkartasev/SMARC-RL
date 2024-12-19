@@ -74,10 +74,10 @@ namespace DefaultNamespace
 
         public override void CollectObservations(VectorSensor sensor)
         {
-           // ODOM. Usually where we do the first GPS ping after coming online.
+            // ODOM. Usually where we do the first GPS ping after coming online.
             var pose = odometry.GetRosMsg().pose.pose;
             var twist = odometry.GetRosMsg().twist.twist;
-            
+
             sensor.AddObservation(
                 new Quaternion((float)pose.orientation.x,
                     (float)pose.orientation.y,
@@ -86,12 +86,12 @@ namespace DefaultNamespace
             sensor.AddObservation(new Vector3(
                 (float)twist.linear.x,
                 (float)twist.linear.y,
-                (float)twist.linear.z) );
+                (float)twist.linear.z));
             sensor.AddObservation(new Vector3(
                 (float)twist.angular.x,
                 (float)twist.angular.y,
                 (float)twist.angular.z) / 0.5f); // Need to check for normalization
-            
+
             sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 90).To<FLU>().ToUnityVec3());
             // if (odometry.useNED)
             // {
@@ -134,7 +134,11 @@ namespace DefaultNamespace
         {
             var reward = _distance.Compute() * 0.5f;
             reward += AlignmentReward(reward) / MaxStep * 0.5f;
-            reward += -0.25f / MaxStep; // Time penalty.
+            if (!beenAtGoal)
+            {
+                reward += -0.5f / MaxStep; // Time penalty.
+            }
+
 
             return reward;
         }
@@ -143,7 +147,7 @@ namespace DefaultNamespace
         {
             if ((targetObject.position - body.transform.position).magnitude < 1f || beenAtGoal)
             {
-                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude/2f, -1, 1);
+                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1);
                 beenAtGoal = true;
                 // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f);
             }
@@ -151,9 +155,9 @@ namespace DefaultNamespace
             {
                 var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
                 var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-                reward += matchSpeedReward * lookAtTargetReward ;
+                reward += matchSpeedReward * lookAtTargetReward;
             }
-        
+
             return reward;
         }
 
