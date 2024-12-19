@@ -125,7 +125,7 @@ namespace DefaultNamespace
 
             if ((Vector3.zero - transform.InverseTransformPoint(body.transform.position)).magnitude > 45)
             {
-                SetReward(-1);
+                SetReward(-0.25f);
                 EndEpisode();
             }
         }
@@ -133,17 +133,17 @@ namespace DefaultNamespace
         private float ComputeReward()
         {
             var reward = _distance.Compute() * 0.5f;
-
             reward += AlignmentReward(reward) / MaxStep * 0.5f;
+            reward += -0.25f / MaxStep; // Time penalty.
 
             return reward;
         }
 
         private float AlignmentReward(float reward)
         {
-            if ((targetObject.position - body.transform.position).magnitude < 3f)
+            if ((targetObject.position - body.transform.position).magnitude < 1f || beenAtGoal)
             {
-                reward += 1f * (1 - (targetObject.position - body.transform.position).magnitude/3f);
+                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude/2f, -1, 1);
                 beenAtGoal = true;
                 // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f);
             }
