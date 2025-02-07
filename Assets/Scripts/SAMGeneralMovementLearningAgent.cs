@@ -153,7 +153,7 @@ namespace DefaultNamespace
             }
             else if (!beenAtGoal)
             {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity);
                 var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
                 reward += matchSpeedReward * lookAtTargetReward;
             }

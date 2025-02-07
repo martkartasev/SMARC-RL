@@ -77,7 +77,7 @@ namespace DefaultNamespace
             sensor.AddObservation(body.transform.localPosition / 45);
             sensor.AddObservation(body.transform.localRotation);
             sensor.AddObservation(targetObject.localRotation);
-            sensor.AddObservation(body.transform.InverseTransformDirection(body.velocity) / 0.5f);
+            sensor.AddObservation(body.transform.InverseTransformDirection(body.linearVelocity) / 0.5f);
             sensor.AddObservation(body.transform.InverseTransformDirection(body.angularVelocity) / 0.3f);
             sensor.AddObservation((body.transform.localPosition - targetObject.localPosition) / 45);
             sensor.AddObservation(targetSpeed / 0.5f);
@@ -96,7 +96,7 @@ namespace DefaultNamespace
             }
             else
             {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.velocity);
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity);
                 var lookAtTargetReward = (Vector3.Dot((targetObject.localPosition - body.transform.localPosition).normalized, body.transform.forward) + 1) * .5F;
                 reward += matchSpeedReward * lookAtTargetReward;
             }
