@@ -101,7 +101,7 @@ namespace DefaultNamespace
                 reward += matchSpeedReward * lookAtTargetReward;
             }
 
-            Debug.Log(poolRewarder.collisionReward + glassRewarder.collisionReward);
+//            Debug.Log(poolRewarder.collisionReward + glassRewarder.collisionReward);
             reward += poolRewarder.collisionReward + glassRewarder.collisionReward * 3;
 
             if (float.IsNaN(reward))

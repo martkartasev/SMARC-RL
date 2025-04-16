@@ -102,7 +102,7 @@ namespace DefaultNamespace
             //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<ENU>();
             // }
             //    
-            // sensor.AddObservation(vector3.ToUnityVec3()); // Add vel and target angle back.
+            // sensor.AddObservation(vector3.ToUnityVec3()); // Add vel and target angle back when training for heading alignment.
             sensor.AddObservation(targetSpeed / 0.5f);
         }
 
@@ -166,7 +166,7 @@ namespace DefaultNamespace
         {
             var velDeltaMagnitude = Mathf.Clamp(Vector3.Distance(actualVelocity, velocityGoal), 0, targetSpeed);
 
-            //return the value on a declining sigmoid shaped curve that decays from 1 to 0
+            //return the value on a declining curve that decays from 1 to 0
             //This reward will approach 1 if it matches perfectly and approach zero as it deviates
             return Mathf.Pow(1 - Mathf.Pow(velDeltaMagnitude / targetSpeed, 2), 2);
         }
