@@ -86,23 +86,14 @@ namespace DefaultNamespace
             sensor.AddObservation(new Vector3(
                 (float)twist.linear.x,
                 (float)twist.linear.y,
-                (float)twist.linear.z));
-            sensor.AddObservation(new Vector3(
+                (float)twist.linear.z).ForceNormalizeVector());
+            sensor.AddObservation((new Vector3(
                 (float)twist.angular.x,
                 (float)twist.angular.y,
-                (float)twist.angular.z) / 0.5f); // Need to check for normalization
+                (float)twist.angular.z) / 0.5f).ForceNormalizeVector()); 
 
-            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 90).To<FLU>().ToUnityVec3());
-            // if (odometry.useNED)
-            // {
-            //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<NED>();
-            // }
-            // else
-            // {
-            //     var vector3 = (targetObject.rotation.eulerAngles / 360).To<ENU>();
-            // }
-            //    
-            // sensor.AddObservation(vector3.ToUnityVec3()); // Add vel and target angle back when training for heading alignment.
+            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 90).To<FLU>().ToUnityVec3().ForceNormalizeVector());
+   
             sensor.AddObservation(targetSpeed / 0.5f);
         }
 

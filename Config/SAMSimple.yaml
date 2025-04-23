@@ -19,7 +19,7 @@ behaviors:
       beta_schedule: linear
       epsilon_schedule: linear
     network_settings:
-      normalize: true
+      normalize: false
       hidden_units: 256
       num_layers: 3
       vis_encode_type: simple
@@ -39,6 +39,8 @@ behaviors:
 engine_settings:
   width: 84
   height: 84
-  time_scale: 75
+  time_scale: 100
   target_frame_rate: -1
   no_graphics: true
+  
+# mlagents-learn config/SAMSimple.yaml --run-id retrain_test_01 --env Build/SAM-RL --num-envs 6 --base-port 8000
