@@ -6,6 +6,7 @@ using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace DefaultNamespace
@@ -13,6 +14,13 @@ namespace DefaultNamespace
     [RequireComponent(typeof(DecisionRequester))]
     public class SAMGeneralMovementLearningAgent : Agent
     {
+        [HideInInspector]
+        public float maxDistance = 45f;
+        [HideInInspector]
+        public Vector3 initMax = new(5, 5, 5);
+        [HideInInspector]
+        public Vector3 initMin = new(-5, -5, -5);
+
         [Header("Target Speed")] [Range(0.1f, 0.5f)] [SerializeField]
         //The walking speed to try and achieve
         public float targetSpeed = 1;
@@ -24,7 +32,7 @@ namespace DefaultNamespace
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        private IRewardFunction _distance;
+        protected IRewardFunction _distance;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
@@ -42,7 +50,7 @@ namespace DefaultNamespace
 
         public override void OnEpisodeBegin()
         {
-            Vector3 newPos = new Vector3(Random.Range(-5, 5), Random.Range(-5, 5), Random.Range(-5, 5));
+            Vector3 newPos = new Vector3(Random.Range(initMin.x, initMax.x), Random.Range(initMin.y, initMax.y), Random.Range(initMin.z, initMax.z));
             samControl.SetRpm(0, 0);
             samControl.SetBatteryPack(0.5f);
             samControl.SetWaterPump(0.5f);
@@ -53,10 +61,10 @@ namespace DefaultNamespace
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();
-            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, 45);
+            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
-        private void InitializeTarget()
+        protected virtual void InitializeTarget()
         {
             if (randomizeSpeed) targetSpeed = Random.Range(0.1f, 0.5f);
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
@@ -79,21 +87,23 @@ namespace DefaultNamespace
             var twist = odometry.GetRosMsg().twist.twist;
 
             sensor.AddObservation(
-                new Quaternion((float)pose.orientation.x,
-                    (float)pose.orientation.y,
-                    (float)pose.orientation.z,
-                    (float)pose.orientation.w)); // 
-            sensor.AddObservation(new Vector3(
-                (float)twist.linear.x,
-                (float)twist.linear.y,
-                (float)twist.linear.z).ForceNormalizeVector());
-            sensor.AddObservation((new Vector3(
-                (float)twist.angular.x,
-                (float)twist.angular.y,
-                (float)twist.angular.z) / 0.5f).ForceNormalizeVector()); 
+                new Quaternion((float) pose.orientation.x,
+                    (float) pose.orientation.y,
+                    (float) pose.orientation.z,
+                    (float) pose.orientation.w));
 
-            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 90).To<FLU>().ToUnityVec3().ForceNormalizeVector());
-   
+            sensor.AddObservation(new Vector3(
+                (float) twist.linear.x,
+                (float) twist.linear.y,
+                (float) twist.linear.z).ForceNormalizeVector());
+
+            sensor.AddObservation((new Vector3(
+                (float) twist.angular.x,
+                (float) twist.angular.y,
+                (float) twist.angular.z) / 0.5f).ForceNormalizeVector());
+
+            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<FLU>().ToUnityVec3().ForceNormalizeVector());
+
             sensor.AddObservation(targetSpeed / 0.5f);
         }
 
@@ -106,11 +116,11 @@ namespace DefaultNamespace
 
             if (float.IsNaN(reward))
             {
-                Debug.Log("Warning nan");
+                Debug.Log("Warning! Reward NaN! Something went wrong!");
             }
             else
             {
-               // Debug.Log(GetCumulativeReward());
+                // Debug.Log(GetCumulativeReward()); //NB! NEVER LEAVE CONSTANT DEBUG MESSAGES ENABLED, It causes massive slowdowns
                 AddReward(reward);
             }
 
@@ -121,49 +131,41 @@ namespace DefaultNamespace
             }
         }
 
-        private float ComputeReward()
+        protected virtual float ComputeReward()
         {
             // We manually ensure the rewards never exceed the -1 : 1 range during an episode.
             // This is for stability in the neural networks.
             // We dont use normalization in the network inputs, and do it manually ourselves.
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
-            
-            var reward = _distance.Compute() / MaxStep * 0.5f;
-            reward += AlignmentReward(reward) / MaxStep * 0.5f;
-            
+
+            var reward = _distance.Compute() / MaxStep * 0.8f;
+            reward += VelocityReward() / MaxStep * 0.2f;
+
+            // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
+            // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
+
             reward += -0.5f / MaxStep; // Time penalty.
-            
-            
+
+
             return reward;
         }
 
-        private float AlignmentReward(float reward)
+        protected virtual float VelocityReward()
         {
-            if ((targetObject.position - body.transform.position).magnitude < 2f)
-            {
-                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 4f, -1, 1);
-                // Once we are close enough, we want to stay at the target so we do not reward specific velocities there.
-                
-                // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); // Insufficient observation for this, cant enable
-            }
-            else 
-            {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity); 
-                // Speed for having a velocity magnitude matching the configured one
-                
-                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f; 
-                // Dot the vectors for matching the forward vector of SAM with a vector towards the goal. This is not strictly necessary, but we "prefer" this behaviour. SAM is technically easier to maneuver backwards in many cases. 
-                
-                reward += matchSpeedReward * lookAtTargetReward * 0.5f; 
-                // Halve this reward, so the alignment reward for being close becomes "greater" i.e a better state to be in
-            }
+            var matchSpeed = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity);
+            // Speed for having a velocity magnitude matching the configured one
 
+            var lookAtTarget = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
+            // Dot the vectors for matching the forward vector of SAM with a vector towards the goal. This is not strictly necessary, but we "prefer" this behaviour. SAM is technically easier to maneuver backwards in many cases. 
+
+            var reward = matchSpeed * lookAtTarget;
+            // Halve this reward, so the alignment reward for being close becomes "greater" i.e a better state to be in
             return reward;
         }
 
 
-        public float GetMatchingVelocityReward(Vector3 velocityGoal, Vector3 actualVelocity)
+        protected float GetMatchingVelocityReward(Vector3 velocityGoal, Vector3 actualVelocity)
         {
             var velDeltaMagnitude = Mathf.Clamp(Vector3.Distance(actualVelocity, velocityGoal), 0, targetSpeed);
 
