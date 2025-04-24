@@ -13,7 +13,7 @@ behaviors:
       beta: 0.05 # (0.05 - 0.0005) Default 0.005 . Entropy regularization. Randomness / Exploration.
       epsilon: 0.25 # Max policy step (0.1 - 0.3)
       lambd: 0.90 # (0.9 - 0.95) Regularisation for GAE. How much the agent relies on current value estimate.
-      num_epoch: 8
+      num_epoch: 3
       shared_critic: false
       learning_rate_schedule: linear
       beta_schedule: linear

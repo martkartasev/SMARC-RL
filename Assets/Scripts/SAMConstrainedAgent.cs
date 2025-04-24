@@ -10,6 +10,8 @@ using Random = UnityEngine.Random;
 namespace DefaultNamespace
 {
     [RequireComponent(typeof(DecisionRequester))]
+    
+    //TODO: HAS NOT BEEN UPDATED!
     public class SAMConstrainedAgent : Agent
     {
         [Header("Target Speed")] [Range(0.1f, 0.5f)] [SerializeField]

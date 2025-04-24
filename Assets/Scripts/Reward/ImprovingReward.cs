@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Learning.Rewards
+namespace Reward
 {
-    public class ImprovingReward : RewardFunction
+    public class ImprovingReward : IRewardFunction
     {
         private float initial;
         private float lowest;

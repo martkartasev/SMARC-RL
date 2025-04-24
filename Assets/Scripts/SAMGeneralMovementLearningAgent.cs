@@ -1,5 +1,6 @@
+using System;
 using Force;
-using Learning.Rewards;
+using Reward;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
@@ -16,18 +17,17 @@ namespace DefaultNamespace
         //The walking speed to try and achieve
         public float targetSpeed = 1;
 
+        public bool randomizeSpeed = true;
         public Transform targetObject;
         public VehicleComponents.ROS.Publishers.Odometry_Pub odometry;
 
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        private RewardFunction _distance;
+        private IRewardFunction _distance;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
-
-        private bool beenAtGoal = false;
 
         protected override void Awake()
         {
@@ -37,6 +37,7 @@ namespace DefaultNamespace
             var decisionRequester = gameObject.GetComponent<DecisionRequester>();
             decisionPeriod = decisionRequester.DecisionPeriod;
             decisionRequester.DecisionStep = Random.Range(0, decisionPeriod - 1);
+            targetSpeed = Math.Max(0.1f, Math.Min(0.5f, targetSpeed));
         }
 
         public override void OnEpisodeBegin()
@@ -51,14 +52,13 @@ namespace DefaultNamespace
             articulationChain.root.immovable = true;
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
-            beenAtGoal = false;
             InitializeTarget();
-            _distance = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude);
+            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, 45);
         }
 
         private void InitializeTarget()
         {
-            targetSpeed = Random.Range(0.1f, 0.5f);
+            if (randomizeSpeed) targetSpeed = Random.Range(0.1f, 0.5f);
             targetObject.localPosition = new Vector3(Random.Range(-15, 15), Random.Range(-15, 15), Random.Range(-15, 15));
             targetObject.localRotation = Quaternion.Euler(new Vector3(Random.Range(-15, 15), Random.Range(0, 360), 0));
         }
@@ -110,7 +110,7 @@ namespace DefaultNamespace
             }
             else
             {
-                //     Debug.Log(GetCumulativeReward());
+               // Debug.Log(GetCumulativeReward());
                 AddReward(reward);
             }
 
@@ -123,30 +123,40 @@ namespace DefaultNamespace
 
         private float ComputeReward()
         {
-            var reward = _distance.Compute() * 0.5f;
+            // We manually ensure the rewards never exceed the -1 : 1 range during an episode.
+            // This is for stability in the neural networks.
+            // We dont use normalization in the network inputs, and do it manually ourselves.
+            // Doing it ourselves, we dont have to "learn" what the possible range of values is.
+            // IF you do this manually, make sure to turn off normalization in the learning config file.
+            
+            var reward = _distance.Compute() / MaxStep * 0.5f;
             reward += AlignmentReward(reward) / MaxStep * 0.5f;
-            if (!beenAtGoal)
-            {
-                reward += -0.5f / MaxStep; // Time penalty.
-            }
-
-
+            
+            reward += -0.5f / MaxStep; // Time penalty.
+            
+            
             return reward;
         }
 
         private float AlignmentReward(float reward)
         {
-            if ((targetObject.position - body.transform.position).magnitude < 1f || beenAtGoal)
+            if ((targetObject.position - body.transform.position).magnitude < 2f)
             {
-                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1);
-                beenAtGoal = true;
-                // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f);
+                reward += 1f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 4f, -1, 1);
+                // Once we are close enough, we want to stay at the target so we do not reward specific velocities there.
+                
+                // reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); // Insufficient observation for this, cant enable
             }
-            else if (!beenAtGoal)
+            else 
             {
-                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity);
-                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f;
-                reward += matchSpeedReward * lookAtTargetReward;
+                var matchSpeedReward = GetMatchingVelocityReward(body.transform.forward * targetSpeed, body.linearVelocity); 
+                // Speed for having a velocity magnitude matching the configured one
+                
+                var lookAtTargetReward = (Vector3.Dot((targetObject.position - body.transform.position).normalized, body.transform.forward) + 1) * 0.5f; 
+                // Dot the vectors for matching the forward vector of SAM with a vector towards the goal. This is not strictly necessary, but we "prefer" this behaviour. SAM is technically easier to maneuver backwards in many cases. 
+                
+                reward += matchSpeedReward * lookAtTargetReward * 0.5f; 
+                // Halve this reward, so the alignment reward for being close becomes "greater" i.e a better state to be in
             }
 
             return reward;
@@ -157,7 +167,7 @@ namespace DefaultNamespace
         {
             var velDeltaMagnitude = Mathf.Clamp(Vector3.Distance(actualVelocity, velocityGoal), 0, targetSpeed);
 
-            //return the value on a declining curve that decays from 1 to 0
+            //Return a value on a declining curve that decays from 1 to 0
             //This reward will approach 1 if it matches perfectly and approach zero as it deviates
             return Mathf.Pow(1 - Mathf.Pow(velDeltaMagnitude / targetSpeed, 2), 2);
         }
@@ -174,7 +184,7 @@ namespace DefaultNamespace
             samControl.SetBatteryPack((actions.ContinuousActions[i++] + 1) / 2);
         }
 
-
+        //Simple inputs for local testing. Could be replaced with the new InputSystem.
         public override void Heuristic(in ActionBuffers actionsOut)
         {
             var actions = actionsOut.ContinuousActions;
