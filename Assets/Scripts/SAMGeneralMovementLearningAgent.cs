@@ -61,7 +61,7 @@ namespace DefaultNamespace
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();
-            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance/2); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -139,8 +139,8 @@ namespace DefaultNamespace
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
-            var reward = _distance.Compute() / MaxStep * 0.8f;
-            reward += VelocityReward() / MaxStep * 0.2f;
+            var reward = _distance.Compute() / MaxStep * 0.9f;
+            reward += VelocityReward() / MaxStep * 0.1f;
 
             // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
             // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
