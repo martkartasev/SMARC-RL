@@ -27,7 +27,7 @@ namespace DefaultNamespace
         protected override float ComputeReward()
         {
             var reward = base.ComputeReward();
-            reward += 0.5f * Mathf.Min(collisionPool.collisionReward + collisionGlass.collisionReward, -1); //Collisions return -1 if colliding, if both collide, only apply a total of -1;
+            reward += 0.5f * Mathf.Min(collisionPool.collisionReward + collisionGlass.collisionReward, -1) / MaxStep; //Collisions return -1 if colliding, if both collide, only apply a total of -1;
             return reward;
         }
 
