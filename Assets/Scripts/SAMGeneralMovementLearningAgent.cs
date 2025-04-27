@@ -14,12 +14,9 @@ namespace DefaultNamespace
     [RequireComponent(typeof(DecisionRequester))]
     public class SAMGeneralMovementLearningAgent : Agent
     {
-        [HideInInspector]
-        public float maxDistance = 45f;
-        [HideInInspector]
-        public Vector3 initMax = new(5, 5, 5);
-        [HideInInspector]
-        public Vector3 initMin = new(-5, -5, -5);
+        [HideInInspector] public float maxDistance = 5f;
+        [HideInInspector] public Vector3 initMax = new(5, 5, 5);
+        [HideInInspector] public Vector3 initMin = new(-5, -5, -5);
 
         [Header("Target Speed")] [Range(0.1f, 0.5f)] [SerializeField]
         //The walking speed to try and achieve
@@ -32,7 +29,7 @@ namespace DefaultNamespace
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        protected IRewardFunction _distance;
+        protected IRewardFunction _improvement;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
@@ -61,7 +58,7 @@ namespace DefaultNamespace
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();
-            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance/2); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            _improvement = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude, 1f); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -101,8 +98,8 @@ namespace DefaultNamespace
                 (float) twist.angular.x,
                 (float) twist.angular.y,
                 (float) twist.angular.z) / 0.5f).ForceNormalizeVector());
-
-            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<FLU>().ToUnityVec3().ForceNormalizeVector());
+            // Normalize distance vector such that everything more than maxDistance meters away is "the same"
+            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<FLU>().ToUnityVec3().ForceNormalizeVector());
 
             sensor.AddObservation(targetSpeed / 0.5f);
         }
@@ -139,13 +136,14 @@ namespace DefaultNamespace
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
-            var reward = _distance.Compute() / MaxStep * 0.9f;
+            var reward = 0.6f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1) / MaxStep;
+            reward += _improvement.Compute() * 0.3f;
             reward += VelocityReward() / MaxStep * 0.1f;
 
             // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
             // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
 
-            reward += -0.5f / MaxStep; // Time penalty.
+            reward += -0.1f / MaxStep; // Time penalty.
 
 
             return reward;

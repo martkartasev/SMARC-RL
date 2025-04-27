@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/General/GeneralMoveTrainingScene.unity
     guid: a09b006f76d3acf42841d5aaceab5b0b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/PoolConstrained/ConstrainedMoveTraining.unity
     guid: 1d35dc7c3d5865c49add4ad8d5645b44
   m_configObjects: {}
