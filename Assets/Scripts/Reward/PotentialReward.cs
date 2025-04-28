@@ -4,7 +4,7 @@ namespace Reward
 {
     public class PotentialReward : IRewardFunction
     {
-        private float previous = -1;
+        private float previous = -1000;
         private float _multiplier;
         private readonly Func<float> _metric;
         private readonly float _max;
@@ -19,19 +19,19 @@ namespace Reward
 
         private void Initialize()
         {
-            previous = (_max - _metric.Invoke()) / _max;
+            previous = _max - _metric.Invoke();
         }
 
         public float Compute()
         {
-            if (previous < 0.0f) Initialize(); //Lazy init because sometimes the reset is not immediate.
+            if (previous < -_max) Initialize(); //Lazy init because sometimes the reset is not immediate.
 
-            var current = (_max - _metric.Invoke()) / _max;
+            var current = _max - _metric.Invoke();
 
-            var compute = previous - current;
+            var compute = current - previous;
             previous = current;
 
-            return Math.Clamp(compute * _multiplier, -1, 1);
+            return Math.Clamp(compute / _max, -1, 1);
         }
     }
 }

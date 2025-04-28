@@ -60,7 +60,7 @@ namespace DefaultNamespace
             resetBody = true;
             InitializeTarget();
             beenAtGoal = false;
-            _potential = new PotentialReward(() => (targetObject.position - body.transform.position).magnitude,  maxDistance, 50); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            _potential = new PotentialReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance, 50); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -141,13 +141,13 @@ namespace DefaultNamespace
 
             var reward = 0.0f;
             reward += 0.5f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 3f, -1, 1) / MaxStep;
-            reward += 0.5f * _potential.Compute() / MaxStep;
-          //  reward += 0.5f * VelocityReward() / MaxStep;
+            reward += 0.5f * _potential.Compute(); 
+            //  reward += 0.5f * VelocityReward() / MaxStep;
             reward += -0.1f / MaxStep; // Time penalty.
-            
+
             if ((targetObject.position - body.transform.position).magnitude < 0.25)
             {
-                reward = 1;
+                return 1f / MaxStep;
             }
 
             return reward;
