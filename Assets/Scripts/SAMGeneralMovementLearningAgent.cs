@@ -142,11 +142,13 @@ namespace DefaultNamespace
             var reward = 0.0f;
             reward += 0.5f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 3f, -1, 1) / MaxStep;
             reward += 0.5f * _potential.Compute(); 
-            //  reward += 0.5f * VelocityReward() / MaxStep;
+            //  reward += 0.5f * VelocityReward() / MaxStep; //TODO Reassess velocity component in this context
             reward += -0.1f / MaxStep; // Time penalty.
 
             if ((targetObject.position - body.transform.position).magnitude < 0.25)
             {
+                
+                //TODO Add alignment component
                 return 1f / MaxStep;
             }
 
