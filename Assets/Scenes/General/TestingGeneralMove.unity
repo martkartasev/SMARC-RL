@@ -383,7 +383,7 @@ PrefabInstance:
     - target: {fileID: 3159775730353592156, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 0bd81a6674069e041bd518cf53842628, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 13bf096c78131a849b9e430ac08507bb, type: 3}
     - target: {fileID: 7796562787534390123, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_Enabled
       value: 1
