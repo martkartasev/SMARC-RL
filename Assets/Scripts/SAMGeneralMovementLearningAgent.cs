@@ -33,6 +33,7 @@ namespace DefaultNamespace
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
+        private bool beenAtGoal;
 
         protected override void Awake()
         {
@@ -58,7 +59,8 @@ namespace DefaultNamespace
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();
-            _improvement = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude, 1f); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            beenAtGoal = false;
+            _improvement = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -136,14 +138,23 @@ namespace DefaultNamespace
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
-            var reward = 0.6f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1) / MaxStep;
-            reward += _improvement.Compute() * 0.3f;
-            reward += VelocityReward() / MaxStep * 0.1f;
 
-            // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
-            // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
+            var reward = 0.0f;
 
-            reward += -0.1f / MaxStep; // Time penalty.
+            if (beenAtGoal || (targetObject.position - body.transform.position).magnitude < 2f)
+            {
+                beenAtGoal = true;
+                reward += Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1) / MaxStep;
+                // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
+                // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
+            }
+
+            if (!beenAtGoal)
+            {
+                reward += 0.5f * _improvement.Compute();
+                reward += 0.5f * VelocityReward() / MaxStep;
+                reward += -0.5f / MaxStep; // Time penalty.
+            }
 
 
             return reward;
