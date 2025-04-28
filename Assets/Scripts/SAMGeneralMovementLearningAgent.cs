@@ -29,7 +29,7 @@ namespace DefaultNamespace
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        protected IRewardFunction _improvement;
+        protected IRewardFunction _potential;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
@@ -60,7 +60,7 @@ namespace DefaultNamespace
             resetBody = true;
             InitializeTarget();
             beenAtGoal = false;
-            _improvement = new ImprovingReward(() => (targetObject.position - body.transform.position).magnitude); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            _potential = new PotentialReward(() => (targetObject.position - body.transform.position).magnitude,  maxDistance, 50); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -101,7 +101,7 @@ namespace DefaultNamespace
                 (float) twist.angular.y,
                 (float) twist.angular.z) / 0.5f).ForceNormalizeVector());
             // Normalize distance vector such that everything more than maxDistance meters away is "the same"
-            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<FLU>().ToUnityVec3().ForceNormalizeVector());
+            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / 6).To<FLU>().ToUnityVec3().ForceNormalizeVector());
 
             sensor.AddObservation(targetSpeed / 0.5f);
         }
@@ -140,22 +140,15 @@ namespace DefaultNamespace
 
 
             var reward = 0.0f;
-
-            if (beenAtGoal || (targetObject.position - body.transform.position).magnitude < 2f)
+            reward += 0.5f * Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 3f, -1, 1) / MaxStep;
+            reward += 0.5f * _potential.Compute() / MaxStep;
+          //  reward += 0.5f * VelocityReward() / MaxStep;
+            reward += -0.1f / MaxStep; // Time penalty.
+            
+            if ((targetObject.position - body.transform.position).magnitude < 0.25)
             {
-                beenAtGoal = true;
-                reward += Mathf.Clamp(1 - (targetObject.position - body.transform.position).magnitude / 2f, -1, 1) / MaxStep;
-                // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
-                // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
+                reward = 1;
             }
-
-            if (!beenAtGoal)
-            {
-                reward += 0.5f * _improvement.Compute();
-                reward += 0.5f * VelocityReward() / MaxStep;
-                reward += -0.5f / MaxStep; // Time penalty.
-            }
-
 
             return reward;
         }

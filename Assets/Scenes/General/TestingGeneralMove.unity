@@ -360,14 +360,30 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1319519510924311080, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319519510924311080, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319519510924311080, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319519510924311080, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.005
+      objectReference: {fileID: 0}
     - target: {fileID: 2472322043054698177, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: randomizeSpeed
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3159775730353592156, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: 0d266e82d013e3746af918513f481883, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: 0bd81a6674069e041bd518cf53842628, type: 3}
     - target: {fileID: 7796562787534390123, guid: 85129f63699465844a7dca14f3b7e76c, type: 3}
       propertyPath: m_Enabled
       value: 1
