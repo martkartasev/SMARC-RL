@@ -102,7 +102,16 @@ namespace DefaultNamespace
                 (float) twist.angular.y,
                 (float) twist.angular.z) / 0.5f).ForceNormalizeVector());
 
-            sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<FLU>().ToUnityVec3().ForceNormalizeVector());
+            if (odometry.useNED)
+            {
+                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<NED>().ToUnityVec3().ForceNormalizeVector());
+                sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<NED>().ToUnityQuaternion());
+            }
+            else
+            {
+                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<ENU>().ToUnityVec3().ForceNormalizeVector());
+                sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<ENU>().ToUnityQuaternion());
+            }
 
             sensor.AddObservation(targetSpeed / 0.5f);
         }
@@ -139,11 +148,11 @@ namespace DefaultNamespace
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
-            var reward = _distance.Compute() / MaxStep * 0.8f;
-            reward += VelocityReward() / MaxStep * 0.2f;
+            var reward = _distance.Compute() / MaxStep * 0.5f;
+            // reward += VelocityReward() / MaxStep * 0.2f;
 
             // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
-            // reward += 0.xf * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f); 
+            reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f) / MaxStep; 
 
             reward += -0.5f / MaxStep; // Time penalty.
 
