@@ -9,7 +9,10 @@ EditorBuildSettings:
     path: Assets/Scenes/General/GeneralMoveTrainingScene.unity
     guid: a09b006f76d3acf42841d5aaceab5b0b
   - enabled: 0
-    path: Assets/Scenes/PoolConstrained/ConstrainedMoveTraining.unity
-    guid: 1d35dc7c3d5865c49add4ad8d5645b44
+    path: Assets/Scenes/TestingConstrainedMove.unity
+    guid: dc281bef9b9a41642b4bb05241f7ddcf
+  - enabled: 0
+    path: Assets/Scenes/PoolConstrainedMoveTraining.unity
+    guid: f27f6332ff3782240a171b66942caefd
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0
