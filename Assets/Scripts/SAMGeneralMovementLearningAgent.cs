@@ -148,12 +148,10 @@ namespace DefaultNamespace
             // Doing it ourselves, we dont have to "learn" what the possible range of values is.
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
-            var reward = _distance.Compute() / MaxStep * 0.5f;
+            var normalized01AlignmentReward = (Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
+            var reward = _distance.Compute() * normalized01AlignmentReward / MaxStep;
             // reward += VelocityReward() / MaxStep * 0.2f;
-
-            // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
-            reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f) / MaxStep; 
-
+            
            // reward += -0.5f / MaxStep; // Time penalty.
 
 
@@ -185,14 +183,14 @@ namespace DefaultNamespace
 
         private void SetControlInputs(ActionBuffers actions)
         {
-            var i = 0;
-            var actionsContinuousAction = actions.ContinuousActions[i++];
-            // Debug.Log( actions.ContinuousActions[0] + " : " + actions.ContinuousActions[1] + " : " + actions.ContinuousActions[2] + " : " + actions.ContinuousActions[3]);
+            var actionIndex = 0;
+            
+            var actionsContinuousAction = actions.ContinuousActions[actionIndex++];
             samControl.SetRpm(actionsContinuousAction, actionsContinuousAction);
-            samControl.SetWaterPump((actions.ContinuousActions[i++] + 1) / 2);
-            samControl.SetElevatorAngle(actions.ContinuousActions[i++]);
-            samControl.SetRudderAngle(actions.ContinuousActions[i++]);
-            samControl.SetBatteryPack((actions.ContinuousActions[i++] + 1) / 2);
+            samControl.SetWaterPump((actions.ContinuousActions[actionIndex++] + 1) / 2);
+            samControl.SetElevatorAngle(actions.ContinuousActions[actionIndex++]);
+            samControl.SetRudderAngle(actions.ContinuousActions[actionIndex++]);
+            samControl.SetBatteryPack((actions.ContinuousActions[actionIndex++] + 1) / 2);
         }
 
         //Simple inputs for local testing. Could be replaced with the new InputSystem.
