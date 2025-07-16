@@ -154,7 +154,7 @@ namespace DefaultNamespace
             // Currently unused "align with target" reward. Currently insufficient observation for this, cant enable
             reward += 0.5f * ((Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f) / MaxStep; 
 
-            reward += -0.5f / MaxStep; // Time penalty.
+           // reward += -0.5f / MaxStep; // Time penalty.
 
 
             return reward;
