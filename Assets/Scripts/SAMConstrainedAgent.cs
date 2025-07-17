@@ -1,5 +1,6 @@
 using Unity.MLAgents.Sensors;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace DefaultNamespace
@@ -41,8 +42,9 @@ namespace DefaultNamespace
         {
             var targetAlignmentPenalty = -Mathf.Abs(Quaternion.Dot(targetObject.rotation, body.transform.rotation));
 
-            var reward = 0.5f * _distancePenalty.Compute() / MaxStep;
-            reward += 0.25f * targetAlignmentPenalty / MaxStep;
+            var distancePenalty = _distancePenalty.Compute();
+            var reward = 0.5f * distancePenalty / MaxStep;
+            reward += 0.25f * (distancePenalty > -0.1f ? targetAlignmentPenalty : -1f) / MaxStep;
             reward += 0.25f * Mathf.Min(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1) / MaxStep;
             return reward;
         }
