@@ -1,16 +1,17 @@
 ﻿using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
     public class CollisionRewarder : MonoBehaviour
     {
-        public float collisionReward = 0.0f;
+        [FormerlySerializedAs("collisionReward")] public float collisionPenalty = 0.0f;
 
         private void OnCollisionEnter(Collision other)
         {
             if (other.gameObject.CompareTag("robot"))
             {
-                collisionReward = -1;
+                collisionPenalty = -1;
             }
         }
 
@@ -18,7 +19,7 @@ namespace DefaultNamespace
         {
             if (other.gameObject.CompareTag("robot"))
             {
-                collisionReward = 0f;
+                collisionPenalty = 0f;
             }
         }
     }

@@ -170,7 +170,7 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 5000
+  MaxStep: 2500
   maxDistance: 45
   initMax: {x: 5, y: 5, z: 5}
   initMin: {x: -5, y: -5, z: -5}

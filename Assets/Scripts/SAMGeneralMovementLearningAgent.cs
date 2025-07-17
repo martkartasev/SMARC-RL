@@ -32,7 +32,7 @@ namespace DefaultNamespace
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
 
-        protected IRewardFunction _distance;
+        protected IRewardFunction _distancePenalty;
         private int decisionPeriod;
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
@@ -61,7 +61,7 @@ namespace DefaultNamespace
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();
-            _distance = new DistanceReward(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            _distancePenalty = new DistancePenalty(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
         }
 
         protected virtual void InitializeTarget()
@@ -149,7 +149,7 @@ namespace DefaultNamespace
             // IF you do this manually, make sure to turn off normalization in the learning config file.
 
             var normalized01AlignmentReward = (Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
-            var reward = _distance.Compute() * normalized01AlignmentReward / MaxStep;
+            var reward = _distancePenalty.Compute() * normalized01AlignmentReward / MaxStep;
             // reward += VelocityReward() / MaxStep * 0.2f;
             
            // reward += -0.5f / MaxStep; // Time penalty.

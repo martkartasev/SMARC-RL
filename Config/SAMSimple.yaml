@@ -7,8 +7,8 @@ behaviors:
   SAMSimple:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 12288
-      buffer_size: 122880
+      batch_size: 10000
+      buffer_size: 100000
       learning_rate: 0.0005 # Def: 0.0003 (1e-5 to 1e-3)
       beta: 0.05 # (0.05 - 0.0005) Default 0.005 . Entropy regularization. Randomness / Exploration.
       epsilon: 0.25 # Max policy step (0.1 - 0.3)
@@ -30,9 +30,9 @@ behaviors:
     keep_checkpoints: 5
     even_checkpoints: false
     checkpoint_interval: 500000
-    max_steps: 75000000
-    time_horizon: 5000
-    summary_freq: 245760
+    max_steps: 100000000
+    time_horizon: 2500
+    summary_freq: 200000
     #init_path: None   # Initial policy to use for initialization
     threaded: false
     

@@ -22,14 +22,11 @@ namespace DefaultNamespace
         {
             base.CollectObservations(sensor);
             var pose = odometry.GetRosMsg().pose.pose;
-            if (odometry.useNED)
-            {
-                sensor.AddObservation(new Vector3((float) (pose.position.x / initMax.x), (float) (pose.position.y / initMax.y), (float) (pose.position.z / initMax.z)).To<NED>().ToUnityVec3());
-            }
-            else
-            {
-                sensor.AddObservation(new Vector3((float) (pose.position.x / initMax.x), (float) (pose.position.y / initMax.y), (float) (pose.position.z / initMax.z)).To<ENU>().ToUnityVec3());
-            }
+
+            var absoultePositionNorm = new Vector3((float)(pose.position.x / initMax.x), (float)(pose.position.y / initMax.y), (float)(pose.position.z / initMax.z));
+            absoultePositionNorm = odometry.useNED ? absoultePositionNorm.To<NED>().ToUnityVec3() : absoultePositionNorm.To<ENU>().ToUnityVec3();
+
+            sensor.AddObservation(absoultePositionNorm);
         }
 
 
@@ -42,8 +39,11 @@ namespace DefaultNamespace
 
         protected override float ComputeReward()
         {
-            var reward = base.ComputeReward();
-            reward += 0.5f * Mathf.Min(collisionPool.collisionReward + collisionGlass.collisionReward, -1) / MaxStep; //Collisions return -1 if colliding, if both collide, only apply a total of -1;
+            var targetAlignmentPenalty = -Mathf.Abs(Quaternion.Dot(targetObject.rotation, body.transform.rotation));
+
+            var reward = 0.5f * _distancePenalty.Compute() / MaxStep;
+            reward += 0.25f * targetAlignmentPenalty / MaxStep;
+            reward += 0.25f * Mathf.Min(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1) / MaxStep;
             return reward;
         }
 
