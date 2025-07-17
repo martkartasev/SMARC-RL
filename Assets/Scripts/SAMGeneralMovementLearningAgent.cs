@@ -104,12 +104,12 @@ namespace DefaultNamespace
 
             if (odometry.useNED)
             {
-                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<NED>().ToUnityVec3().ForceNormalizeVector());
+                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<NED>().ToUnityVec3().ForceNormalizeVector());
                 sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<NED>().ToUnityQuaternion());
             }
             else
             {
-                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / (maxDistance * 2)).To<ENU>().ToUnityVec3().ForceNormalizeVector());
+                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<ENU>().ToUnityVec3().ForceNormalizeVector());
                 sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<ENU>().ToUnityQuaternion());
             }
 

@@ -10,7 +10,7 @@ namespace DefaultNamespace
     {
         public CollisionRewarder collisionPool;
         public CollisionRewarder collisionGlass;
-
+   
         public new void Awake()
         {
             base.Awake();
@@ -24,8 +24,9 @@ namespace DefaultNamespace
             base.CollectObservations(sensor);
             var pose = odometry.GetRosMsg().pose.pose;
 
-            var absoultePositionNorm = new Vector3((float)(pose.position.x / initMax.x), (float)(pose.position.y / initMax.y), (float)(pose.position.z / initMax.z));
-            absoultePositionNorm = odometry.useNED ? absoultePositionNorm.To<NED>().ToUnityVec3() : absoultePositionNorm.To<ENU>().ToUnityVec3();
+
+            var absoultePositionNorm = new Vector3(body.transform.localPosition.x / initMax.x, body.transform.localPosition.y / initMax.y, body.transform.localPosition.z / initMax.z);
+            absoultePositionNorm = odometry.useNED ? absoultePositionNorm.To<NED>().ToUnityVec3().ForceNormalizeVector() : absoultePositionNorm.To<ENU>().ToUnityVec3().ForceNormalizeVector();
 
             sensor.AddObservation(absoultePositionNorm);
         }
