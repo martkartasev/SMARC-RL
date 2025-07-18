@@ -62,6 +62,7 @@ namespace DefaultNamespace
             resetBody = true;
             InitializeTarget();
             _distancePenalty = new DistancePenalty(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
+            odometry.enabled = true;
         }
 
         protected virtual void InitializeTarget()
