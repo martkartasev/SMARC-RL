@@ -43,13 +43,13 @@ namespace DefaultNamespace
             var reward = 0.5f * distancePenalty / MaxStep;
 
             var alignmentPenalty = -(1 - Mathf.Abs(Quaternion.Dot(targetObject.rotation, body.transform.rotation)));
-            var alignmentPenaltyProximity = distancePenalty > -0.1f ? alignmentPenalty : -1f;
+            var alignmentPenaltyProximity = distancePenalty > -0.2f ? alignmentPenalty : -1f;
             reward += 0.25f * alignmentPenaltyProximity / MaxStep;
             
             var collisionPenalty = Mathf.Clamp(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1, 0);
             reward += 0.25f * collisionPenalty / MaxStep;
             
-            //Debug.Log("distance:" +distancePenalty + " align:" + alignmentPenaltyProximity + " collision:" +collisionPenalty);
+            Debug.Log("distance:" +distancePenalty + " align:" + alignmentPenaltyProximity + " collision:" +collisionPenalty);
             
             return reward;
         }
