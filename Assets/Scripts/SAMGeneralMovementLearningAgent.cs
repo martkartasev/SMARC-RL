@@ -14,12 +14,9 @@ namespace DefaultNamespace
     [RequireComponent(typeof(DecisionRequester))]
     public class SAMGeneralMovementLearningAgent : Agent
     {
-        [HideInInspector]
-        public float maxDistance = 45f;
-        [HideInInspector]
-        public Vector3 initMax = new(5, 5, 5);
-        [HideInInspector]
-        public Vector3 initMin = new(-5, -5, -5);
+        [HideInInspector] public float maxDistance = 45f;
+        [HideInInspector] public Vector3 initMax = new(5, 5, 5);
+        [HideInInspector] public Vector3 initMin = new(-5, -5, -5);
 
         [Header("Target Speed")] [Range(0.1f, 0.5f)] [SerializeField]
         //The walking speed to try and achieve
@@ -27,7 +24,6 @@ namespace DefaultNamespace
 
         public bool randomizeSpeed = true;
         public Transform targetObject;
-        public VehicleComponents.ROS.Publishers.Odometry_Pub odometry;
 
         public ArticulationBody body;
         private SAMUnityNormalizedController samControl;
@@ -37,6 +33,7 @@ namespace DefaultNamespace
         private ArticulationChainComponent articulationChain;
         private bool resetBody;
 
+      
         protected override void Awake()
         {
             base.Awake();
@@ -62,7 +59,6 @@ namespace DefaultNamespace
             resetBody = true;
             InitializeTarget();
             _distancePenalty = new DistancePenalty(() => (targetObject.position - body.transform.position).magnitude, maxDistance); // Give reward for distance, when closer than "maximum distance" for reward. Scales linearly.
-            odometry.enabled = true;
         }
 
         protected virtual void InitializeTarget()
@@ -83,36 +79,17 @@ namespace DefaultNamespace
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            // ODOM. Usually where we do the first GPS ping after coming online.
-            var pose = odometry.GetRosMsg().pose.pose;
-            var twist = odometry.GetRosMsg().twist.twist;
+            sensor.AddObservation(body.transform.rotation.To<ENU>().ToUnityQuaternion());
 
-            sensor.AddObservation(
-                new Quaternion((float) pose.orientation.x,
-                    (float) pose.orientation.y,
-                    (float) pose.orientation.z,
-                    (float) pose.orientation.w));
+            var linearVelocityBody = body.transform.InverseTransformVector(body.linearVelocity * 1.5f).To<FLU>().ToUnityVec3().ForceNormalizeVector();
+            sensor.AddObservation(linearVelocityBody);
+            var angularVelocityBody = body.transform.InverseTransformVector(body.angularVelocity * 3f).To<FLU>().ToUnityVec3().ForceNormalizeVector();
+            sensor.AddObservation(angularVelocityBody);
 
-            sensor.AddObservation(new Vector3(
-                (float) twist.linear.x,
-                (float) twist.linear.y,
-                (float) twist.linear.z).ForceNormalizeVector());
-
-            sensor.AddObservation((new Vector3(
-                (float) twist.angular.x,
-                (float) twist.angular.y,
-                (float) twist.angular.z) / 0.5f).ForceNormalizeVector());
-
-            if (odometry.useNED)
-            {
-                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<NED>().ToUnityVec3().ForceNormalizeVector());
-                sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<NED>().ToUnityQuaternion());
-            }
-            else
-            {
-                sensor.AddObservation((body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<ENU>().ToUnityVec3().ForceNormalizeVector());
-                sensor.AddObservation((Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<ENU>().ToUnityQuaternion());
-            }
+            var targetPositionBody = (body.transform.InverseTransformVector(targetObject.position - body.transform.position) / maxDistance).To<ENU>().ToUnityVec3().ForceNormalizeVector();
+            sensor.AddObservation(targetPositionBody);
+            var targetOrientationBody = (Quaternion.Inverse(body.transform.rotation) * targetObject.rotation).To<ENU>().ToUnityQuaternion();
+            sensor.AddObservation(targetOrientationBody);
 
             sensor.AddObservation(targetSpeed / 0.5f);
         }
@@ -152,8 +129,8 @@ namespace DefaultNamespace
             var normalized01AlignmentReward = (Vector3.Dot(targetObject.forward, body.transform.forward) + 1) * 0.5f;
             var reward = _distancePenalty.Compute() * normalized01AlignmentReward / MaxStep;
             // reward += VelocityReward() / MaxStep * 0.2f;
-            
-           // reward += -0.5f / MaxStep; // Time penalty.
+
+            // reward += -0.5f / MaxStep; // Time penalty.
 
 
             return reward;
@@ -185,7 +162,7 @@ namespace DefaultNamespace
         private void SetControlInputs(ActionBuffers actions)
         {
             var actionIndex = 0;
-            
+
             var actionsContinuousAction = actions.ContinuousActions[actionIndex++];
             samControl.SetRpm(actionsContinuousAction, actionsContinuousAction);
             samControl.SetWaterPump((actions.ContinuousActions[actionIndex++] + 1) / 2);

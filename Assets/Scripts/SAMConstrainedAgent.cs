@@ -10,7 +10,8 @@ namespace DefaultNamespace
     {
         public CollisionRewarder collisionPool;
         public CollisionRewarder collisionGlass;
-   
+        
+
         public new void Awake()
         {
             base.Awake();
@@ -22,11 +23,8 @@ namespace DefaultNamespace
         public override void CollectObservations(VectorSensor sensor)
         {
             base.CollectObservations(sensor);
-            var pose = odometry.GetRosMsg().pose.pose;
 
-
-            var absoultePositionNorm = new Vector3(body.transform.localPosition.x / initMax.x, body.transform.localPosition.y / initMax.y, body.transform.localPosition.z / initMax.z);
-            absoultePositionNorm = odometry.useNED ? absoultePositionNorm.To<NED>().ToUnityVec3().ForceNormalizeVector() : absoultePositionNorm.To<ENU>().ToUnityVec3().ForceNormalizeVector();
+            var absoultePositionNorm = new Vector3(body.transform.localPosition.x / initMax.x, body.transform.localPosition.y / initMax.y, body.transform.localPosition.z / initMax.z).To<ENU>().ToUnityVec3().ForceNormalizeVector();
 
             sensor.AddObservation(absoultePositionNorm);
         }
@@ -41,12 +39,16 @@ namespace DefaultNamespace
 
         protected override float ComputeReward()
         {
-            var targetAlignmentPenalty = -Mathf.Abs(Quaternion.Dot(targetObject.rotation, body.transform.rotation));
-
             var distancePenalty = _distancePenalty.Compute();
             var reward = 0.5f * distancePenalty / MaxStep;
-            reward += 0.25f * (distancePenalty > -0.1f ? targetAlignmentPenalty : -1f) / MaxStep;
-            reward += 0.25f * Mathf.Min(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1) / MaxStep;
+
+            var alignmentPenalty = -Mathf.Abs(1 - Quaternion.Dot(targetObject.rotation, body.transform.rotation));
+            var alignmentPenaltyProximity = distancePenalty > -0.1f ? alignmentPenalty : -1f;
+            reward += 0.25f * alignmentPenaltyProximity / MaxStep;
+            
+            var collisionPenalty = Mathf.Clamp(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1, 0);
+            reward += 0.25f * collisionPenalty / MaxStep;
+            
             return reward;
         }
 

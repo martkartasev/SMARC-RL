@@ -12,7 +12,7 @@ EditorBuildSettings:
     path: Assets/Scenes/TestingConstrainedMove.unity
     guid: dc281bef9b9a41642b4bb05241f7ddcf
   - enabled: 0
-    path: Assets/Scenes/PoolConstrainedMoveTraining.unity
+    path: Assets/Scenes/ConstrainedMoveTraining.unity
     guid: f27f6332ff3782240a171b66942caefd
   - enabled: 1
     path: Assets/Scenes/PoolConstrained/ConstrainedMoveTraining.unity
