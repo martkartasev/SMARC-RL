@@ -421,7 +421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f9702001d046aeac4153cce83f0f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionReward: 0
+  collisionPenalty: 0
 --- !u!64 &1852446408
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -529,7 +529,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33f9702001d046aeac4153cce83f0f49, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collisionReward: 0
+  collisionPenalty: 0
 --- !u!64 &2124823520
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -681,6 +681,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner
       objectReference: {fileID: 0}
+    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 5c7c7c978d17ca242b664f7cff3fbe6a, type: 3}
     - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 21
