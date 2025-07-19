@@ -49,7 +49,7 @@ namespace DefaultNamespace
             var collisionPenalty = Mathf.Clamp(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1, 0);
             reward += 0.25f * collisionPenalty / MaxStep;
             
-            Debug.Log("distance:" +distancePenalty + " align:" + alignmentPenaltyProximity + " collision:" +collisionPenalty);
+            //Debug.Log("distance:" +distancePenalty + " align:" + alignmentPenaltyProximity + " collision:" +collisionPenalty);
             
             return reward;
         }
