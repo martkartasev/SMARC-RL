@@ -99,7 +99,7 @@ namespace DefaultNamespace
         {
             SetControlInputs(actions);
 
-            var reward = ComputeReward();
+            var reward = ComputeReward(actions);
 
             if (float.IsNaN(reward))
             {
@@ -118,7 +118,7 @@ namespace DefaultNamespace
             }
         }
 
-        protected virtual float ComputeReward()
+        protected virtual float ComputeReward(ActionBuffers actions)
         {
             // We manually ensure the rewards never exceed the -1 : 1 range during an episode.
             // This is for stability in the neural networks.
