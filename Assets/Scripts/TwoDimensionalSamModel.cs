@@ -24,6 +24,7 @@ public class TwoDimensionalSamModel : MonoBehaviour
     public float forceBackwardsMultiplier = 0.1f;
 
     private float x, y, phi, u, v, r = 0.0f;
+    private bool _collided;
 
     void Awake()
     {
@@ -49,7 +50,7 @@ public class TwoDimensionalSamModel : MonoBehaviour
     void FixedUpdate()
     {
         ComputeModel(rps_current, theta_current);
-        Visualize();
+        VisualizeThruster();
     }
 
 
@@ -74,11 +75,9 @@ public class TwoDimensionalSamModel : MonoBehaviour
         float u_dot = (0 * (-r * v) - (Du * u / m) + (1f / m * F * Mathf.Cos(theta)) * dt);
         float v_dot = (0 * (r * u) - (Dv * v / m) + (1f / m * F * Mathf.Sin(theta)) * dt);
         float r_dot = ((-r / Iz * Dr) - (1f / Iz * l / 2f * F * Mathf.Sin(theta))) * dt;
-        
-       
-       
 
-        Debug.Log(new Vector3(-y, 0, x) - transform.position + "    " + (-transform.localEulerAngles.y - phi * Mathf.Rad2Deg));
+
+        // Debug.Log(new Vector3(-y, 0, x) - transform.position + "    " + (-transform.localEulerAngles.y - phi * Mathf.Rad2Deg));
 
         x += x_dot;
         y += y_dot;
@@ -98,10 +97,20 @@ public class TwoDimensionalSamModel : MonoBehaviour
         return rps > 0 ? forceCoefficient * Mathf.Pow(rps, 2f) : -forceCoefficient * Mathf.Pow(rps, 2f) * forceBackwardsMultiplier;
     }
 
-    public void Visualize()
+    public void VisualizeThruster()
     {
         propeller1.transform.localRotation = Quaternion.Euler(propeller1.transform.localRotation.eulerAngles - new Vector3(0, 0, rps_current));
         propeller2.transform.localRotation = Quaternion.Euler(propeller2.transform.localRotation.eulerAngles + new Vector3(0, 0, rps_current));
         thruster.transform.localRotation = Quaternion.Euler(0f, -theta_current, 0f);
+    }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        _collided = other.gameObject.tag == "wall";
+    }
+
+    public void OnCollisionStay(Collision other)
+    {
+        _collided = other.gameObject.tag == "wall";
     }
 }

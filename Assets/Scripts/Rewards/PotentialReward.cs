@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Reward
+namespace Rewards
 {
     public class PotentialReward : IRewardFunction
     {

@@ -1,11 +1,10 @@
+using DefaultNamespace;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
-using Unity.VisualScripting;
 using UnityEngine;
-using VehicleComponents.Sensors;
 
-namespace DefaultNamespace
+namespace Agents
 {
     //Simple extension of the basic movement class, mainly observation, reward and initialization differences
     public class SAMConstrainedAgent : SAMGeneralMovementLearningAgent

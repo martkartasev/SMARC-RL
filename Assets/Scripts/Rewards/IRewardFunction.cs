@@ -1,4 +1,4 @@
-﻿namespace Reward
+﻿namespace Rewards
 {
     public interface IRewardFunction
     {

@@ -1,15 +1,15 @@
 using System;
+using DefaultNamespace;
 using Force;
-using Reward;
+using Rewards;
 using Unity.MLAgents;
 using Unity.MLAgents.Actuators;
 using Unity.MLAgents.Sensors;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace DefaultNamespace
+namespace Agents
 {
     [RequireComponent(typeof(DecisionRequester))]
     public class SAMGeneralMovementLearningAgent : Agent

@@ -1,15 +1,15 @@
 ﻿using System;
 
-namespace Reward
+namespace Rewards
 {
-    public class DistancePenalty : IRewardFunction
+    public class DistanceReward : IRewardFunction
     {
         private float initial;
         private float lowest;
         private readonly Func<float> reward;
         private readonly float maxDistance;
 
-        public DistancePenalty(Func<float> rewardFunction, float maxDistance = 25f)
+        public DistanceReward(Func<float> rewardFunction, float maxDistance = 25f)
         {
             this.maxDistance = maxDistance;
             reward = rewardFunction;
@@ -20,7 +20,7 @@ namespace Reward
         {
             var current = reward.Invoke();
 
-            return Math.Clamp(-current / maxDistance, -1, 0);
+            return Math.Clamp((maxDistance - current) / maxDistance, 0, 1);
         }
     }
 }
