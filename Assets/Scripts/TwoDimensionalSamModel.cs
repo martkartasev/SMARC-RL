@@ -28,17 +28,23 @@ public class TwoDimensionalSamModel : MonoBehaviour
 
     void Awake()
     {
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         if (forceCoefficient == 0) forceCoefficient = waterDensity * Mathf.Pow(Dprop, 4f) * KT0;
         rigidBody = GetComponent<Rigidbody>();
 
         x = transform.position.z;
         y = -transform.position.x;
         phi = -transform.localEulerAngles.y * Mathf.Deg2Rad;
-        // rigidBody.inertiaTensor = new Vector3(0, 1f / 5f * rigidBody.mass * (Mathf.Pow(l / 2f, 2f) + Mathf.Pow(diameter / 2f, 2f)), 0);
-    }
+        u = 0;
+        v = 0;
+        r = 0;
 
-    void Start()
-    {
+        _collided = false;
+        // rigidBody.inertiaTensor = new Vector3(0, 1f / 5f * rigidBody.mass * (Mathf.Pow(l / 2f, 2f) + Mathf.Pow(diameter / 2f, 2f)), 0);
     }
 
     public void SetInputs(float rps, float thruster_angle)
@@ -92,6 +98,11 @@ public class TwoDimensionalSamModel : MonoBehaviour
         // rigidBody.angularVelocity = new Vector3(0, -(r + r_dot), 0);
     }
 
+    public float[] GetObservation()
+    {
+        return new[] { x / 10f, y / 10f, phi, u, v, r };
+    }
+
     public float ComputeForce(float rps)
     {
         return rps > 0 ? forceCoefficient * Mathf.Pow(rps, 2f) : -forceCoefficient * Mathf.Pow(rps, 2f) * forceBackwardsMultiplier;
@@ -106,11 +117,27 @@ public class TwoDimensionalSamModel : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        _collided = other.gameObject.tag == "wall";
+        _collided = other.gameObject.CompareTag("wall");
     }
 
     public void OnCollisionStay(Collision other)
     {
-        _collided = other.gameObject.tag == "wall";
+        _collided = other.gameObject.CompareTag("wall");
+    }
+
+    public bool HasCollided()
+    {
+        return _collided;
+    }
+
+    public void Restart(Vector3 pos, Quaternion rot)
+    {
+        transform.position = pos;
+        transform.rotation = rot;
+        rigidBody.position = pos;
+        rigidBody.rotation = rot;
+        rigidBody.linearVelocity = Vector3.zero;
+        rigidBody.angularVelocity = Vector3.zero;
+        Initialize();
     }
 }

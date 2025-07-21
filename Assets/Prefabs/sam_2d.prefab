@@ -717,9 +717,11 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1994348056929078530}
-  - component: {fileID: 3251077913563290183}
+  - component: {fileID: 6616005859172630148}
+  - component: {fileID: 8357113238716899138}
   - component: {fileID: 6815360121753654438}
-  - component: {fileID: 4399552382011928720}
+  - component: {fileID: 4112714738288892607}
+  - component: {fileID: 3251077913563290183}
   - component: {fileID: 1317175036701058365}
   m_Layer: 6
   m_Name: sam_2d
@@ -746,6 +748,94 @@ Transform:
   - {fileID: 8959045512931093850}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 45, z: 0}
+--- !u!114 &6616005859172630148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282810624290298812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9ca503b998be43c7aba2f63dd9dd9d81, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 2500
+  model: {fileID: 6815360121753654438}
+--- !u!114 &8357113238716899138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282810624290298812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a5c9d521e5ef4759a8246a07d52221e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DecisionPeriod: 10
+  DecisionStep: 0
+  TakeActionsBetweenDecisions: 1
+--- !u!114 &6815360121753654438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282810624290298812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6c0512f0dabdc041872790443dd8470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  thruster: {fileID: 1850821292229114563}
+  propeller1: {fileID: 3170723002516475918}
+  propeller2: {fileID: 66015505098668980}
+  l: 1.5
+  diameter: 0.2
+  Du: 1.2
+  Dv: 20
+  Dr: 18
+  Dprop: 0.14
+  waterDensity: 1026
+  KT0: 0.4566
+  forceCoefficient: 0.18
+  forceBackwardsMultiplier: 0.5
+--- !u!114 &4112714738288892607
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2282810624290298812}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d1c4e0b1822b495aa52bc52839ecb30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_BrainParameters:
+    VectorObservationSize: 6
+    NumStackedVectorObservations: 1
+    m_ActionSpec:
+      m_NumContinuousActions: 2
+      BranchSizes: 
+    VectorActionSize: 02000000
+    VectorActionDescriptions: []
+    VectorActionSpaceType: 1
+    hasUpgradedBrainParametersWithActionSpec: 1
+  m_Model: {fileID: 0}
+  m_InferenceDevice: 0
+  m_BehaviorType: 0
+  m_BehaviorName: 2DAgent
+  TeamId: 0
+  m_UseChildSensors: 1
+  m_UseChildActuators: 1
+  m_DeterministicInference: 0
+  m_ObservableAttributeHandling: 0
 --- !u!54 &3251077913563290183
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -773,44 +863,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 84
   m_CollisionDetection: 0
---- !u!114 &6815360121753654438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2282810624290298812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6c0512f0dabdc041872790443dd8470, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  thruster: {fileID: 1850821292229114563}
-  propeller1: {fileID: 3170723002516475918}
-  propeller2: {fileID: 66015505098668980}
-  l: 1.5
-  diameter: 0.2
-  Du: 1.2
-  Dv: 20
-  Dr: 18
-  Dprop: 0.14
-  waterDensity: 1026
-  KT0: 0.4566
-  forceCoefficient: 0.18
-  forceBackwardsMultiplier: 0.5
---- !u!114 &4399552382011928720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2282810624290298812}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b23117f93192414d8b2c20fa17e14f43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  model: {fileID: 6815360121753654438}
 --- !u!136 &1317175036701058365
 CapsuleCollider:
   m_ObjectHideFlags: 0
