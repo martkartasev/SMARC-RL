@@ -51,11 +51,11 @@ namespace Agents
 
             var proximity = _denseReward.Compute();
             AddReward(0.5f * proximity);
-            AddReward(-0.25f / MaxStep); // Time penalty
+            AddReward(-0.1f / MaxStep); // Time penalty
 
             if (model.HasCollided())
             {
-                SetReward(-0.25f);
+                SetReward(-0.4f);
                 EndEpisode();
             }
 

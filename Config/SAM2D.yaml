@@ -9,7 +9,7 @@ behaviors:
     hyperparameters:
       batch_size: 10000
       buffer_size: 100000
-      learning_rate: 0.00005 # Def: 0.0003 (1e-5 to 1e-3)
+      learning_rate: 0.0005 # Def: 0.0003 (1e-5 to 1e-3)
       beta: 0.05 # (0.05 - 0.0005) Default 0.005 . Entropy regularization. Randomness / Exploration.
       epsilon: 0.25 # Max policy step (0.1 - 0.3)
       lambd: 0.9 # (0.9 - 0.95) Regularisation for GAE. How much the agent relies on current value estimate.
