@@ -179,10 +179,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (84)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -255,10 +251,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (17)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -333,10 +325,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (18)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -409,10 +397,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -553,10 +537,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (14)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -629,10 +609,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (99)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -804,10 +780,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (58)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -880,10 +852,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (49)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -958,10 +926,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (20)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1034,10 +998,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (33)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -1112,10 +1072,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (46)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1189,10 +1145,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (13)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1265,10 +1217,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (57)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -1435,10 +1383,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (21)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1511,10 +1455,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (22)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -1589,10 +1529,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (29)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1665,10 +1601,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (56)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -1743,10 +1675,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (45)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1819,10 +1747,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (93)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -1897,10 +1821,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (36)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -1973,10 +1893,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (88)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2051,10 +1967,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (6)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2127,10 +2039,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (87)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2205,10 +2113,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (68)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2281,10 +2185,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (97)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2359,10 +2259,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (79)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2435,10 +2331,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (63)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2513,10 +2405,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (85)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2589,10 +2477,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (95)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2667,10 +2551,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (30)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2743,10 +2623,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (52)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2821,10 +2697,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (100)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -2897,10 +2769,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (96)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -2975,10 +2843,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (23)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3051,10 +2915,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (25)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3129,10 +2989,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (60)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3205,10 +3061,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (47)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3283,10 +3135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (7)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3359,10 +3207,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (77)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3437,10 +3281,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (81)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3513,10 +3353,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (11)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3591,10 +3427,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (83)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3667,10 +3499,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (89)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3745,10 +3573,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (82)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3821,10 +3645,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (35)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -3899,10 +3719,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (8)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -3975,10 +3791,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (16)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4053,10 +3865,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (19)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4129,10 +3937,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (86)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4207,10 +4011,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (26)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4283,10 +4083,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (44)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4361,10 +4157,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (59)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4437,10 +4229,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (75)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4515,10 +4303,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (94)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4591,10 +4375,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (41)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4669,10 +4449,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (38)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4745,10 +4521,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (9)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4823,10 +4595,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (48)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -4899,10 +4667,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (65)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -4977,10 +4741,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (55)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5053,10 +4813,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (3)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5131,10 +4887,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (39)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5207,10 +4959,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (80)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5285,10 +5033,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (98)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5361,10 +5105,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (40)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5439,10 +5179,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (15)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5515,10 +5251,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (54)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5593,10 +5325,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (74)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5669,10 +5397,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (50)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5747,10 +5471,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (76)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5823,10 +5543,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (2)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -5901,10 +5617,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (24)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -5977,10 +5689,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (72)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6055,10 +5763,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (27)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6131,10 +5835,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (28)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6209,10 +5909,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (70)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6285,10 +5981,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (31)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6363,10 +6055,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (64)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6439,10 +6127,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (12)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6517,10 +6201,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (53)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6593,10 +6273,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (66)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6671,10 +6347,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (90)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6747,10 +6419,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (69)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -6825,10 +6493,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (91)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6902,10 +6566,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (34)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -6978,10 +6638,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (67)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7179,10 +6835,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (92)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -7255,10 +6907,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (61)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7333,10 +6981,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (62)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -7409,10 +7053,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (43)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7487,10 +7127,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (10)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -7563,10 +7199,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (51)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7641,10 +7273,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (42)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -7717,10 +7345,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (32)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7795,10 +7419,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (37)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -7871,10 +7491,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (78)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -7949,10 +7565,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (5)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -8025,10 +7637,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (73)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -8103,10 +7711,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner (71)
       objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
-      objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
       value: -0.07999998
@@ -8179,10 +7783,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner (4)
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z
@@ -8380,10 +7980,6 @@ PrefabInstance:
     - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Name
       value: pool_learner
-      objectReference: {fileID: 0}
-    - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
-      propertyPath: m_BrainParameters.VectorObservationSize
-      value: 21
       objectReference: {fileID: 0}
     - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ParentAnchorPosition.z

@@ -37,16 +37,19 @@ namespace Agents
 
             var proximity = _denseReward.Compute();
             AddReward(0.5f * proximity);
-
+            AddReward(-0.25f / MaxStep); // Time penalty
+            
             if (model.HasCollided())
             {
-                SetReward(-0.5f);
+                SetReward(-0.25f);
+            //    Debug.Log(GetCumulativeReward());
                 EndEpisode();
             }
 
             if (_atGoal)
             {
                 SetReward(0.5f);
+           //     Debug.Log(GetCumulativeReward());
                 EndEpisode();
             }
 

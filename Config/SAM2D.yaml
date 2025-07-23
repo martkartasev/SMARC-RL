@@ -7,12 +7,12 @@ behaviors:
   2DAgent:
     trainer_type: ppo
     hyperparameters:
-      batch_size: 2000
-      buffer_size: 20000
-      learning_rate: 0.0005 # Def: 0.0003 (1e-5 to 1e-3)
+      batch_size: 10000
+      buffer_size: 100000
+      learning_rate: 0.00005 # Def: 0.0003 (1e-5 to 1e-3)
       beta: 0.05 # (0.05 - 0.0005) Default 0.005 . Entropy regularization. Randomness / Exploration.
       epsilon: 0.25 # Max policy step (0.1 - 0.3)
-      lambd: 0.90 # (0.9 - 0.95) Regularisation for GAE. How much the agent relies on current value estimate.
+      lambd: 0.9 # (0.9 - 0.95) Regularisation for GAE. How much the agent relies on current value estimate.
       num_epoch: 3
       shared_critic: false
       learning_rate_schedule: linear
@@ -20,8 +20,8 @@ behaviors:
       epsilon_schedule: linear
     network_settings:
       normalize: false
-      hidden_units: 128
-      num_layers: 2
+      hidden_units: 256
+      num_layers: 3
       vis_encode_type: simple
     reward_signals:
       extrinsic:
@@ -32,7 +32,7 @@ behaviors:
     checkpoint_interval: 500000
     max_steps: 50000000
     time_horizon: 2500
-    summary_freq: 40000
+    summary_freq: 100000
     #init_path: None   # Initial policy to use for initialization
     threaded: false
     
