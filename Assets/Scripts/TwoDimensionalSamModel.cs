@@ -92,6 +92,8 @@ public class TwoDimensionalSamModel : MonoBehaviour
         v += v_dot;
         r += r_dot;
 
+        phi %= (2 * Mathf.PI);
+
         rigidBody.position = new Vector3(-y, 0, x);
         rigidBody.rotation = Quaternion.Euler(0, -phi * Mathf.Rad2Deg, 0);
         // rigidBody.linearVelocity = transform.TransformVector(new Vector3(-(v + v_dot), 0, u + u_dot));
@@ -100,7 +102,15 @@ public class TwoDimensionalSamModel : MonoBehaviour
 
     public float[] GetObservation()
     {
-        return new[] { x / 10f, y / 10f, phi, u, v, r };
+        return new[]
+        {
+            Mathf.Clamp(x / 10f, -1, 1),
+            Mathf.Clamp(y / 10f, -1, 1),
+            Mathf.Clamp(phi / (2 * Mathf.PI), -1, 1),
+            Mathf.Clamp(u / 1.5f, -1, 1),
+            Mathf.Clamp(v * 100f, -1, 1),
+            Mathf.Clamp(r * 2.5f, -1, 1)
+        };
     }
 
     public float ComputeForce(float rps)

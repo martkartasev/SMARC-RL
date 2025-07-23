@@ -26,7 +26,8 @@ namespace Agents
 
         public override void CollectObservations(VectorSensor sensor)
         {
-            sensor.AddObservation(model.GetObservation());
+            var observation = model.GetObservation();
+            sensor.AddObservation(observation);
         }
 
         public override void OnActionReceived(ActionBuffers actions)
