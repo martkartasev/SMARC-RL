@@ -1658,6 +1658,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: sam_2d
       objectReference: {fileID: 0}
+    - target: {fileID: 4112714738288892607, guid: d2501df170f84744eb36d84c189ec15e, type: 3}
+      propertyPath: m_Model
+      value: 
+      objectReference: {fileID: 5022602860645237092, guid: 76b5054431404854a93da14cac00b9c0, type: 3}
     - target: {fileID: 6616005859172630148, guid: d2501df170f84744eb36d84c189ec15e, type: 3}
       propertyPath: target
       value: 

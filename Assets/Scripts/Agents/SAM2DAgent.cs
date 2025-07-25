@@ -35,7 +35,7 @@ namespace Agents
             model.Restart(startingPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             model.SetInputs(0, 0);
             const float envDiameter = 29;
-            _denseReward = new DifferenceReward(() => (target.transform.position - transform.position).magnitude, 1 / envDiameter);
+            _denseReward = new ImprovingReward(() => (target.transform.position - transform.position).magnitude);
         }
 
         public override void CollectObservations(VectorSensor sensor)

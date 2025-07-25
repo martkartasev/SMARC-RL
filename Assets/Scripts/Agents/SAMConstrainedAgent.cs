@@ -54,7 +54,7 @@ namespace Agents
             var reward = 0.25f * distancePenalty / MaxStep;
 
             var alignmentPenalty = -(1 - Mathf.Abs(Quaternion.Dot(targetObject.rotation, body.transform.rotation)));
-            var alignmentPenaltyProximity = distancePenalty > -0.15f ? alignmentPenalty : -1f;
+            var alignmentPenaltyProximity = distancePenalty > -0.05f ? alignmentPenalty : -1f;
             reward += 0.25f * alignmentPenaltyProximity / MaxStep;
 
             var collisionPenalty = Mathf.Clamp(collisionPool.collisionPenalty + collisionGlass.collisionPenalty, -1, 0);
