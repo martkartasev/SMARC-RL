@@ -684,10 +684,18 @@ PrefabInstance:
     - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_Model
       value: 
-      objectReference: {fileID: 5022602860645237092, guid: d29c0fa556df2234ba08dde4d6f9516e, type: 3}
+      objectReference: {fileID: 5022602860645237092, guid: d27ebef4143d3fd40a03428be8f60036, type: 3}
     - target: {fileID: 6440416102831213852, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
       value: 26
+      objectReference: {fileID: 0}
+    - target: {fileID: 7980634036148601855, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
+      propertyPath: m_ParentAnchorPosition.z
+      value: -0.07999998
+      objectReference: {fileID: 0}
+    - target: {fileID: 8151778044377448776, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
+      propertyPath: m_ParentAnchorPosition.z
+      value: -0.05429995
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
