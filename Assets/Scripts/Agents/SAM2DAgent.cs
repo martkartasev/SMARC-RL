@@ -68,7 +68,7 @@ namespace Agents
 
             actuatorPenalty /= 2;
 
-            AddReward(0.5f * proximity);
+            AddReward(0.5f * proximity / MaxStep);
             AddReward(-0.1f / MaxStep); // Time penalty
             AddReward(-0.5f * actuatorPenalty / MaxStep);
 
