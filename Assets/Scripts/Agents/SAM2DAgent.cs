@@ -59,15 +59,17 @@ namespace Agents
         private void ComputeReward(ActionBuffers actions)
         {
             var proximity = _denseReward.Compute();
-            AddReward(0.5f * proximity);
-            AddReward(-0.1f / MaxStep); // Time penalty
-
+            
             var actuatorPenalty = 0f;
             for (int i = 0; i < previous_action.Length; i++)
             {
                 actuatorPenalty += Mathf.Abs(previous_action[i] - actions.ContinuousActions[i]);
             }
+
             actuatorPenalty /= 2;
+
+           // AddReward(0.5f * proximity);
+            AddReward(-0.1f / MaxStep); // Time penalty
             AddReward(-0.5f * actuatorPenalty / MaxStep);
 
             if (model.HasCollided())
@@ -78,7 +80,7 @@ namespace Agents
 
             if (_atGoal)
             {
-                SetReward(0.5f);
+                SetReward(1f);
                 EndEpisode();
             }
         }
