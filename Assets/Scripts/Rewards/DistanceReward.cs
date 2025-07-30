@@ -20,7 +20,7 @@ namespace Rewards
         {
             var current = reward.Invoke();
 
-            return Math.Clamp((maxDistance - current) / maxDistance, 0, 1);
+            return Math.Clamp(1 - Math.Clamp(current / maxDistance, 0, 1), 0, 1);
         }
     }
 }
