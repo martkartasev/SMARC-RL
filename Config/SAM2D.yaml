@@ -31,7 +31,7 @@ behaviors:
     even_checkpoints: false
     checkpoint_interval: 500000
     max_steps: 100000000
-    time_horizon: 2500
+    time_horizon: 50
     summary_freq: 100000
     #init_path: None   # Initial policy to use for initialization
     threaded: false

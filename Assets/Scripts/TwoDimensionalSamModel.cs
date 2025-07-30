@@ -104,8 +104,8 @@ public class TwoDimensionalSamModel : MonoBehaviour
     {
         return new[]
         {
-            Mathf.Clamp(x / 10f, -1, 1),
-            Mathf.Clamp(y / 10f, -1, 1),
+            Mathf.Clamp(x / 7f, -1, 1),
+            Mathf.Clamp(y / 7f, -1, 1),
             Mathf.Clamp(phi / (2 * Mathf.PI), -1, 1),
             Mathf.Clamp(u / 1.5f, -1, 1),
             Mathf.Clamp(v * 100f, -1, 1),
