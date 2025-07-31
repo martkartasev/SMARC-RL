@@ -30,7 +30,7 @@ namespace Agents
             {
                 startingPos.x = Random.Range(-7f, 7f);
                 startingPos.z = Random.Range(-7f, 7f);
-                var overlapSphere = Physics.OverlapSphere(startingPos, 0.75f);
+                var overlapSphere = Physics.OverlapSphere(startingPos, 1.1f);
                 overlapping = overlapSphere.Any(collision => collision.gameObject.CompareTag("wall") || collision.gameObject.CompareTag("Finish"));
             }
 
