@@ -37,7 +37,7 @@ namespace Agents
             model.Restart(startingPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             model.SetInputs(0, 0);
             const float envDiameter = 19.8f;
-            _denseReward = new DistanceReward(() => (target.transform.position - transform.position).magnitude, envDiameter);
+            _denseReward = new DifferenceReward(() => (target.transform.position - transform.position).magnitude, 1/19.8f);
         }
 
         public override void CollectObservations(VectorSensor sensor)
@@ -58,7 +58,7 @@ namespace Agents
 
         private void ComputeReward(ActionBuffers actions)
         {
-            var proximity = _denseReward.Compute();
+            var dense = _denseReward.Compute();
             
             var actuatorPenalty = 0f;
             for (int i = 0; i < previous_action.Length; i++)
@@ -68,10 +68,13 @@ namespace Agents
 
             actuatorPenalty /= 2;
 
-            AddReward(0.5f * proximity / MaxStep);
+
+            var f = 0.5f * dense;
+            AddReward(f);
             AddReward(-0.1f / MaxStep); // Time penalty
             AddReward(-0.5f * actuatorPenalty / MaxStep);
 
+            Debug.Log(GetCumulativeReward());
             if (model.HasCollided())
             {
                 SetReward(-0.4f);
@@ -81,6 +84,7 @@ namespace Agents
             if (_atGoal)
             {
                 SetReward(0.5f);
+                Debug.Log(GetCumulativeReward());
                 EndEpisode();
             }
         }

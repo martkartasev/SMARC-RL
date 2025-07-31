@@ -324,13 +324,6 @@
       "dependencies": {},
       "hash": "f2c6cb09817832dccd0600f291053d8d55298ee9"
     },
-    "org.nuget.yamldotnet": {
-      "version": "16.3.0",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://unitynuget-registry.openupm.com"
-    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
