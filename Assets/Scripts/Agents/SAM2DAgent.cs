@@ -74,7 +74,6 @@ namespace Agents
             AddReward(-0.1f / MaxStep); // Time penalty
             AddReward(-0.5f * actuatorPenalty / MaxStep);
 
-            Debug.Log(GetCumulativeReward());
             if (model.HasCollided())
             {
                 SetReward(-0.4f);
@@ -84,7 +83,6 @@ namespace Agents
             if (_atGoal)
             {
                 SetReward(0.5f);
-                Debug.Log(GetCumulativeReward());
                 EndEpisode();
             }
         }
