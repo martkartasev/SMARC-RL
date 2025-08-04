@@ -14,9 +14,10 @@ namespace DefaultNamespace
 {
     public class BagReplay : MonoBehaviour
     {
-        public double start;
-        public double end;
-        public double diff;
+        public double startOffset;
+        private double start;
+        private double end;
+        private double diff;
 
         private SortedDictionary<long, PercentStampedMsg> vbs_cmd;
         private SortedDictionary<long, OdometryMsg> odometry;
@@ -26,7 +27,18 @@ namespace DefaultNamespace
         private SortedDictionary<long, PoseStampedMsg> pose;
         private SortedDictionary<long, TwistStampedMsg> twist;
 
-        private void Start()
+        public float vbs;
+        public float lcg;
+        public int thruster1rpm;
+        public int thruster2rpm;
+        public float thrusterHorizontalRad;
+        public float thrusterVerticalRad;
+        public Vector3 positionROS;
+        public Quaternion orientationROS;
+        public Vector3 linearVelocityROS;
+        public Vector3 angularVelocityROS;
+
+        private void Awake()
         {
             var dbPath = "C:\\Users\\Mart9\\Workspace\\ROSBAGS\\TankJuly03_14_58_37\\rosbag2_2025_07_03-14_58_37_0.db3";
             using var connection = new SqliteConnection($"Data Source={dbPath}");
@@ -44,11 +56,17 @@ namespace DefaultNamespace
             start = vbs_cmd.Keys.Min();
             end = vbs_cmd.Keys.Max();
             diff = (end - start) / 1000000000f;
+            ReadFields();
         }
 
         private void FixedUpdate()
         {
-            var currentTime = start + Time.fixedTimeAsDouble * 1000000000;
+            ReadFields();
+        }
+
+        private void ReadFields()
+        {
+            var currentTime = startOffset * 1000000000 + start + Time.fixedTimeAsDouble * 1000000000;
             if (currentTime <= end)
             {
                 var vbsMsg = vbs_cmd.GetLatestMessage(currentTime);
@@ -61,12 +79,17 @@ namespace DefaultNamespace
                 var twistMsg = twist.GetLatestMessage(currentTime);
 
 
-                Debug.Log(vbsMsg.value + "   " + lcgMsg.value + "   " + rpmMsg.thruster_1_rpm + "   " + rpmMsg.thruster_2_rpm + "    " + angleMsg.thruster_horizontal_radians + "    " + angleMsg.thruster_vertical_radians + "    " +
-                          new Vector3((float)odometryMsg.pose.pose.position.x, (float)odometryMsg.pose.pose.position.y, (float)odometryMsg.pose.pose.position.z) + "    " +
-                          new Quaternion((float)poseMsg.pose.orientation.x, (float)poseMsg.pose.position.y, (float)poseMsg.pose.position.z, (float)poseMsg.pose.orientation.w) + "    " +
-                          new Vector3((float)twistMsg.twist.linear.x, (float)twistMsg.twist.linear.y, (float)twistMsg.twist.linear.z) + "    " +
-                          new Vector3((float)twistMsg.twist.angular.x, (float)twistMsg.twist.angular.y, (float)twistMsg.twist.angular.z) + "    "
-                );
+                vbs = vbsMsg.value;
+                lcg = lcgMsg.value;
+                thruster1rpm = rpmMsg.thruster_1_rpm;
+                thruster2rpm = rpmMsg.thruster_2_rpm;
+                thrusterHorizontalRad = angleMsg.thruster_horizontal_radians;
+                thrusterVerticalRad = angleMsg.thruster_vertical_radians;
+
+                positionROS = new Vector3((float)odometryMsg.pose.pose.position.x, (float)odometryMsg.pose.pose.position.y, (float)odometryMsg.pose.pose.position.z);
+                orientationROS = new Quaternion((float)poseMsg.pose.orientation.x, (float)poseMsg.pose.orientation.y, (float)poseMsg.pose.orientation.z, (float)poseMsg.pose.orientation.w);
+                linearVelocityROS = new Vector3((float)twistMsg.twist.linear.x, (float)twistMsg.twist.linear.y, (float)twistMsg.twist.linear.z);
+                angularVelocityROS = new Vector3((float)twistMsg.twist.angular.x, (float)twistMsg.twist.angular.y, (float)twistMsg.twist.angular.z);
             }
         }
 

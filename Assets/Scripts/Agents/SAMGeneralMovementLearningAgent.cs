@@ -54,7 +54,7 @@ namespace Agents
             samControl.SetElevatorAngle(0);
             samControl.SetRudderAngle(0);
 
-            articulationChain.root.immovable = true;
+            articulationChain.GetRoot().immovable = true;
             articulationChain.Restart(transform.position + newPos, Quaternion.Euler(new Vector3(0, Random.Range(0, 360), 0)));
             resetBody = true;
             InitializeTarget();

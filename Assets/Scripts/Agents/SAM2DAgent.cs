@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using Inputs;
 using MathNet.Numerics.LinearAlgebra;
 using Rewards;
 using Unity.MLAgents;
@@ -89,7 +90,7 @@ namespace Agents
 
         public override void Heuristic(in ActionBuffers actionsOut)
         {
-            var fromKeyboard2D = Inputs.FromKeyboard2D();
+            var fromKeyboard2D = KeyboardInputs.FromKeyboard2D();
             var i = 0;
 
             var actionsOutContinuousActions = actionsOut.ContinuousActions;
