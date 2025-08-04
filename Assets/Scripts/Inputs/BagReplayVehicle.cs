@@ -50,7 +50,7 @@ namespace Inputs
 
 
             yaw.SetAngle(-replay.thrusterHorizontalRad);
-            pitch.SetAngle(replay.thrusterVerticalRad);
+            pitch.SetAngle(-replay.thrusterVerticalRad);
 
             vbs.SetPercentage(100 - replay.vbs);
             lcg.SetPercentage(100 - replay.lcg);

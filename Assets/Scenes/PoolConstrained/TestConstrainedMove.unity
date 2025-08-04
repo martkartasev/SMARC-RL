@@ -572,15 +572,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5948531104893211205, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_LinearDamping
-      value: 2
+      value: 1.8
       objectReference: {fileID: 0}
     - target: {fileID: 5948531104893211205, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_AngularDamping
-      value: 20
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 5948531104893211205, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_CenterOfMass.z
-      value: -0.0145
+      value: -0.014
       objectReference: {fileID: 0}
     - target: {fileID: 5948531104893211205, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ImplicitTensor
