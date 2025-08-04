@@ -566,6 +566,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pool_learner
       objectReference: {fileID: 0}
+    - target: {fileID: 5567101334321520786, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5948531104893211205, guid: 8741390ad8a66de4190ee7e7c198c004, type: 3}
       propertyPath: m_ImplicitCom
       value: 0
@@ -831,7 +835,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &2124823519
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5119,7 +5123,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &5407511248189833781
 MeshRenderer:
   m_ObjectHideFlags: 0
