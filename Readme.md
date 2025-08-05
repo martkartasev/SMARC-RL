@@ -36,6 +36,6 @@ The commands corresponding to python and c# compilation are then as follows:
 Run in folder "proto"
 ```
 conda activate SMARCRL
-python -m grpc_tools.protoc -I./ --python_out=../ik_server --pyi_out=../ik_server ./ik.proto 
-protoc -I ./ --csharp_out=../Protobuf  ./communication.proto
+python -m grpc_tools.protoc -I./ --python_out=../../smarc-rl-py/protobuf-gen --pyi_out=../../smarc-rl-py/protobuf-gen  ./communication.proto 
+protoc -I ./ --csharp_out=../Assets/Grpc  ./communication.proto
 ```
