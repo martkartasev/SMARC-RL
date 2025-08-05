@@ -11,7 +11,10 @@ Then install the packages
 pip install -r requirements.txt
 ```
 
-## Managing Protobuf
+# Managing Protobuf
+
+---
+
 To change the API you need to regenerate the C# and Python files.
 
 To compile protos for python, install grpcio-tools https://grpc.io/docs/languages/python/quickstart/
