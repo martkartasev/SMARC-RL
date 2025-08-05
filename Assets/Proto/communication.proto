@@ -1,0 +1,60 @@
+syntax = "proto3";
+package ExternalCommunication;
+
+message Observations {
+  repeated Observation observations = 1;
+}
+
+message Reset {
+  repeated ResetParameters envsToReset = 1;
+  bool reloadScene = 2;
+}
+
+message Step {
+  repeated Action actions = 1;
+  optional int32 stepCount = 2;
+  optional float timeScale = 3;
+}
+
+
+
+message Action {
+  repeated float continuous = 1;
+  repeated float discrete = 2;
+}
+
+
+message ResetParameters {
+  int32 index = 1;
+}
+
+
+message Observation {
+  int32 index = 1;
+
+  repeated string transforms = 2;
+  repeated float floats = 3;
+  repeated int32 ints = 4;
+  repeated string strings = 5;
+  repeated bool booleans = 6;
+}
+
+
+message Transform {
+  Vector3 position = 1;
+  optional Vector3 euler = 2;
+  optional Quaternion orientation = 3;
+}
+
+message Vector3 {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+}
+
+message Quaternion {
+  float x = 1;
+  float y = 2;
+  float z = 3;
+  float w = 4;
+}
