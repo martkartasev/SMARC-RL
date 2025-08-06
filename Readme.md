@@ -26,7 +26,7 @@ python -m pip install grpcio-tools
 Then in the [Proto folder](./Assets/Proto), run:
 ```
 conda activate SMARCRL
-python -m grpc_tools.protoc -I./ --python_out=../../smarc-rl-py/protobuf-gen --pyi_out=../../smarc-rl-py/protobuf-gen  ./communication.proto
+python -m grpc_tools.protoc -I./ --python_out=../../smarc-rl-py/protobuf_gen --pyi_out=../../smarc-rl-py/protobuf_gen  ./communication.proto
 ```
 To compile protos for C#, I suggest downloading the tools package https://www.nuget.org/packages/Grpc.Tools
 Extracting the correct binary inside the "Tools" folder in the package, and adding it to your "PATH" environment variables.
@@ -36,5 +36,5 @@ The commands corresponding to python and c# compilation are then as follows:
 
 Run in [Proto folder](./Assets/Proto)
 ```
-protoc -I ./ --csharp_out=../Assets/Grpc  ./communication.proto
+protoc -I ./ --csharp_out=../Protobuf  ./communication.proto
 ```

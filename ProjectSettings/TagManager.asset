@@ -9,6 +9,7 @@ TagManager:
   - wall
   - Vehicle
   - rope
+  - ScreenshotCamera
   layers:
   - Default
   - TransparentFX

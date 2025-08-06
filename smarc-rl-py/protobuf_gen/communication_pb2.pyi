@@ -29,6 +29,12 @@ class Step(_message.Message):
     timeScale: float
     def __init__(self, actions: _Optional[_Iterable[_Union[Action, _Mapping]]] = ..., stepCount: _Optional[int] = ..., timeScale: _Optional[float] = ...) -> None: ...
 
+class Screenshot(_message.Message):
+    __slots__ = ("camera",)
+    CAMERA_FIELD_NUMBER: _ClassVar[int]
+    camera: Transform
+    def __init__(self, camera: _Optional[_Union[Transform, _Mapping]] = ...) -> None: ...
+
 class Action(_message.Message):
     __slots__ = ("continuous", "discrete")
     CONTINUOUS_FIELD_NUMBER: _ClassVar[int]

@@ -16,6 +16,9 @@ message Step {
   optional float timeScale = 3;
 }
 
+message Screenshot {
+  Transform camera = 1;
+}
 
 
 message Action {

@@ -24,7 +24,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ommunication.proto\x12\x15\x45xternalCommunication\"H\n\x0cObservations\x12\x38\n\x0cobservations\x18\x01 \x03(\x0b\x32\".ExternalCommunication.Observation\"Y\n\x05Reset\x12;\n\x0b\x65nvsToReset\x18\x01 \x03(\x0b\x32&.ExternalCommunication.ResetParameters\x12\x13\n\x0breloadScene\x18\x02 \x01(\x08\"\x82\x01\n\x04Step\x12.\n\x07\x61\x63tions\x18\x01 \x03(\x0b\x32\x1d.ExternalCommunication.Action\x12\x16\n\tstepCount\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\ttimeScale\x18\x03 \x01(\x02H\x01\x88\x01\x01\x42\x0c\n\n_stepCountB\x0c\n\n_timeScale\".\n\x06\x41\x63tion\x12\x12\n\ncontinuous\x18\x01 \x03(\x02\x12\x10\n\x08\x64iscrete\x18\x02 \x03(\x02\" \n\x0fResetParameters\x12\r\n\x05index\x18\x01 \x01(\x05\"q\n\x0bObservation\x12\r\n\x05index\x18\x01 \x01(\x05\x12\x12\n\ntransforms\x18\x02 \x03(\t\x12\x0e\n\x06\x66loats\x18\x03 \x03(\x02\x12\x0c\n\x04ints\x18\x04 \x03(\x05\x12\x0f\n\x07strings\x18\x05 \x03(\t\x12\x10\n\x08\x62ooleans\x18\x06 \x03(\x08\"\xc8\x01\n\tTransform\x12\x30\n\x08position\x18\x01 \x01(\x0b\x32\x1e.ExternalCommunication.Vector3\x12\x32\n\x05\x65uler\x18\x02 \x01(\x0b\x32\x1e.ExternalCommunication.Vector3H\x00\x88\x01\x01\x12;\n\x0borientation\x18\x03 \x01(\x0b\x32!.ExternalCommunication.QuaternionH\x01\x88\x01\x01\x42\x08\n\x06_eulerB\x0e\n\x0c_orientation\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"8\n\nQuaternion\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01w\x18\x04 \x01(\x02\x62\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x13\x63ommunication.proto\x12\x15\x45xternalCommunication\"H\n\x0cObservations\x12\x38\n\x0cobservations\x18\x01 \x03(\x0b\x32\".ExternalCommunication.Observation\"Y\n\x05Reset\x12;\n\x0b\x65nvsToReset\x18\x01 \x03(\x0b\x32&.ExternalCommunication.ResetParameters\x12\x13\n\x0breloadScene\x18\x02 \x01(\x08\"\x82\x01\n\x04Step\x12.\n\x07\x61\x63tions\x18\x01 \x03(\x0b\x32\x1d.ExternalCommunication.Action\x12\x16\n\tstepCount\x18\x02 \x01(\x05H\x00\x88\x01\x01\x12\x16\n\ttimeScale\x18\x03 \x01(\x02H\x01\x88\x01\x01\x42\x0c\n\n_stepCountB\x0c\n\n_timeScale\">\n\nScreenshot\x12\x30\n\x06\x63\x61mera\x18\x01 \x01(\x0b\x32 .ExternalCommunication.Transform\".\n\x06\x41\x63tion\x12\x12\n\ncontinuous\x18\x01 \x03(\x02\x12\x10\n\x08\x64iscrete\x18\x02 \x03(\x02\" \n\x0fResetParameters\x12\r\n\x05index\x18\x01 \x01(\x05\"q\n\x0bObservation\x12\r\n\x05index\x18\x01 \x01(\x05\x12\x12\n\ntransforms\x18\x02 \x03(\t\x12\x0e\n\x06\x66loats\x18\x03 \x03(\x02\x12\x0c\n\x04ints\x18\x04 \x03(\x05\x12\x0f\n\x07strings\x18\x05 \x03(\t\x12\x10\n\x08\x62ooleans\x18\x06 \x03(\x08\"\xc8\x01\n\tTransform\x12\x30\n\x08position\x18\x01 \x01(\x0b\x32\x1e.ExternalCommunication.Vector3\x12\x32\n\x05\x65uler\x18\x02 \x01(\x0b\x32\x1e.ExternalCommunication.Vector3H\x00\x88\x01\x01\x12;\n\x0borientation\x18\x03 \x01(\x0b\x32!.ExternalCommunication.QuaternionH\x01\x88\x01\x01\x42\x08\n\x06_eulerB\x0e\n\x0c_orientation\"*\n\x07Vector3\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\"8\n\nQuaternion\x12\t\n\x01x\x18\x01 \x01(\x02\x12\t\n\x01y\x18\x02 \x01(\x02\x12\t\n\x01z\x18\x03 \x01(\x02\x12\t\n\x01w\x18\x04 \x01(\x02\x62\x06proto3')
 
 _globals = globals()
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, _globals)
@@ -37,16 +37,18 @@ if not _descriptor._USE_C_DESCRIPTORS:
   _globals['_RESET']._serialized_end=209
   _globals['_STEP']._serialized_start=212
   _globals['_STEP']._serialized_end=342
-  _globals['_ACTION']._serialized_start=344
-  _globals['_ACTION']._serialized_end=390
-  _globals['_RESETPARAMETERS']._serialized_start=392
-  _globals['_RESETPARAMETERS']._serialized_end=424
-  _globals['_OBSERVATION']._serialized_start=426
-  _globals['_OBSERVATION']._serialized_end=539
-  _globals['_TRANSFORM']._serialized_start=542
-  _globals['_TRANSFORM']._serialized_end=742
-  _globals['_VECTOR3']._serialized_start=744
-  _globals['_VECTOR3']._serialized_end=786
-  _globals['_QUATERNION']._serialized_start=788
-  _globals['_QUATERNION']._serialized_end=844
+  _globals['_SCREENSHOT']._serialized_start=344
+  _globals['_SCREENSHOT']._serialized_end=406
+  _globals['_ACTION']._serialized_start=408
+  _globals['_ACTION']._serialized_end=454
+  _globals['_RESETPARAMETERS']._serialized_start=456
+  _globals['_RESETPARAMETERS']._serialized_end=488
+  _globals['_OBSERVATION']._serialized_start=490
+  _globals['_OBSERVATION']._serialized_end=603
+  _globals['_TRANSFORM']._serialized_start=606
+  _globals['_TRANSFORM']._serialized_end=806
+  _globals['_VECTOR3']._serialized_start=808
+  _globals['_VECTOR3']._serialized_end=850
+  _globals['_QUATERNION']._serialized_start=852
+  _globals['_QUATERNION']._serialized_end=908
 # @@protoc_insertion_point(module_scope)
