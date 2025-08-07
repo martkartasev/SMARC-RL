@@ -5,10 +5,17 @@ using UnityEngine;
 
 namespace Inputs
 {
+    public enum ReplayType
+    {
+        Position,
+        Velocity
+    }
+
     public class BagReplayGhost : MonoBehaviour
     {
         public ArticulationChainComponent body;
         public BagReplay replay;
+        public ReplayType type;
 
         private void Start()
         {
@@ -16,6 +23,25 @@ namespace Inputs
         }
 
         private void FixedUpdate()
+        {
+            switch (type)
+            {
+                case ReplayType.Position:
+                    DoPositionUpdate();
+                    break;
+                case ReplayType.Velocity:
+                    DoVelocityUpdate();
+                    break;
+            }
+        }
+
+        private void DoVelocityUpdate()
+        {
+            body.GetRoot().linearVelocity = ENU.ConvertToRUF(replay.linearVelocityROS);
+            body.GetRoot().angularVelocity = ENU.ConvertToRUF(replay.angularVelocityROS);
+        }
+
+        private void DoPositionUpdate()
         {
             if (replay.positionROS != Vector3.zero)
             {
