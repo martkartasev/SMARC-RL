@@ -226,7 +226,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bodyParts: []
-  root: {fileID: 5948531104893211205}
 --- !u!1001 &452007592213497143
 PrefabInstance:
   m_ObjectHideFlags: 0

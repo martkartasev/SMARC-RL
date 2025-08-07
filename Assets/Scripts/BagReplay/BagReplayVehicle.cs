@@ -32,6 +32,7 @@ namespace Inputs
             backProp = backPropGo.GetComponent<Propeller>();
             vbs = vbsGo.GetComponent<VBS>();
             lcg = lcgGo.GetComponent<Prismatic>();
+            chain.Restart(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
         }
 
         private void FixedUpdate()
@@ -44,7 +45,7 @@ namespace Inputs
             if (!hasReset)
             {
                 hasReset = true;
-                chain.Restart(ENU.ConvertToRUF(replay.positionROS), ENU.ConvertToRUF(replay.orientationROS));
+           
                 chain.GetRoot().immovable = true;
             }
 

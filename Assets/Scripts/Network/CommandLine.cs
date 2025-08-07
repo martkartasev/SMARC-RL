@@ -25,7 +25,6 @@ namespace ExecutableTools
 
             if (args.ContainsKey("-nographics") || args.ContainsKey("-headless") || args.ContainsKey("-batchmode"))
             {
-                Application.targetFrameRate = -1;
                 CommunicationService.noGraphics = true;
             }
 

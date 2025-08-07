@@ -8,7 +8,8 @@ namespace Inputs
     public enum ReplayType
     {
         Position,
-        Velocity
+        Velocity,
+        PseudoVelocity,
     }
 
     public class BagReplayGhost : MonoBehaviour
@@ -19,7 +20,7 @@ namespace Inputs
 
         private void Start()
         {
-            body.Restart(ENU.ConvertToRUF(replay.positionROS), ENU.ConvertToRUF(replay.orientationROS));
+            body.Restart(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
         }
 
         private void FixedUpdate()
@@ -32,21 +33,49 @@ namespace Inputs
                 case ReplayType.Velocity:
                     DoVelocityUpdate();
                     break;
+                case ReplayType.PseudoVelocity:
+                    DoPseudoVelocityUpdate();
+                    break;
             }
         }
 
         private void DoVelocityUpdate()
         {
-            body.GetRoot().linearVelocity = ENU.ConvertToRUF(replay.linearVelocityROS);
-            body.GetRoot().angularVelocity = ENU.ConvertToRUF(replay.angularVelocityROS);
+            body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.linearVelocityROS);
+            body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS);
+        }
+
+        private void DoPseudoVelocityUpdate()
+        {
+            body.GetRoot().linearVelocity = NED.ConvertToRUF((replay.positionROS - replay.prev_positionROS) / Time.fixedDeltaTime);
+            body.GetRoot().angularVelocity = GetAngularVelocity(NED.ConvertToRUF(replay.prev_orientationROS), NED.ConvertToRUF(replay.orientationROS));
         }
 
         private void DoPositionUpdate()
         {
             if (replay.positionROS != Vector3.zero)
             {
-                body.GetRoot().TeleportRoot(ENU.ConvertToRUF(replay.positionROS), ENU.ConvertToRUF(replay.orientationROS));
+                body.GetRoot().TeleportRoot(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
             }
+        }
+
+        Vector3 GetAngularVelocity(Quaternion previousRotation, Quaternion currentRotation)
+        {
+            Quaternion deltaRotation = currentRotation * Quaternion.Inverse(previousRotation);
+
+            float angle;
+            Vector3 axis;
+            deltaRotation.ToAngleAxis(out angle, out axis);
+
+            // Ensure the angle is in radians and in correct direction
+            if (angle > 180f)
+                angle -= 360f;
+
+            // Convert angle from degrees to radians
+            angle *= Mathf.Deg2Rad;
+
+            // Angular velocity vector
+            return axis * (angle / Time.fixedDeltaTime);
         }
     }
 }

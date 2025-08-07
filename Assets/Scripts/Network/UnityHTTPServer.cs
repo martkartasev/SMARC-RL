@@ -30,6 +30,7 @@ namespace Network
         {
             _communicationService = FindFirstObjectByType<CommunicationService>();
             Physics.simulationMode = SimulationMode.Script;
+            Application.targetFrameRate = 60;
             DontDestroyOnLoad(gameObject);
         }
 

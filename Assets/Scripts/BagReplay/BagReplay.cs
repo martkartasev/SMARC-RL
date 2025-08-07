@@ -34,7 +34,9 @@ namespace DefaultNamespace
         public float thrusterHorizontalRad;
         public float thrusterVerticalRad;
         public Vector3 positionROS;
+        public Vector3 prev_positionROS;
         public Quaternion orientationROS;
+        public Quaternion prev_orientationROS;
         public Vector3 linearVelocityROS;
         public Vector3 angularVelocityROS;
 
@@ -57,6 +59,8 @@ namespace DefaultNamespace
             end = vbs_cmd.Keys.Max();
             diff = (end - start) / 1000000000f;
             ReadFields();
+            prev_positionROS = positionROS;
+            prev_orientationROS = orientationROS;
         }
 
         private void FixedUpdate()
@@ -75,6 +79,7 @@ namespace DefaultNamespace
                 var angleMsg = angles_cmd.GetLatestMessage(currentTime);
 
                 var odometryMsg = odometry.GetLatestMessage(currentTime);
+
                 var poseMsg = pose.GetLatestMessage(currentTime);
                 var twistMsg = twist.GetLatestMessage(currentTime);
 
@@ -86,6 +91,8 @@ namespace DefaultNamespace
                 thrusterHorizontalRad = angleMsg.thruster_horizontal_radians;
                 thrusterVerticalRad = angleMsg.thruster_vertical_radians;
 
+                prev_positionROS = positionROS;
+                prev_orientationROS = orientationROS;
                 positionROS = new Vector3((float)odometryMsg.pose.pose.position.x, (float)odometryMsg.pose.pose.position.y, (float)odometryMsg.pose.pose.position.z);
                 orientationROS = new Quaternion((float)poseMsg.pose.orientation.x, (float)poseMsg.pose.orientation.y, (float)poseMsg.pose.orientation.z, (float)poseMsg.pose.orientation.w);
                 linearVelocityROS = new Vector3((float)twistMsg.twist.linear.x, (float)twistMsg.twist.linear.y, (float)twistMsg.twist.linear.z);
