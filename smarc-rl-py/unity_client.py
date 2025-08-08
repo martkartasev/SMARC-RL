@@ -61,10 +61,15 @@ def start_client(port: int = 10000):
     return client
 
 
-def start_unity_process(agent_nr=1, port=10000, log_file="", timescale=1, decision_period=10, no_graphics=True):
+def start_unity_process(nr_agents: int = 1,
+                        port: int = 10000,
+                        log_file: str = "",
+                        timescale: float = 1,
+                        decision_period: int = 10,
+                        no_graphics: bool = True):
     executable_path = os.path.join(os.path.dirname(__file__), '../Builds/Win/SimExample.exe')
     args = [executable_path,
-            "-agents", str(agent_nr),  # Number of agents
+            "-agents", str(nr_agents),  # Number of agents
             "-channel", str(port),  # Param to change connection port. If you want to start multiple instances
             ]
     if log_file != "":

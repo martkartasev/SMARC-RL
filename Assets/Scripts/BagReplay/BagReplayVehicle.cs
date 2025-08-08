@@ -37,21 +37,24 @@ namespace Inputs
 
         private void FixedUpdate()
         {
-            if (hasReset)
+            if (hasReset && chain.GetRoot().immovable)
             {
                 chain.GetRoot().immovable = false;
+                chain.GetRoot().linearVelocity = NED.ConvertToRUF(replay.linearVelocityROS);
+                chain.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS);
             }
 
             if (!hasReset)
             {
                 hasReset = true;
-           
+
                 chain.GetRoot().immovable = true;
             }
+            Debug.Log(NED.ConvertToRUF(replay.linearVelocityROS) - chain.GetRoot().linearVelocity);
+            Debug.Log(FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS) - chain.GetRoot().angularVelocity);
 
-
-            yaw.SetAngle(-replay.thrusterHorizontalRad);
-            pitch.SetAngle(-replay.thrusterVerticalRad);
+            yaw.SetAngle(replay.thrusterHorizontalRad);
+            pitch.SetAngle(replay.thrusterVerticalRad);
 
             vbs.SetPercentage(100 - replay.vbs);
             lcg.SetPercentage(100 - replay.lcg);

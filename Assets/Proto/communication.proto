@@ -23,7 +23,7 @@ message Screenshot {
 
 message Action {
   repeated float continuous = 1;
-  repeated float discrete = 2;
+  repeated int32 discrete = 2;
 }
 
 

@@ -2,6 +2,7 @@
 using System.Linq;
 using ExternalCommunication;
 using Google.Protobuf.Collections;
+using Network.Internal;
 using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -12,12 +13,12 @@ namespace Network
 {
     public class EnvironmentSpawner : MonoBehaviour
     {
-        public EnvManager environmentPrefab;
+        public AbstractEnvManager environmentPrefab;
 
         public int gridLength = 5;
         public int stepSize = 3;
 
-        private Dictionary<int, EnvManager> envs = new();
+        private Dictionary<int, AbstractEnvManager> envs = new();
 
         public static int defaultAgents = 1;
 
@@ -41,7 +42,7 @@ namespace Network
             foreach (var i in agentIds)
             {
                 var instantiate = Instantiate(environmentPrefab, new Vector3(stepSize * (i % gridLength), 0, gridLength * (i / gridLength)) * 2, Quaternion.identity);
-                envs.Add(i, instantiate.GetComponent<EnvManager>());
+                envs.Add(i, instantiate.GetComponent<AbstractEnvManager>());
             }
         }
 
@@ -53,7 +54,7 @@ namespace Network
             {
                 int i = resetParameters.Index;
                 var instantiate = Instantiate(DeterminePrefab(envParameters[i]), new Vector3(stepSize * (i % gridLength), 0, gridLength * (i / gridLength)) * 2, Quaternion.identity);
-                envs.Add(i, instantiate.GetComponent<EnvManager>());
+                envs.Add(i, instantiate.GetComponent<AbstractEnvManager>());
 
                 agentIds.Add(i);
             }
@@ -70,7 +71,7 @@ namespace Network
         public void ClearAgents()
         {
             envs.Values.ToList().ForEach(manager => Destroy(manager.gameObject));
-            envs = new Dictionary<int, EnvManager>();
+            envs = new Dictionary<int, AbstractEnvManager>();
         }
 
         private Bounds EncapsulateGameObjects(List<GameObject> gameObjects)
@@ -111,7 +112,7 @@ namespace Network
             return objects;
         }
 
-        public Dictionary<int, EnvManager> GetEnvs()
+        public Dictionary<int, AbstractEnvManager> GetEnvs()
         {
             return envs;
         }

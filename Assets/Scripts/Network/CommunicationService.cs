@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using ExternalCommunication;
 using Google.Protobuf.Collections;
+using Network.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Action = ExternalCommunication.Action;
@@ -15,7 +16,7 @@ namespace Network
         public static int decisionPeriod = 10;
         public static bool noGraphics = false;
 
-        private Dictionary<int, EnvManager> _envManagers;
+        private Dictionary<int, AbstractEnvManager> _envManagers;
         private bool _processingStep;
         private int _stepsCompleted = 0;
         private int _stepsToSimulate = 0;
@@ -23,7 +24,7 @@ namespace Network
         private float _timeScale;
 
         private EnvironmentSpawner _spawner;
-        
+
         private bool _initialized = false;
         private bool _reloading = false;
 
@@ -112,7 +113,7 @@ namespace Network
         public Observations PrepareObservations()
         {
             var observations = new Observations();
-            observations.Observations_.AddRange(_envManagers.Select(env => env.Value.BuildObservationMessage()));
+            observations.Observations_.AddRange(_envManagers.Select(env => env.Value).Select(env => env.GetMessageMapper().MapObservationToExternal(env.BuildObservationMessage())));
             return observations;
         }
 
@@ -120,7 +121,7 @@ namespace Network
         {
             if (reset.EnvsToReset == null || reset.EnvsToReset.Count == 0)
             {
-                _envManagers.Values.ToList().ForEach(env => env.DoRestart());
+                _envManagers.Values.ToList().ForEach(env => env.DoRestart(env.GetMessageMapper().MapReset(new ResetParameters())));
             }
             else
             {
@@ -130,7 +131,8 @@ namespace Network
                     var index = resetParameters.Index;
                     if (_envManagers.ContainsKey(index))
                     {
-                        _envManagers[index].DoRestart(resetParameters);
+                        var env = _envManagers[index];
+                        env.DoRestart(env.GetMessageMapper().MapReset(resetParameters));
                     }
                 }
             }
@@ -142,7 +144,8 @@ namespace Network
             {
                 foreach (var action in actions.Select((msg, index) => new { msg, index }))
                 {
-                    _envManagers[action.index].RecieveAction(action.msg);
+                    var env = _envManagers[action.index];
+                    env.RecieveAction(env.GetMessageMapper().MapAction(action.msg));
                 }
             }
         }
