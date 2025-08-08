@@ -1,4 +1,4 @@
-﻿namespace Network
+﻿namespace Network.Message
 {
     public struct Observation
     {

@@ -1,6 +1,9 @@
 ﻿using ExternalCommunication;
+using Network.Message;
+using Action = Network.Message.Action;
+using Observation = Network.Message.Observation;
 
-namespace Network
+namespace Network.Mapper
 {
     public interface IMessageMapper
     {

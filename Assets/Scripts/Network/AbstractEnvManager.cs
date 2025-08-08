@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Network.Mapper;
+using Network.Message;
+using UnityEngine;
 
 namespace Network
 {
@@ -6,8 +8,8 @@ namespace Network
     {
         public abstract void DoRestart(Parameters parameters);
         public abstract Observation BuildObservationMessage();
-        public abstract void RecieveAction(Action control);
-        public abstract void UpdateSync();
+        public abstract void ReceiveAction(Action control);
+        public abstract void FixedUpdateManual();
         public abstract IMessageMapper GetMessageMapper();
     }
 }

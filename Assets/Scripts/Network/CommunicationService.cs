@@ -85,7 +85,7 @@ namespace Network
             while (shouldSimStep && _stepsCompleted < _stepsToSimulate)
             {
                 SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
-                foreach (var env in _envManagers) env.Value.UpdateSync();
+                foreach (var env in _envManagers) env.Value.FixedUpdateManual();
 
                 _stepsCompleted++;
             }
@@ -129,7 +129,7 @@ namespace Network
                 foreach (var action in actions.Select((msg, index) => new { msg, index }))
                 {
                     var env = _envManagers[action.index];
-                    env.RecieveAction(env.GetMessageMapper().MapAction(action.msg));
+                    env.ReceiveAction(env.GetMessageMapper().MapAction(action.msg));
                 }
         }
 

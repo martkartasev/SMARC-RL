@@ -1,8 +1,10 @@
 ﻿using Network;
+using Network.Mapper;
+using Network.Message;
 using Swan;
 using UnityEngine;
-using Action = Network.Action;
-using Observation = Network.Observation;
+using Action = Network.Message.Action;
+using Observation = Network.Message.Observation;
 
 namespace ResidualEnv
 {
@@ -21,20 +23,20 @@ namespace ResidualEnv
         public override Observation BuildObservationMessage()
         {
             var observations = new float[10];
-            
+
             observations[0] = Vehicle.chain.GetRoot().transform.rotation.x;
             observations[1] = Vehicle.chain.GetRoot().transform.rotation.y;
             observations[2] = Vehicle.chain.GetRoot().transform.rotation.z;
             observations[3] = Vehicle.chain.GetRoot().transform.rotation.w;
-            
+
             observations[4] = Vehicle.chain.GetRoot().linearVelocity.x;
             observations[5] = Vehicle.chain.GetRoot().linearVelocity.y;
             observations[6] = Vehicle.chain.GetRoot().linearVelocity.z;
-            
+
             observations[7] = Vehicle.chain.GetRoot().angularVelocity.x;
             observations[8] = Vehicle.chain.GetRoot().angularVelocity.y;
             observations[9] = Vehicle.chain.GetRoot().angularVelocity.z;
-            
+
             return new Observation
             {
                 Continuous = observations
@@ -43,10 +45,15 @@ namespace ResidualEnv
 
         public override void DoRestart(Parameters parameters)
         {
-            Vehicle.Initialize(transform.TransformPoint(Vector3.zero), new Quaternion(parameters.Continuous[0], parameters.Continuous[1], parameters.Continuous[2], parameters.Continuous[3]));
+            Vehicle.Initialize(
+                transform.TransformPoint(Vector3.zero), new Quaternion(parameters.Continuous[0], parameters.Continuous[1], parameters.Continuous[2], parameters.Continuous[3]),
+                parameters.Continuous[4],
+                parameters.Continuous[5],
+                parameters.Continuous[6],
+                parameters.Continuous[7]);
         }
 
-        public override void RecieveAction(Action action)
+        public override void ReceiveAction(Action action)
         {
             _latestAction = action;
             Vehicle.SetAction(
@@ -59,7 +66,7 @@ namespace ResidualEnv
                 action.Continuous[10]);
         }
 
-        public override void UpdateSync()
+        public override void FixedUpdateManual()
         {
             Vehicle.ApplyCorrectiveForce(
                 new Vector3(_latestAction.Continuous[11], _latestAction.Continuous[12], _latestAction.Continuous[13]),
