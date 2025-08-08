@@ -10,7 +10,10 @@ namespace Network.Mapper
     {
         public Parameters MapReset(ResetParameters resetParameters)
         {
-            return new Parameters();
+            return new Parameters
+            {
+                Continuous = resetParameters.Continuous.ToArray()
+            };
         }
 
         public Action MapAction(ExternalCommunication.Action msg)

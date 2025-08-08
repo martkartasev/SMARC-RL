@@ -37,7 +37,7 @@ namespace Network
 
         public Observations DoReset(Reset resetMsg)
         {
-            if (resetMsg.ReloadScene)
+            if (resetMsg.ReloadScene || !_initialized)
             {
                 if (!_reloading)
                     if (resetMsg.ReloadScene)
@@ -56,7 +56,6 @@ namespace Network
                 _reloading = false;
             }
 
-
             Initialize(resetMsg.EnvsToReset);
             ResetEnvironments(resetMsg);
             SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
@@ -70,6 +69,8 @@ namespace Network
 
         public Observations DoStep(Step stepMsg)
         {
+            if (!_initialized) return null;
+
             if (!_processingStep)
             {
                 ProcessActions(stepMsg.Actions);

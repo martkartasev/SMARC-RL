@@ -16,7 +16,6 @@ namespace ResidualEnv
         public GameObject lcgGo;
 
         public ArticulationChainComponent chain;
-        public BagReplay replay;
 
         Hinge yaw, pitch;
         Propeller frontProp, backProp;

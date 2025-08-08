@@ -34,17 +34,17 @@ namespace ExternalCommunication {
             "DAoKX3N0ZXBDb3VudEIMCgpfdGltZVNjYWxlIj4KClNjcmVlbnNob3QSMAoG",
             "Y2FtZXJhGAEgASgLMiAuRXh0ZXJuYWxDb21tdW5pY2F0aW9uLlRyYW5zZm9y",
             "bSIuCgZBY3Rpb24SEgoKY29udGludW91cxgBIAMoAhIQCghkaXNjcmV0ZRgC",
-            "IAMoBSIgCg9SZXNldFBhcmFtZXRlcnMSDQoFaW5kZXgYASABKAUicQoLT2Jz",
-            "ZXJ2YXRpb24SDQoFaW5kZXgYASABKAUSEgoKdHJhbnNmb3JtcxgCIAMoCRIO",
-            "CgZmbG9hdHMYAyADKAISDAoEaW50cxgEIAMoBRIPCgdzdHJpbmdzGAUgAygJ",
-            "EhAKCGJvb2xlYW5zGAYgAygIIsgBCglUcmFuc2Zvcm0SMAoIcG9zaXRpb24Y",
-            "ASABKAsyHi5FeHRlcm5hbENvbW11bmljYXRpb24uVmVjdG9yMxIyCgVldWxl",
-            "chgCIAEoCzIeLkV4dGVybmFsQ29tbXVuaWNhdGlvbi5WZWN0b3IzSACIAQES",
-            "OwoLb3JpZW50YXRpb24YAyABKAsyIS5FeHRlcm5hbENvbW11bmljYXRpb24u",
-            "UXVhdGVybmlvbkgBiAEBQggKBl9ldWxlckIOCgxfb3JpZW50YXRpb24iKgoH",
-            "VmVjdG9yMxIJCgF4GAEgASgCEgkKAXkYAiABKAISCQoBehgDIAEoAiI4CgpR",
-            "dWF0ZXJuaW9uEgkKAXgYASABKAISCQoBeRgCIAEoAhIJCgF6GAMgASgCEgkK",
-            "AXcYBCABKAJiBnByb3RvMw=="));
+            "IAMoBSI0Cg9SZXNldFBhcmFtZXRlcnMSDQoFaW5kZXgYASABKAUSEgoKY29u",
+            "dGludW91cxgCIAMoAiJxCgtPYnNlcnZhdGlvbhINCgVpbmRleBgBIAEoBRIS",
+            "Cgp0cmFuc2Zvcm1zGAIgAygJEg4KBmZsb2F0cxgDIAMoAhIMCgRpbnRzGAQg",
+            "AygFEg8KB3N0cmluZ3MYBSADKAkSEAoIYm9vbGVhbnMYBiADKAgiyAEKCVRy",
+            "YW5zZm9ybRIwCghwb3NpdGlvbhgBIAEoCzIeLkV4dGVybmFsQ29tbXVuaWNh",
+            "dGlvbi5WZWN0b3IzEjIKBWV1bGVyGAIgASgLMh4uRXh0ZXJuYWxDb21tdW5p",
+            "Y2F0aW9uLlZlY3RvcjNIAIgBARI7CgtvcmllbnRhdGlvbhgDIAEoCzIhLkV4",
+            "dGVybmFsQ29tbXVuaWNhdGlvbi5RdWF0ZXJuaW9uSAGIAQFCCAoGX2V1bGVy",
+            "Qg4KDF9vcmllbnRhdGlvbiIqCgdWZWN0b3IzEgkKAXgYASABKAISCQoBeRgC",
+            "IAEoAhIJCgF6GAMgASgCIjgKClF1YXRlcm5pb24SCQoBeBgBIAEoAhIJCgF5",
+            "GAIgASgCEgkKAXoYAyABKAISCQoBdxgEIAEoAmIGcHJvdG8z"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, null, new pbr::GeneratedClrTypeInfo[] {
@@ -53,7 +53,7 @@ namespace ExternalCommunication {
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Step), global::ExternalCommunication.Step.Parser, new[]{ "Actions", "StepCount", "TimeScale" }, new[]{ "StepCount", "TimeScale" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Screenshot), global::ExternalCommunication.Screenshot.Parser, new[]{ "Camera" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Action), global::ExternalCommunication.Action.Parser, new[]{ "Continuous", "Discrete" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.ResetParameters), global::ExternalCommunication.ResetParameters.Parser, new[]{ "Index" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.ResetParameters), global::ExternalCommunication.ResetParameters.Parser, new[]{ "Index", "Continuous" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Observation), global::ExternalCommunication.Observation.Parser, new[]{ "Index", "Transforms", "Floats", "Ints", "Strings", "Booleans" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Transform), global::ExternalCommunication.Transform.Parser, new[]{ "Position", "Euler", "Orientation" }, new[]{ "Euler", "Orientation" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::ExternalCommunication.Vector3), global::ExternalCommunication.Vector3.Parser, new[]{ "X", "Y", "Z" }, null, null, null, null),
@@ -1228,6 +1228,7 @@ namespace ExternalCommunication {
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public ResetParameters(ResetParameters other) : this() {
       index_ = other.index_;
+      continuous_ = other.continuous_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -1249,6 +1250,17 @@ namespace ExternalCommunication {
       }
     }
 
+    /// <summary>Field number for the "continuous" field.</summary>
+    public const int ContinuousFieldNumber = 2;
+    private static readonly pb::FieldCodec<float> _repeated_continuous_codec
+        = pb::FieldCodec.ForFloat(18);
+    private readonly pbc::RepeatedField<float> continuous_ = new pbc::RepeatedField<float>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
+    public pbc::RepeatedField<float> Continuous {
+      get { return continuous_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     [global::System.CodeDom.Compiler.GeneratedCode("protoc", null)]
     public override bool Equals(object other) {
@@ -1265,6 +1277,7 @@ namespace ExternalCommunication {
         return true;
       }
       if (Index != other.Index) return false;
+      if(!continuous_.Equals(other.continuous_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -1273,6 +1286,7 @@ namespace ExternalCommunication {
     public override int GetHashCode() {
       int hash = 1;
       if (Index != 0) hash ^= Index.GetHashCode();
+      hash ^= continuous_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -1295,6 +1309,7 @@ namespace ExternalCommunication {
         output.WriteRawTag(8);
         output.WriteInt32(Index);
       }
+      continuous_.WriteTo(output, _repeated_continuous_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -1309,6 +1324,7 @@ namespace ExternalCommunication {
         output.WriteRawTag(8);
         output.WriteInt32(Index);
       }
+      continuous_.WriteTo(ref output, _repeated_continuous_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
       }
@@ -1322,6 +1338,7 @@ namespace ExternalCommunication {
       if (Index != 0) {
         size += 1 + pb::CodedOutputStream.ComputeInt32Size(Index);
       }
+      size += continuous_.CalculateSize(_repeated_continuous_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -1337,6 +1354,7 @@ namespace ExternalCommunication {
       if (other.Index != 0) {
         Index = other.Index;
       }
+      continuous_.Add(other.continuous_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -1360,6 +1378,11 @@ namespace ExternalCommunication {
             Index = input.ReadInt32();
             break;
           }
+          case 18:
+          case 21: {
+            continuous_.AddEntriesFrom(input, _repeated_continuous_codec);
+            break;
+          }
         }
       }
     #endif
@@ -1381,6 +1404,11 @@ namespace ExternalCommunication {
             break;
           case 8: {
             Index = input.ReadInt32();
+            break;
+          }
+          case 18:
+          case 21: {
+            continuous_.AddEntriesFrom(ref input, _repeated_continuous_codec);
             break;
           }
         }
