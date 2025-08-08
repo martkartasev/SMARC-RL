@@ -45,33 +45,47 @@ namespace ResidualEnv
 
         public override void DoRestart(Parameters parameters)
         {
+            var orientation = new Quaternion(parameters.Continuous[0], parameters.Continuous[1], parameters.Continuous[2], parameters.Continuous[3]);
+            var thrusterHorizontalRad = parameters.Continuous[4];
+            var thrusterVerticalRad = parameters.Continuous[5];
+            var vbs = parameters.Continuous[6];
+            var lcg = parameters.Continuous[7];
             Vehicle.Initialize(
-                transform.TransformPoint(Vector3.zero), new Quaternion(parameters.Continuous[0], parameters.Continuous[1], parameters.Continuous[2], parameters.Continuous[3]),
-                parameters.Continuous[4],
-                parameters.Continuous[5],
-                parameters.Continuous[6],
-                parameters.Continuous[7]);
+                transform.TransformPoint(Vector3.zero),
+                orientation,
+                thrusterHorizontalRad,
+                thrusterVerticalRad,
+                vbs,
+                lcg);
         }
 
         public override void ReceiveAction(Action action)
         {
             _latestAction = action;
+
+            var linearVelocity = new Vector3(action.Continuous[0], action.Continuous[1], action.Continuous[2]);
+            var angularVelocity = new Vector3(action.Continuous[3], action.Continuous[4], action.Continuous[5]);
+            var thrusterHorizontalRad = action.Continuous[6];
+            var thrusterVerticalRad = action.Continuous[7];
+            var vbs = action.Continuous[8];
+            var lcg = action.Continuous[9];
+            var thrusterRPM = action.Continuous[10];
+
             Vehicle.SetAction(
-                new Vector3(action.Continuous[0], action.Continuous[1], action.Continuous[2]),
-                new Vector3(action.Continuous[3], action.Continuous[4], action.Continuous[5]),
-                action.Continuous[6],
-                action.Continuous[7],
-                action.Continuous[8],
-                action.Continuous[9],
-                action.Continuous[10]);
+                linearVelocity,
+                angularVelocity,
+                thrusterHorizontalRad,
+                thrusterVerticalRad,
+                vbs,
+                lcg,
+                thrusterRPM);
         }
 
         public override void FixedUpdateManual()
         {
-            Vehicle.ApplyCorrectiveForce(
-                new Vector3(_latestAction.Continuous[11], _latestAction.Continuous[12], _latestAction.Continuous[13]),
-                new Vector3(_latestAction.Continuous[14], _latestAction.Continuous[15], _latestAction.Continuous[16])
-            );
+            var correctiveForce = new Vector3(_latestAction.Continuous[11], _latestAction.Continuous[12], _latestAction.Continuous[13]);
+            var correctiveTorque = new Vector3(_latestAction.Continuous[14], _latestAction.Continuous[15], _latestAction.Continuous[16]);
+            Vehicle.ApplyCorrection(correctiveForce, correctiveTorque);
         }
 
         public override IMessageMapper GetMessageMapper()

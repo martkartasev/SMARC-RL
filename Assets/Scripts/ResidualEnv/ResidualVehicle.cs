@@ -75,11 +75,11 @@ namespace ResidualEnv
             backProp.SetRpm(thrusterRpm);
         }
 
-        public void ApplyCorrectiveForce(Vector3 force, Vector3 torque)
+        public void ApplyCorrection(Vector3 force, Vector3 torque)
         {
             chain.GetRoot().AddRelativeForce(force);
             chain.GetRoot().AddRelativeTorque(torque);
-            
+
             yaw.DoUpdate();
             pitch.DoUpdate();
             lcg.DoUpdate();
