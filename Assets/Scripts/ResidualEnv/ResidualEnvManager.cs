@@ -50,6 +50,7 @@ namespace ResidualEnv
             var thrusterVerticalRad = parameters.Continuous[5];
             var vbs = parameters.Continuous[6];
             var lcg = parameters.Continuous[7];
+            
             Vehicle.Initialize(
                 transform.TransformPoint(Vector3.zero),
                 orientation,
