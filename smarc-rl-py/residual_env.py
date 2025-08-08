@@ -21,7 +21,7 @@ class UnityResidualEnv(Env):
         self.nr_agents = nr_agents
 
         # TODO: Fetch from env? self.client.get_environment_description()
-        self.action_space = spaces.Box(low=-1, high=1, shape=(2 * (4 + 3 + 3) + 6,), dtype=np.float32)
+        self.action_space = spaces.Box(low=-1, high=1, shape=(3 + 3 + 5 + 3 + 3,), dtype=np.float32)
         self.observation_space = spaces.Box(low=-1, high=1, shape=(4 + 3 + 3,), dtype=np.float32)
 
     def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):

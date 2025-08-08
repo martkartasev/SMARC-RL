@@ -8,6 +8,7 @@
 
     public struct Parameters
     {
+        public float[] Continuous;
     }
 
     public struct Action

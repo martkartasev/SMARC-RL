@@ -1,7 +1,5 @@
 ﻿using System.Linq;
 using ExternalCommunication;
-using Action = Network.Action;
-using Observation = Network.Observation;
 
 namespace Network
 {
