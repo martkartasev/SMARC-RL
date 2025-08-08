@@ -1,17 +1,16 @@
 using System;
 using System.Collections.Generic;
-using Network;
 using UnityEditor;
 using UnityEngine;
 using Environment = System.Environment;
 
-namespace ExecutableTools
+namespace Network
 {
     public class CommandLine : MonoBehaviour
     {
         private static bool _initialized;
 
-        void Awake()
+        private void Awake()
         {
             if (_initialized) return;
             _initialized = true;
@@ -23,35 +22,32 @@ namespace ExecutableTools
 
             var args = GetCommandlineArgs();
 
-            if (args.ContainsKey("-nographics") || args.ContainsKey("-headless") || args.ContainsKey("-batchmode"))
-            {
-                CommunicationService.noGraphics = true;
-            }
+            if (args.ContainsKey("-nographics") || args.ContainsKey("-headless") || args.ContainsKey("-batchmode")) CommunicationService.noGraphics = true;
 
-            if (args.TryGetValue("-channel", out string channel))
+            if (args.TryGetValue("-channel", out var channel))
             {
-                int.TryParse(channel, out int channelValue);
+                int.TryParse(channel, out var channelValue);
                 UnityHttpServer.Channel = channelValue;
                 Debug.Log($"Channel value: {channelValue}");
             }
 
-            if (args.TryGetValue("-timescale", out string timeScale))
+            if (args.TryGetValue("-timescale", out var timeScale))
             {
-                float.TryParse(timeScale, out float timeScaleValue);
+                float.TryParse(timeScale, out var timeScaleValue);
                 Time.timeScale = timeScaleValue;
                 Debug.Log($"Time scale value: {timeScaleValue}");
             }
 
-            if (args.TryGetValue("-agents", out string agents))
+            if (args.TryGetValue("-agents", out var agents))
             {
-                int.TryParse(agents, out int agentsValue);
+                int.TryParse(agents, out var agentsValue);
                 EnvironmentSpawner.defaultAgents = agentsValue;
                 Debug.Log($"Agents value: {agentsValue}");
             }
 
-            if (args.TryGetValue("-decisionperiod", out string requestPeriod))
+            if (args.TryGetValue("-decisionperiod", out var requestPeriod))
             {
-                int.TryParse(requestPeriod, out int requestPeriodValue);
+                int.TryParse(requestPeriod, out var requestPeriodValue);
                 CommunicationService.decisionPeriod = requestPeriodValue;
                 Debug.Log($"Request period value: {requestPeriodValue}");
             }
@@ -72,27 +68,25 @@ namespace ExecutableTools
 
         public static Dictionary<string, string> GetCommandlineArgs()
         {
-            Dictionary<string, string> argDictionary = new Dictionary<string, string>();
+            var argDictionary = new Dictionary<string, string>();
 
             var args = Environment.GetCommandLineArgs();
 
-            for (int i = 0; i < args.Length; ++i)
+            for (var i = 0; i < args.Length; ++i)
             {
                 var arg = args[i].ToLower();
                 if (arg.StartsWith("-"))
                 {
                     var value = i < args.Length - 1 ? args[i + 1].ToLower() : null;
-                    value = (value?.StartsWith("-") ?? false) ? null : value;
+                    value = value?.StartsWith("-") ?? false ? null : value;
 
                     argDictionary.Add(arg, value);
                 }
             }
 
-            foreach (KeyValuePair<string, string> kvp in argDictionary)
-            {
+            foreach (var kvp in argDictionary)
                 //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
                 Debug.Log($"Key = {kvp.Key}, Value = {kvp.Value}");
-            }
 
             return argDictionary;
         }

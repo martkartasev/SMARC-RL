@@ -3,7 +3,6 @@ using System.Net;
 using System.Threading;
 using ExternalCommunication;
 using Google.Protobuf;
-using UnityEditor.Rendering.LookDev;
 using UnityEngine;
 
 namespace Network
@@ -11,20 +10,20 @@ namespace Network
     public class UnityHttpServer : MonoBehaviour
     {
         public static int Channel = 50010;
+        private CommunicationService _communicationService;
+        private ManualResetEvent _resetEvent = new(false);
+
+        private ManualResetEvent _stepEvent = new(false);
 
         private HttpListener httpListener;
-        private Observations next_observations;
-
-        private Step step;
-        private Reset reset;
-
-        private Thread listenerThread;
-        private CommunicationService _communicationService;
 
         private bool isRunning = true;
 
-        private ManualResetEvent _stepEvent = new(false);
-        private ManualResetEvent _resetEvent = new(false);
+        private Thread listenerThread;
+        private Observations next_observations;
+        private Reset reset;
+
+        private Step step;
 
         public void Awake()
         {
@@ -34,10 +33,34 @@ namespace Network
             DontDestroyOnLoad(gameObject);
         }
 
+        private void Start()
+        {
+            httpListener = ListenerSetup();
+
+            listenerThread = new Thread(StartListener);
+            listenerThread.Start();
+
+            Debug.Log($"Server Started at http://localhost:{Channel.ToString()}/");
+        }
+
         public void Update()
         {
             if (reset != null) ResetCompleted(_communicationService.DoReset(reset));
             if (step != null) StepCompletedCheck(_communicationService.DoStep(step));
+        }
+
+        public void OnDestroy()
+        {
+            isRunning = false;
+            httpListener.Stop();
+            listenerThread.Join();
+        }
+
+        public void OnApplicationQuit()
+        {
+            isRunning = false;
+            httpListener.Stop();
+            listenerThread.Join();
         }
 
         public void StepCompletedCheck(Observations doStep)
@@ -58,20 +81,10 @@ namespace Network
             _resetEvent.Set();
         }
 
-        void Start()
-        {
-            httpListener = ListenerSetup();
-
-            listenerThread = new Thread(StartListener);
-            listenerThread.Start();
-
-            Debug.Log($"Server Started at http://localhost:{Channel.ToString()}/");
-        }
-
 
         private HttpListener ListenerSetup()
         {
-            HttpListener httpListener = new HttpListener();
+            var httpListener = new HttpListener();
             httpListener.Prefixes.Add($"http://localhost:{Channel.ToString()}/reset/");
             httpListener.Prefixes.Add($"http://localhost:{Channel.ToString()}/step/");
             httpListener.Prefixes.Add($"http://127.0.0.1:{Channel.ToString()}/reset/");
@@ -138,22 +151,8 @@ namespace Network
         {
             context.Response.ContentLength64 = bytes.Length;
 
-            System.IO.Stream output = context.Response.OutputStream;
+            var output = context.Response.OutputStream;
             output.Write(bytes, 0, bytes.Length);
-        }
-
-        public void OnDestroy()
-        {
-            isRunning = false;
-            httpListener.Stop();
-            listenerThread.Join();
-        }
-
-        public void OnApplicationQuit()
-        {
-            isRunning = false;
-            httpListener.Stop();
-            listenerThread.Join();
         }
     }
 }

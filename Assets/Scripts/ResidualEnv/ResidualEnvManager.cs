@@ -1,6 +1,6 @@
-﻿using Network.Internal;
-using Action = Network.Internal.Action;
-using Observation = Network.Internal.Observation;
+﻿using Network;
+using Action = Network.Action;
+using Observation = Network.Observation;
 
 namespace ResidualEnv
 {

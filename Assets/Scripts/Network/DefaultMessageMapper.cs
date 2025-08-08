@@ -1,7 +1,9 @@
 ﻿using System.Linq;
 using ExternalCommunication;
+using Action = Network.Action;
+using Observation = Network.Observation;
 
-namespace Network.Internal
+namespace Network
 {
     public class DefaultMapper : IMessageMapper
     {
@@ -15,7 +17,7 @@ namespace Network.Internal
             return new Action
             {
                 Continuous = msg.Continuous.ToArray(),
-                Discrete = msg.Discrete.ToArray(),
+                Discrete = msg.Discrete.ToArray()
             };
         }
 

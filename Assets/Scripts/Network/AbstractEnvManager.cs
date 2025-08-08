@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace Network.Internal
+namespace Network
 {
     public abstract class AbstractEnvManager : MonoBehaviour
     {

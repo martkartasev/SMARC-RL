@@ -2,10 +2,8 @@ using System.Collections.Generic;
 using System.Linq;
 using ExternalCommunication;
 using Google.Protobuf.Collections;
-using Network.Internal;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using Action = ExternalCommunication.Action;
 using Random = UnityEngine.Random;
 
 
@@ -17,16 +15,16 @@ namespace Network
         public static bool noGraphics = false;
 
         private Dictionary<int, AbstractEnvManager> _envManagers;
+
+        private bool _initialized;
         private bool _processingStep;
-        private int _stepsCompleted = 0;
-        private int _stepsToSimulate = 0;
-        private float _startTime;
-        private float _timeScale;
+        private bool _reloading;
 
         private EnvironmentSpawner _spawner;
-
-        private bool _initialized = false;
-        private bool _reloading = false;
+        private float _startTime;
+        private int _stepsCompleted;
+        private int _stepsToSimulate;
+        private float _timeScale;
 
         public void Initialize(RepeatedField<ResetParameters> resetMsgEnvsToReset)
         {
@@ -42,24 +40,18 @@ namespace Network
             if (resetMsg.ReloadScene)
             {
                 if (!_reloading)
-                {
                     if (resetMsg.ReloadScene)
                     {
                         Random.InitState(0);
-                        LoadSceneParameters parameters = new LoadSceneParameters(LoadSceneMode.Single, LocalPhysicsMode.Physics3D);
+                        var parameters = new LoadSceneParameters(LoadSceneMode.Single, LocalPhysicsMode.Physics3D);
                         SceneManager.LoadScene("ExternalControlScene", parameters);
                         _reloading = true;
                         _initialized = false;
                     }
-                }
 
-                for (int i = 0; i < SceneManager.sceneCount; i++)
-                {
+                for (var i = 0; i < SceneManager.sceneCount; i++)
                     if (!SceneManager.GetSceneAt(i).isLoaded)
-                    {
                         return null; // If any scene is loading, we must wait to avoid early / late calls causing "pure virtual call during construction".
-                    }
-                }
 
                 _reloading = false;
             }
@@ -89,14 +81,11 @@ namespace Network
             }
 
 
-            var shouldSimStep = Time.time > (_startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale) || _timeScale > 10 || noGraphics;
+            var shouldSimStep = Time.time > _startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale || _timeScale > 10 || noGraphics;
             while (shouldSimStep && _stepsCompleted < _stepsToSimulate)
             {
                 SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
-                foreach (var env in _envManagers)
-                {
-                    env.Value.UpdateSync();
-                }
+                foreach (var env in _envManagers) env.Value.UpdateSync();
 
                 _stepsCompleted++;
             }
@@ -120,12 +109,9 @@ namespace Network
         public void ResetEnvironments(Reset reset)
         {
             if (reset.EnvsToReset == null || reset.EnvsToReset.Count == 0)
-            {
                 _envManagers.Values.ToList().ForEach(env => env.DoRestart(env.GetMessageMapper().MapReset(new ResetParameters())));
-            }
             else
-            {
-                for (int i = 0; i < reset.EnvsToReset.Count; i++)
+                for (var i = 0; i < reset.EnvsToReset.Count; i++)
                 {
                     var resetParameters = reset.EnvsToReset[i];
                     var index = resetParameters.Index;
@@ -135,19 +121,16 @@ namespace Network
                         env.DoRestart(env.GetMessageMapper().MapReset(resetParameters));
                     }
                 }
-            }
         }
 
-        private void ProcessActions(RepeatedField<Action> actions)
+        private void ProcessActions(RepeatedField<ExternalCommunication.Action> actions)
         {
             if (actions != null)
-            {
                 foreach (var action in actions.Select((msg, index) => new { msg, index }))
                 {
                     var env = _envManagers[action.index];
                     env.RecieveAction(env.GetMessageMapper().MapAction(action.msg));
                 }
-            }
         }
 
         public bool IsInitialized()

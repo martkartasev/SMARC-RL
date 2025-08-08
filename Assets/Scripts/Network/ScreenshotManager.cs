@@ -21,10 +21,10 @@ namespace Network
             if (renderCamera == null) renderCamera = GameObject.FindGameObjectWithTag("ScreenshotCamera").GetComponent<Camera>();
             TransformCamera(screenshot);
 
-            RenderTexture rt = new RenderTexture(width, height, 24);
+            var rt = new RenderTexture(width, height, 24);
             renderCamera.targetTexture = rt;
 
-            Texture2D screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
+            var screenShot = new Texture2D(width, height, TextureFormat.RGB24, false);
             renderCamera.Render();
             RenderTexture.active = rt;
             screenShot.ReadPixels(new Rect(0, 0, width, height), 0, 0);
@@ -34,7 +34,7 @@ namespace Network
             RenderTexture.active = null;
             Destroy(rt);
 
-            byte[] bytes = screenShot.EncodeToPNG();
+            var bytes = screenShot.EncodeToPNG();
             return bytes;
         }
 

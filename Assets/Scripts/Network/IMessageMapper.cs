@@ -1,6 +1,6 @@
 ﻿using ExternalCommunication;
 
-namespace Network.Internal
+namespace Network
 {
     public interface IMessageMapper
     {

@@ -16,7 +16,7 @@ class UnityResidualEnv(Env):
                  nr_agents: int = 1):
         super(UnityResidualEnv, self).__init__()
 
-        self.process = start_unity_process(port=port, nr_agents=nr_agents) if start_process else None
+        self.process = start_unity_process(port=port, nr_agents=nr_agents, no_graphics=True) if start_process else None
         self.client = start_client(port=port)
         self.nr_agents = nr_agents
 

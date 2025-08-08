@@ -2,7 +2,6 @@
 using System.Linq;
 using ExternalCommunication;
 using Google.Protobuf.Collections;
-using Network.Internal;
 using Unity.VisualScripting;
 using UnityEngine;
 using Quaternion = UnityEngine.Quaternion;
@@ -13,6 +12,7 @@ namespace Network
 {
     public class EnvironmentSpawner : MonoBehaviour
     {
+        public static int defaultAgents = 1;
         public AbstractEnvManager environmentPrefab;
 
         public int gridLength = 5;
@@ -20,21 +20,15 @@ namespace Network
 
         private Dictionary<int, AbstractEnvManager> envs = new();
 
-        public static int defaultAgents = 1;
-
 
         public void DoAwake(RepeatedField<ResetParameters> resetMsgEnvsToReset)
         {
             ClearAgents();
 
             if (resetMsgEnvsToReset != null && resetMsgEnvsToReset.Count > 0)
-            {
                 SpawnAgents(resetMsgEnvsToReset);
-            }
             else
-            {
                 SpawnAgents(Enumerable.Range(0, defaultAgents).ToList());
-            }
         }
 
         private void SpawnAgents(List<int> agentIds)
@@ -52,7 +46,7 @@ namespace Network
             List<int> agentIds = new();
             foreach (var resetParameters in envParameters)
             {
-                int i = resetParameters.Index;
+                var i = resetParameters.Index;
                 var instantiate = Instantiate(DeterminePrefab(envParameters[i]), new Vector3(stepSize * (i % gridLength), 0, gridLength * (i / gridLength)) * 2, Quaternion.identity);
                 envs.Add(i, instantiate.GetComponent<AbstractEnvManager>());
 
@@ -77,20 +71,14 @@ namespace Network
         private Bounds EncapsulateGameObjects(List<GameObject> gameObjects)
         {
             var mapBoundsHelper = gameObjects[0].GetComponent<Renderer>().bounds;
-            foreach (GameObject renderer in gameObjects)
+            foreach (var renderer in gameObjects)
             {
                 var rendererBounds = renderer.transform.GetComponent<Renderer>();
                 if (rendererBounds != null)
-                {
                     mapBoundsHelper.Encapsulate(rendererBounds.bounds);
-                }
                 else
-                {
                     foreach (var componentsInChild in renderer.GetComponentsInChildren<Renderer>())
-                    {
                         mapBoundsHelper.Encapsulate(componentsInChild.bounds);
-                    }
-                }
             }
 
             return mapBoundsHelper;
@@ -101,10 +89,7 @@ namespace Network
             var objects = new List<GameObject>();
             foreach (Transform child in item)
             {
-                if (item.GetComponent<T>() != null)
-                {
-                    objects.Add(child.gameObject);
-                }
+                if (item.GetComponent<T>() != null) objects.Add(child.gameObject);
 
                 objects.AddRange(FindAllChildrenWithComponent<T>(child));
             }

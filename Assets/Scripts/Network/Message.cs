@@ -1,4 +1,4 @@
-﻿namespace Network.Internal
+﻿namespace Network
 {
     public struct Observation
     {
