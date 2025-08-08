@@ -28,10 +28,13 @@ namespace Network
 
         public void Initialize(RepeatedField<ResetParameters> resetMsgEnvsToReset)
         {
-            _spawner = FindAnyObjectByType<EnvironmentSpawner>();
-            _spawner.DoAwake(resetMsgEnvsToReset);
+            if (!_initialized)
+            {
+                _spawner = FindAnyObjectByType<EnvironmentSpawner>();
+                _spawner.DoAwake(resetMsgEnvsToReset);
+                _envManagers = _spawner.GetEnvs();
+            }
 
-            _envManagers = _spawner.GetEnvs();
             _initialized = true;
         }
 
@@ -80,10 +83,8 @@ namespace Network
                 _timeScale = stepMsg.TimeScale > 0 ? stepMsg.TimeScale : Time.timeScale;
                 _startTime = Time.time;
             }
-
-
-            var shouldSimStep = Time.time > _startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale || _timeScale > 10 || noGraphics;
-            while (shouldSimStep && _stepsCompleted < _stepsToSimulate)
+            
+            while (Time.time > _startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale || _timeScale > 10 || noGraphics && _stepsCompleted < _stepsToSimulate)
             {
                 SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
                 foreach (var env in _envManagers) env.Value.FixedUpdateManual();

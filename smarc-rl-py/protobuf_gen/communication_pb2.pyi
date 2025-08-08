@@ -40,14 +40,16 @@ class Action(_message.Message):
     CONTINUOUS_FIELD_NUMBER: _ClassVar[int]
     DISCRETE_FIELD_NUMBER: _ClassVar[int]
     continuous: _containers.RepeatedScalarFieldContainer[float]
-    discrete: _containers.RepeatedScalarFieldContainer[float]
-    def __init__(self, continuous: _Optional[_Iterable[float]] = ..., discrete: _Optional[_Iterable[float]] = ...) -> None: ...
+    discrete: _containers.RepeatedScalarFieldContainer[int]
+    def __init__(self, continuous: _Optional[_Iterable[float]] = ..., discrete: _Optional[_Iterable[int]] = ...) -> None: ...
 
 class ResetParameters(_message.Message):
-    __slots__ = ("index",)
+    __slots__ = ("index", "continuous")
     INDEX_FIELD_NUMBER: _ClassVar[int]
+    CONTINUOUS_FIELD_NUMBER: _ClassVar[int]
     index: int
-    def __init__(self, index: _Optional[int] = ...) -> None: ...
+    continuous: _containers.RepeatedScalarFieldContainer[float]
+    def __init__(self, index: _Optional[int] = ..., continuous: _Optional[_Iterable[float]] = ...) -> None: ...
 
 class Observation(_message.Message):
     __slots__ = ("index", "transforms", "floats", "ints", "strings", "booleans")

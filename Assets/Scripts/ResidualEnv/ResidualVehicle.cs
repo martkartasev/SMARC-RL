@@ -24,7 +24,7 @@ namespace ResidualEnv
 
         private bool hasReset = false;
 
-        void OnEnable()
+        public void OnEnable()
         {
             yaw = yawHingeGo.GetComponent<Hinge>();
             pitch = pitchHingeGo.GetComponent<Hinge>();
@@ -32,6 +32,9 @@ namespace ResidualEnv
             backProp = backPropGo.GetComponent<Propeller>();
             vbs = vbsGo.GetComponent<VBS>();
             lcg = lcgGo.GetComponent<Prismatic>();
+
+            lcg.Start();
+            vbs.Start();
         }
 
         public void Initialize(Vector3 position, Quaternion rotation,
@@ -40,13 +43,18 @@ namespace ResidualEnv
             float vbsCmd,
             float lcgCmd)
         {
-            chain.GetRoot().immovable = true;
             chain.Restart(position, rotation);
+            chain.GetRoot().immovable = true;
 
-            yaw.GetComponent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterHorizontalRad);
-            pitch.GetComponent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterVerticalRad);
-            vbs.GetComponent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(vbsCmd);
-            lcg.GetComponent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(lcgCmd);
+            yaw.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterHorizontalRad);
+            pitch.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterVerticalRad);
+            vbs.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(vbs.ComputeTargetValue(vbsCmd));
+            lcg.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(lcg.ComputeTargetValue(lcgCmd));
+
+            yaw.SetAngle(thrusterHorizontalRad);
+            pitch.SetAngle(thrusterVerticalRad);
+            vbs.SetPercentage(100 - vbsCmd);
+            lcg.SetPercentage(100 - lcgCmd);
         }
 
 
@@ -72,6 +80,13 @@ namespace ResidualEnv
 
             frontProp.SetRpm(thrusterRpm);
             backProp.SetRpm(thrusterRpm);
+            
+            yaw.DoUpdate();
+            pitch.DoUpdate();
+            frontProp.DoUpdate();
+            backProp.DoUpdate();
+            lcg.DoUpdate();
+            vbs.DoUpdate();
         }
 
         public void ApplyCorrection(Vector3 force, Vector3 torque)
@@ -79,12 +94,7 @@ namespace ResidualEnv
             chain.GetRoot().AddRelativeForce(force);
             chain.GetRoot().AddRelativeTorque(torque);
 
-            yaw.DoUpdate();
-            pitch.DoUpdate();
-            lcg.DoUpdate();
-            vbs.DoUpdate();
-            frontProp.DoUpdate();
-            backProp.DoUpdate();
+           
         }
     }
 }

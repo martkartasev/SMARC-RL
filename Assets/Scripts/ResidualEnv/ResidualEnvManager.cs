@@ -1,4 +1,5 @@
-﻿using Network;
+﻿using System;
+using Network;
 using Network.Mapper;
 using Network.Message;
 using Swan;
@@ -20,27 +21,25 @@ namespace ResidualEnv
             _messageMapper = new DefaultMapper();
         }
 
-        public override Observation BuildObservationMessage()
+        public void Start()
         {
-            var observations = new float[10];
+            Vehicle.chain.DoAwake();
+            Vehicle.OnEnable();
 
-            observations[0] = Vehicle.chain.GetRoot().transform.rotation.x;
-            observations[1] = Vehicle.chain.GetRoot().transform.rotation.y;
-            observations[2] = Vehicle.chain.GetRoot().transform.rotation.z;
-            observations[3] = Vehicle.chain.GetRoot().transform.rotation.w;
+            if (Physics.simulationMode == SimulationMode.FixedUpdate)
+                Vehicle.Initialize(
+                    transform.TransformPoint(Vector3.zero),
+                    Quaternion.identity,
+                    0.1f,
+                    0.1f,
+                    80,
+                    80
+                );
+        }
 
-            observations[4] = Vehicle.chain.GetRoot().linearVelocity.x;
-            observations[5] = Vehicle.chain.GetRoot().linearVelocity.y;
-            observations[6] = Vehicle.chain.GetRoot().linearVelocity.z;
-
-            observations[7] = Vehicle.chain.GetRoot().angularVelocity.x;
-            observations[8] = Vehicle.chain.GetRoot().angularVelocity.y;
-            observations[9] = Vehicle.chain.GetRoot().angularVelocity.z;
-
-            return new Observation
-            {
-                Continuous = observations
-            };
+        public void FixedUpdate()
+        {
+            if (Physics.simulationMode == SimulationMode.FixedUpdate) Vehicle.chain.GetRoot().immovable = false;
         }
 
         public override void DoRestart(Parameters parameters)
@@ -50,9 +49,8 @@ namespace ResidualEnv
             var thrusterVerticalRad = parameters.Continuous[5];
             var vbs = parameters.Continuous[6];
             var lcg = parameters.Continuous[7];
-            
-            Vehicle.Initialize(
-                transform.TransformPoint(Vector3.zero),
+
+            Vehicle.Initialize(transform.TransformPoint(Vector3.zero),
                 orientation,
                 thrusterHorizontalRad,
                 thrusterVerticalRad,
@@ -81,6 +79,31 @@ namespace ResidualEnv
                 lcg,
                 thrusterRPM);
         }
+
+        public override Observation BuildObservationMessage()
+        {
+            var observations = new float[10];
+
+            observations[0] = Vehicle.chain.GetRoot().transform.rotation.x;
+            observations[1] = Vehicle.chain.GetRoot().transform.rotation.y;
+            observations[2] = Vehicle.chain.GetRoot().transform.rotation.z;
+            observations[3] = Vehicle.chain.GetRoot().transform.rotation.w;
+
+            observations[4] = Vehicle.chain.GetRoot().linearVelocity.x;
+            observations[5] = Vehicle.chain.GetRoot().linearVelocity.y;
+            observations[6] = Vehicle.chain.GetRoot().linearVelocity.z;
+
+            observations[7] = Vehicle.chain.GetRoot().angularVelocity.x;
+            observations[8] = Vehicle.chain.GetRoot().angularVelocity.y;
+            observations[9] = Vehicle.chain.GetRoot().angularVelocity.z;
+
+            return new Observation
+            {
+                Continuous = observations,
+                Discrete = Array.Empty<int>()
+            };
+        }
+
 
         public override void FixedUpdateManual()
         {

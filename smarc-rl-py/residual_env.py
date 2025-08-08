@@ -12,11 +12,12 @@ class UnityResidualEnv(Env):
 
     def __init__(self,
                  start_process: bool = True,
+                 no_graphics:  bool = False,
                  port: int = 10000,
                  nr_agents: int = 1):
         super(UnityResidualEnv, self).__init__()
 
-        self.process = start_unity_process(port=port, nr_agents=nr_agents, no_graphics=True) if start_process else None
+        self.process = start_unity_process(port=port, nr_agents=nr_agents, no_graphics=no_graphics) if start_process else None
         self.client = start_client(port=port)
         self.nr_agents = nr_agents
 
@@ -25,14 +26,22 @@ class UnityResidualEnv(Env):
         self.observation_space = spaces.Box(low=-1, high=1, shape=(4 + 3 + 3,), dtype=np.float32)
 
     def reset(self, seed: Optional[int] = None, options: Optional[dict] = None):
-        # TODO: Reset parameter mapping
-        reset = self.client.reset(protobuf_gen.communication_pb2.Reset())
+        agent_inits = options["init"]
+
+        reset_msg = protobuf_gen.communication_pb2.Reset()
+        reset_msg.reloadScene = False
+
+        for i in range(agent_inits.shape[0]):
+            reset_msg.envsToReset.append(map_reset_params_to_proto(i, agent_inits[i, :]))
+
+        reset = self.client.reset(reset_msg)
         obs = map_observation_to_numpy(reset, self.nr_agents)
         return obs
 
     def step(self, action):
         action_msg = map_action_to_unity(action, self.nr_agents)
-        action_msg.stepCount = 2
+        action_msg.stepCount = 100
+        action_msg.timeScale = 1
         step = self.client.step(action_msg)
 
         obs = map_observation_to_numpy(step, self.nr_agents)
@@ -51,6 +60,13 @@ class UnityResidualEnv(Env):
             self.process.terminate()
 
 
+def map_reset_params_to_proto(i, initialization):
+    params = protobuf_gen.communication_pb2.ResetParameters()
+    params.index = i
+    params.continuous.extend(initialization)
+    return params
+
+
 def map_observation_to_numpy(unity_observations: protobuf_gen.communication_pb2.Observations, nr_agents):
     obs = np.zeros((nr_agents, 4 + 3 + 3))
     for i, unity_obs in enumerate(unity_observations.observations):
@@ -62,7 +78,7 @@ def map_action_to_unity(action, nr_agents):
     step = protobuf_gen.communication_pb2.Step()
     for i in range(nr_agents):
         action_msg = protobuf_gen.communication_pb2.Action()
-        action_msg.continuous = action[i, :]
+        action_msg.continuous.extend(action[i, :])
 
         step.actions.append(action_msg)
     return step
