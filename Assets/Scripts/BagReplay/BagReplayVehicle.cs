@@ -1,9 +1,8 @@
-﻿using DefaultNamespace;
-using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+﻿using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
 using VehicleComponents.Actuators;
 
-namespace Inputs
+namespace BagReplay
 {
     public class BagReplayVehicle : MonoBehaviour
     {
@@ -32,7 +31,7 @@ namespace Inputs
             backProp = backPropGo.GetComponent<Propeller>();
             vbs = vbsGo.GetComponent<VBS>();
             lcg = lcgGo.GetComponent<Prismatic>();
-            chain.Restart(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
+            chain.Restart(NED.ConvertToRUF(replay.CurrentBagData.PositionRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
         }
 
         private void FixedUpdate()
@@ -40,8 +39,8 @@ namespace Inputs
             if (hasReset && chain.GetRoot().immovable)
             {
                 chain.GetRoot().immovable = false;
-                chain.GetRoot().linearVelocity = NED.ConvertToRUF(replay.linearVelocityROS);
-                chain.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS);
+                chain.GetRoot().linearVelocity = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
+                chain.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
             }
 
             if (!hasReset)
@@ -50,17 +49,15 @@ namespace Inputs
 
                 chain.GetRoot().immovable = true;
             }
-            Debug.Log(NED.ConvertToRUF(replay.linearVelocityROS) - chain.GetRoot().linearVelocity);
-            Debug.Log(FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS) - chain.GetRoot().angularVelocity);
+   
+            yaw.SetAngle(replay.CurrentBagData.ThrusterHorizontalRad);
+            pitch.SetAngle(replay.CurrentBagData.ThrusterVerticalRad);
 
-            yaw.SetAngle(replay.thrusterHorizontalRad);
-            pitch.SetAngle(replay.thrusterVerticalRad);
+            vbs.SetPercentage(100 - replay.CurrentBagData.Vbs);
+            lcg.SetPercentage(100 - replay.CurrentBagData.Lcg);
 
-            vbs.SetPercentage(100 - replay.vbs);
-            lcg.SetPercentage(100 - replay.lcg);
-
-            frontProp.SetRpm(replay.thruster1rpm);
-            backProp.SetRpm(replay.thruster2rpm);
+            frontProp.SetRpm(replay.CurrentBagData.Thruster1RPM);
+            backProp.SetRpm(replay.CurrentBagData.Thruster2RPM);
         }
     }
 }

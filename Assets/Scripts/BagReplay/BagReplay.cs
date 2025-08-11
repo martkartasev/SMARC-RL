@@ -8,9 +8,8 @@ using RosMessageTypes.Sam;
 using RosMessageTypes.Smarc;
 using Unity.Robotics.ROSTCPConnector.MessageGeneration;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace DefaultNamespace
+namespace BagReplay
 {
     public class BagReplay : MonoBehaviour
     {
@@ -26,19 +25,7 @@ namespace DefaultNamespace
         private SortedDictionary<long, ThrusterRPMsMsg> rpms_cmd;
         private SortedDictionary<long, PoseStampedMsg> pose;
         private SortedDictionary<long, TwistStampedMsg> twist;
-
-        public float vbs;
-        public float lcg;
-        public int thruster1rpm;
-        public int thruster2rpm;
-        public float thrusterHorizontalRad;
-        public float thrusterVerticalRad;
-        public Vector3 positionROS;
-        public Vector3 prev_positionROS;
-        public Quaternion orientationROS;
-        public Quaternion prev_orientationROS;
-        public Vector3 linearVelocityROS;
-        public Vector3 angularVelocityROS;
+        public BagData CurrentBagData;
 
         private void Awake()
         {
@@ -58,46 +45,51 @@ namespace DefaultNamespace
             start = vbs_cmd.Keys.Min();
             end = vbs_cmd.Keys.Max();
             diff = (end - start) / 1000000000f;
-            ReadFields();
-            prev_positionROS = positionROS;
-            prev_orientationROS = orientationROS;
+
+            CurrentBagData = new BagData();
+            CurrentBagData = ReadFields(startOffset * 1000000000);
         }
 
         private void FixedUpdate()
         {
-            ReadFields();
+            var currentTime = startOffset * 1000000000 + start + Time.fixedTimeAsDouble * 1000000000;
+            var bagData = ReadFields(currentTime);
+            if (bagData != null) CurrentBagData = bagData;
         }
 
-        private void ReadFields()
+        private BagData ReadFields(double timeToReadAt)
         {
-            var currentTime = startOffset * 1000000000 + start + Time.fixedTimeAsDouble * 1000000000;
-            if (currentTime <= end)
+            if (timeToReadAt <= end)
             {
-                var vbsMsg = vbs_cmd.GetLatestMessage(currentTime);
-                var lcgMsg = lcg_cmd.GetLatestMessage(currentTime);
-                var rpmMsg = rpms_cmd.GetLatestMessage(currentTime);
-                var angleMsg = angles_cmd.GetLatestMessage(currentTime);
+                var vbsMsg = vbs_cmd.GetLatestMessage(timeToReadAt);
+                var lcgMsg = lcg_cmd.GetLatestMessage(timeToReadAt);
+                var rpmMsg = rpms_cmd.GetLatestMessage(timeToReadAt);
+                var angleMsg = angles_cmd.GetLatestMessage(timeToReadAt);
 
-                var odometryMsg = odometry.GetLatestMessage(currentTime);
+                var odometryMsg = odometry.GetLatestMessage(timeToReadAt);
 
-                var poseMsg = pose.GetLatestMessage(currentTime);
-                var twistMsg = twist.GetLatestMessage(currentTime);
+                var poseMsg = pose.GetLatestMessage(timeToReadAt);
+                var twistMsg = twist.GetLatestMessage(timeToReadAt);
 
-
-                vbs = vbsMsg.value;
-                lcg = lcgMsg.value;
-                thruster1rpm = rpmMsg.thruster_1_rpm;
-                thruster2rpm = rpmMsg.thruster_2_rpm;
-                thrusterHorizontalRad = angleMsg.thruster_horizontal_radians;
-                thrusterVerticalRad = angleMsg.thruster_vertical_radians;
-
-                prev_positionROS = positionROS;
-                prev_orientationROS = orientationROS;
-                positionROS = new Vector3((float)odometryMsg.pose.pose.position.x, (float)odometryMsg.pose.pose.position.y, (float)odometryMsg.pose.pose.position.z);
-                orientationROS = new Quaternion((float)poseMsg.pose.orientation.x, (float)poseMsg.pose.orientation.y, (float)poseMsg.pose.orientation.z, (float)poseMsg.pose.orientation.w);
-                linearVelocityROS = new Vector3((float)twistMsg.twist.linear.x, (float)twistMsg.twist.linear.y, (float)twistMsg.twist.linear.z);
-                angularVelocityROS = new Vector3((float)twistMsg.twist.angular.x, (float)twistMsg.twist.angular.y, (float)twistMsg.twist.angular.z);
+                BagData bagData = new BagData
+                {
+                    Vbs = vbsMsg.value,
+                    Lcg = lcgMsg.value,
+                    Thruster1RPM = rpmMsg.thruster_1_rpm,
+                    Thruster2RPM = rpmMsg.thruster_2_rpm,
+                    ThrusterHorizontalRad = angleMsg.thruster_horizontal_radians,
+                    ThrusterVerticalRad = angleMsg.thruster_vertical_radians,
+                    PositionRos = new Vector3((float)odometryMsg.pose.pose.position.x, (float)odometryMsg.pose.pose.position.y, (float)odometryMsg.pose.pose.position.z),
+                    OrientationRos = new Quaternion((float)poseMsg.pose.orientation.x, (float)poseMsg.pose.orientation.y, (float)poseMsg.pose.orientation.z, (float)poseMsg.pose.orientation.w),
+                    LinearVelocityRos = new Vector3((float)twistMsg.twist.linear.x, (float)twistMsg.twist.linear.y, (float)twistMsg.twist.linear.z),
+                    AngularVelocityRos = new Vector3((float)twistMsg.twist.angular.x, (float)twistMsg.twist.angular.y, (float)twistMsg.twist.angular.z),
+                };
+                bagData.PrevPositionRos = CurrentBagData?.PositionRos == null ? bagData.PositionRos : CurrentBagData.PositionRos;
+                bagData.PrevOrientationRos = CurrentBagData?.OrientationRos == null ? bagData.OrientationRos : CurrentBagData.OrientationRos;
+                return bagData;
             }
+
+            return null;
         }
 
 
@@ -152,5 +144,21 @@ namespace DefaultNamespace
 
             return null;
         }
+    }
+
+    public class BagData
+    {
+        public float Vbs;
+        public float Lcg;
+        public int Thruster1RPM;
+        public int Thruster2RPM;
+        public float ThrusterHorizontalRad;
+        public float ThrusterVerticalRad;
+        public Vector3 PrevPositionRos;
+        public Quaternion PrevOrientationRos;
+        public Vector3 PositionRos;
+        public Quaternion OrientationRos;
+        public Vector3 LinearVelocityRos;
+        public Vector3 AngularVelocityRos;
     }
 }

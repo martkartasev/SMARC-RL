@@ -1,9 +1,7 @@
-﻿using System;
-using DefaultNamespace;
-using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+﻿using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using UnityEngine;
 
-namespace Inputs
+namespace BagReplay
 {
     public enum ReplayType
     {
@@ -20,7 +18,7 @@ namespace Inputs
 
         private void Start()
         {
-            body.Restart(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
+            body.Restart(NED.ConvertToRUF(replay.CurrentBagData.PositionRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
         }
 
         private void FixedUpdate()
@@ -41,21 +39,21 @@ namespace Inputs
 
         private void DoVelocityUpdate()
         {
-            body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.linearVelocityROS);
-            body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.angularVelocityROS);
+            body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
+            body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
         }
 
         private void DoPseudoVelocityUpdate()
         {
-            body.GetRoot().linearVelocity = NED.ConvertToRUF((replay.positionROS - replay.prev_positionROS) / Time.fixedDeltaTime);
-            body.GetRoot().angularVelocity = GetAngularVelocity(NED.ConvertToRUF(replay.prev_orientationROS), NED.ConvertToRUF(replay.orientationROS));
+            body.GetRoot().linearVelocity = NED.ConvertToRUF((replay.CurrentBagData.PositionRos - replay.CurrentBagData.PrevPositionRos) / Time.fixedDeltaTime);
+            body.GetRoot().angularVelocity = GetAngularVelocity(NED.ConvertToRUF(replay.CurrentBagData.PrevOrientationRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
         }
 
         private void DoPositionUpdate()
         {
-            if (replay.positionROS != Vector3.zero)
+            if (replay.CurrentBagData.PositionRos != Vector3.zero)
             {
-                body.GetRoot().TeleportRoot(NED.ConvertToRUF(replay.positionROS), NED.ConvertToRUF(replay.orientationROS));
+                body.GetRoot().TeleportRoot(NED.ConvertToRUF(replay.CurrentBagData.PositionRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
             }
         }
 
