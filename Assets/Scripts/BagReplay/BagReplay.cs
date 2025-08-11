@@ -18,13 +18,14 @@ namespace BagReplay
         private double end;
         private double diff;
 
-        private SortedDictionary<long, PercentStampedMsg> vbs_cmd;
-        private SortedDictionary<long, OdometryMsg> odometry;
-        private SortedDictionary<long, PercentStampedMsg> lcg_cmd;
-        private SortedDictionary<long, ThrusterAnglesMsg> angles_cmd;
-        private SortedDictionary<long, ThrusterRPMsMsg> rpms_cmd;
-        private SortedDictionary<long, PoseStampedMsg> pose;
-        private SortedDictionary<long, TwistStampedMsg> twist;
+        public SortedDictionary<long, PercentStampedMsg> vbs_cmd;
+        public SortedDictionary<long, OdometryMsg> odometry;
+        public SortedDictionary<long, PercentStampedMsg> lcg_cmd;
+        public SortedDictionary<long, ThrusterAnglesMsg> angles_cmd;
+        public SortedDictionary<long, ThrusterRPMsMsg> rpms_cmd;
+        public SortedDictionary<long, PoseStampedMsg> pose;
+        public SortedDictionary<long, TwistStampedMsg> twist;
+
         public BagData CurrentBagData;
 
         private void Awake()
@@ -50,6 +51,11 @@ namespace BagReplay
             CurrentBagData = ReadFields(startOffset * 1000000000);
         }
 
+        public (double, double) GetStartEnd()
+        {
+            return (start, end);
+        }
+
         private void FixedUpdate()
         {
             var currentTime = startOffset * 1000000000 + start + Time.fixedTimeAsDouble * 1000000000;
@@ -57,7 +63,7 @@ namespace BagReplay
             if (bagData != null) CurrentBagData = bagData;
         }
 
-        private BagData ReadFields(double timeToReadAt)
+        public BagData ReadFields(double timeToReadAt)
         {
             if (timeToReadAt <= end)
             {
@@ -146,19 +152,5 @@ namespace BagReplay
         }
     }
 
-    public class BagData
-    {
-        public float Vbs;
-        public float Lcg;
-        public int Thruster1RPM;
-        public int Thruster2RPM;
-        public float ThrusterHorizontalRad;
-        public float ThrusterVerticalRad;
-        public Vector3 PrevPositionRos;
-        public Quaternion PrevOrientationRos;
-        public Vector3 PositionRos;
-        public Quaternion OrientationRos;
-        public Vector3 LinearVelocityRos;
-        public Vector3 AngularVelocityRos;
-    }
+  
 }
