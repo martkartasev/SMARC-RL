@@ -1,4 +1,5 @@
 ﻿using DefaultNamespace;
+using Force;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -24,7 +25,7 @@ namespace ResidualEnv
 
         private bool hasReset = false;
 
-        public void OnEnable()
+        public void Awake()
         {
             yaw = yawHingeGo.GetComponent<Hinge>();
             pitch = pitchHingeGo.GetComponent<Hinge>();
@@ -32,9 +33,6 @@ namespace ResidualEnv
             backProp = backPropGo.GetComponent<Propeller>();
             vbs = vbsGo.GetComponent<VBS>();
             lcg = lcgGo.GetComponent<Prismatic>();
-
-            lcg.Start();
-            vbs.Start();
         }
 
         public void Initialize(Vector3 position, Quaternion rotation,
@@ -43,8 +41,8 @@ namespace ResidualEnv
             float vbsCmd,
             float lcgCmd)
         {
-            chain.Restart(position, rotation);
             chain.GetRoot().immovable = true;
+            chain.Restart(position, rotation);
 
             yaw.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterHorizontalRad);
             pitch.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterVerticalRad);
@@ -68,7 +66,6 @@ namespace ResidualEnv
             float thrusterRpm)
         {
             chain.GetRoot().immovable = false;
-
             chain.GetRoot().linearVelocity = linearVelocity;
             chain.GetRoot().angularVelocity = angularVelocity;
 
@@ -80,7 +77,7 @@ namespace ResidualEnv
 
             frontProp.SetRpm(thrusterRpm);
             backProp.SetRpm(thrusterRpm);
-            
+
             yaw.DoUpdate();
             pitch.DoUpdate();
             frontProp.DoUpdate();
@@ -94,7 +91,16 @@ namespace ResidualEnv
             chain.GetRoot().AddRelativeForce(force);
             chain.GetRoot().AddRelativeTorque(torque);
 
-           
+            yaw.DoUpdate();
+            pitch.DoUpdate();
+            frontProp.DoUpdate();
+            backProp.DoUpdate();
+            lcg.DoUpdate();
+            vbs.DoUpdate();
+            foreach (var forcePoint in transform.FindInChildrenRecursive<ForcePoint>())
+            {
+                forcePoint.DoUpdate();
+            }
         }
     }
 }

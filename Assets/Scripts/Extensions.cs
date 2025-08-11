@@ -18,4 +18,21 @@ public static class Extensions
 
         return dict[stamp];
     }
+    
+    public static List<T> FindInChildrenRecursive<T>(this Transform parent, bool includeInactive = false)
+    {
+        List<T> results = new List<T>();
+        foreach (Transform child in parent)
+        {
+            if (!includeInactive && !child.gameObject.activeSelf)
+                continue;
+
+            T comp = child.GetComponent<T>();
+            if (comp != null)
+                results.Add(comp);
+
+            results.AddRange(FindInChildrenRecursive<T>(child, includeInactive));
+        }
+        return results;
+    }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
+using Force;
 using Network;
 using Network.Mapper;
 using Network.Message;
 using Swan;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Action = Network.Message.Action;
 using Observation = Network.Message.Observation;
 
@@ -11,7 +13,8 @@ namespace ResidualEnv
 {
     public class ResidualAbstractEnvManager : AbstractEnvManager
     {
-        public ResidualVehicle Vehicle;
+        public ResidualVehicle vehicle;
+        public ResidualVehicle prefab;
 
         private DefaultMapper _messageMapper;
         private Action _latestAction;
@@ -19,27 +22,6 @@ namespace ResidualEnv
         private void OnEnable()
         {
             _messageMapper = new DefaultMapper();
-        }
-
-        public void Start()
-        {
-            Vehicle.chain.DoAwake();
-            Vehicle.OnEnable();
-
-            if (Physics.simulationMode == SimulationMode.FixedUpdate)
-                Vehicle.Initialize(
-                    transform.TransformPoint(Vector3.zero),
-                    Quaternion.identity,
-                    0.1f,
-                    0.1f,
-                    80,
-                    80
-                );
-        }
-
-        public void FixedUpdate()
-        {
-            if (Physics.simulationMode == SimulationMode.FixedUpdate) Vehicle.chain.GetRoot().immovable = false;
         }
 
         public override void DoRestart(Parameters parameters)
@@ -50,7 +32,7 @@ namespace ResidualEnv
             var vbs = parameters.Continuous[6];
             var lcg = parameters.Continuous[7];
 
-            Vehicle.Initialize(transform.TransformPoint(Vector3.zero),
+            vehicle.Initialize(transform.TransformPoint(Vector3.zero),
                 orientation,
                 thrusterHorizontalRad,
                 thrusterVerticalRad,
@@ -70,7 +52,7 @@ namespace ResidualEnv
             var lcg = action.Continuous[9];
             var thrusterRPM = action.Continuous[10];
 
-            Vehicle.SetAction(
+            vehicle.SetAction(
                 linearVelocity,
                 angularVelocity,
                 thrusterHorizontalRad,
@@ -84,18 +66,18 @@ namespace ResidualEnv
         {
             var observations = new float[10];
 
-            observations[0] = Vehicle.chain.GetRoot().transform.rotation.x;
-            observations[1] = Vehicle.chain.GetRoot().transform.rotation.y;
-            observations[2] = Vehicle.chain.GetRoot().transform.rotation.z;
-            observations[3] = Vehicle.chain.GetRoot().transform.rotation.w;
+            observations[0] = vehicle.chain.GetRoot().transform.rotation.x;
+            observations[1] = vehicle.chain.GetRoot().transform.rotation.y;
+            observations[2] = vehicle.chain.GetRoot().transform.rotation.z;
+            observations[3] = vehicle.chain.GetRoot().transform.rotation.w;
 
-            observations[4] = Vehicle.chain.GetRoot().linearVelocity.x;
-            observations[5] = Vehicle.chain.GetRoot().linearVelocity.y;
-            observations[6] = Vehicle.chain.GetRoot().linearVelocity.z;
+            observations[4] = vehicle.chain.GetRoot().linearVelocity.x;
+            observations[5] = vehicle.chain.GetRoot().linearVelocity.y;
+            observations[6] = vehicle.chain.GetRoot().linearVelocity.z;
 
-            observations[7] = Vehicle.chain.GetRoot().angularVelocity.x;
-            observations[8] = Vehicle.chain.GetRoot().angularVelocity.y;
-            observations[9] = Vehicle.chain.GetRoot().angularVelocity.z;
+            observations[7] = vehicle.chain.GetRoot().angularVelocity.x;
+            observations[8] = vehicle.chain.GetRoot().angularVelocity.y;
+            observations[9] = vehicle.chain.GetRoot().angularVelocity.z;
 
             return new Observation
             {
@@ -109,7 +91,9 @@ namespace ResidualEnv
         {
             var correctiveForce = new Vector3(_latestAction.Continuous[11], _latestAction.Continuous[12], _latestAction.Continuous[13]);
             var correctiveTorque = new Vector3(_latestAction.Continuous[14], _latestAction.Continuous[15], _latestAction.Continuous[16]);
-            Vehicle.ApplyCorrection(correctiveForce, correctiveTorque);
+            
+            vehicle.ApplyCorrection(correctiveForce, correctiveTorque);
+           
         }
 
         public override IMessageMapper GetMessageMapper()
