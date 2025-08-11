@@ -1,7 +1,5 @@
-﻿using DefaultNamespace;
+﻿using System.Collections.Generic;
 using Force;
-using Unity.Robotics.ROSTCPConnector.ROSGeometry;
-using Unity.VisualScripting;
 using UnityEngine;
 using VehicleComponents.Actuators;
 
@@ -24,6 +22,7 @@ namespace ResidualEnv
         Prismatic lcg;
 
         private bool hasReset = false;
+        private List<ForcePoint> _forcePoints;
 
         public void Awake()
         {
@@ -33,6 +32,7 @@ namespace ResidualEnv
             backProp = backPropGo.GetComponent<Propeller>();
             vbs = vbsGo.GetComponent<VBS>();
             lcg = lcgGo.GetComponent<Prismatic>();
+            _forcePoints = transform.FindInChildrenRecursive<ForcePoint>();
         }
 
         public void Initialize(Vector3 position, Quaternion rotation,
@@ -41,6 +41,7 @@ namespace ResidualEnv
             float vbsCmd,
             float lcgCmd)
         {
+            Debug.Log(chain.GetRoot().transform.position + "   " + chain.GetRoot().transform.rotation.eulerAngles);
             chain.GetRoot().immovable = true;
             chain.Restart(position, rotation);
 
@@ -97,7 +98,8 @@ namespace ResidualEnv
             backProp.DoUpdate();
             lcg.DoUpdate();
             vbs.DoUpdate();
-            foreach (var forcePoint in transform.FindInChildrenRecursive<ForcePoint>())
+
+            foreach (var forcePoint in _forcePoints)
             {
                 forcePoint.DoUpdate();
             }

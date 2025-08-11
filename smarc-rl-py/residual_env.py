@@ -40,7 +40,7 @@ class UnityResidualEnv(Env):
 
     def step(self, action):
         action_msg = map_action_to_unity(action, self.nr_agents)
-        action_msg.stepCount = 100
+        action_msg.stepCount = 1
         action_msg.timeScale = 1
         step = self.client.step(action_msg)
 

@@ -86,9 +86,8 @@ namespace Network
             
             while (Time.time > _startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale || _timeScale > 10 || noGraphics && _stepsCompleted < _stepsToSimulate)
             {
-                Debug.Log("Calling Simulate Step");
-                SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
                 foreach (var env in _envManagers) env.Value.FixedUpdateManual();
+                SceneManager.GetActiveScene().GetPhysicsScene().Simulate(Time.fixedDeltaTime);
 
                 _stepsCompleted++;
             }

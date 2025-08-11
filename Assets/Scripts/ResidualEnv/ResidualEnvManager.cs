@@ -1,11 +1,8 @@
 ﻿using System;
-using Force;
 using Network;
 using Network.Mapper;
 using Network.Message;
-using Swan;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Action = Network.Message.Action;
 using Observation = Network.Message.Observation;
 
@@ -14,12 +11,11 @@ namespace ResidualEnv
     public class ResidualAbstractEnvManager : AbstractEnvManager
     {
         public ResidualVehicle vehicle;
-        public ResidualVehicle prefab;
 
         private DefaultMapper _messageMapper;
         private Action _latestAction;
 
-        private void OnEnable()
+        private void Awake()
         {
             _messageMapper = new DefaultMapper();
         }

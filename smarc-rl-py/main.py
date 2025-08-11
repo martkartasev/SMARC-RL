@@ -13,8 +13,8 @@ def main():
         env.reset(options={"init": initialization})
 
         action = np.array([
-            [0, 0, 0,
-             0, 0, 0,
+            [0, 0, 1,
+             0, 0, 0.0,
              0.1,
              0.1,
              80,
