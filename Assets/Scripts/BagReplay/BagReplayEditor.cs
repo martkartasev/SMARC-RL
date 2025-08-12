@@ -1,10 +1,12 @@
 ﻿using UnityEditor;
 using UnityEngine;
 
+
 namespace BagReplay
 {
+#if UNITY_EDITOR
     [CustomEditor(typeof(BagReplay))]
-    public class BagReplayEditor:Editor
+    public class BagReplayEditor : Editor
     {
         public override void OnInspectorGUI()
         {
@@ -33,7 +35,8 @@ namespace BagReplay
                     bagDataWriter.WriteFile();
                 }
             }
-          
         }
     }
+
+#endif
 }
