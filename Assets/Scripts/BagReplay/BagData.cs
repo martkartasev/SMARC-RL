@@ -27,11 +27,11 @@ namespace BagReplay
             bagCsvRow.Lcg = Lcg / 100f;
             bagCsvRow.Thruster1RPM = Thruster1RPM / 1000f;
             bagCsvRow.Thruster2RPM = Thruster2RPM / 1000f;
-            bagCsvRow.ThrusterHorizontalRad = ThrusterHorizontalRad / 0.2f;
-            bagCsvRow.ThrusterVerticalRad = ThrusterVerticalRad / 0.2f;
+            bagCsvRow.ThrusterHorizontalRad = ThrusterHorizontalRad / 0.13f;
+            bagCsvRow.ThrusterVerticalRad = ThrusterVerticalRad / 0.13f;
 
             bagCsvRow.LinearVelocity = NED.ConvertToRUF(LinearVelocityRos);
-            bagCsvRow.AngularVelocity = FRD.ConvertAngularVelocityToRUF(AngularVelocityRos);
+            bagCsvRow.AngularVelocity = FRD.ConvertAngularVelocityToRUF(AngularVelocityRos) / 5;
             bagCsvRow.Orientation = NED.ConvertToRUF(OrientationRos);
 
             return bagCsvRow;
@@ -72,10 +72,10 @@ namespace BagReplay
             Map(m => m.AngularVelocity.y).Name("AngVelY").Index(8);
             Map(m => m.AngularVelocity.z).Name("AngVelZ").Index(9);
 
-            Map(m => m.Vbs).Index(10);
-            Map(m => m.Lcg).Index(11);
-            Map(m => m.ThrusterHorizontalRad).Index(12);
-            Map(m => m.ThrusterVerticalRad).Index(13);
+            Map(m => m.ThrusterHorizontalRad).Index(10);
+            Map(m => m.ThrusterVerticalRad).Index(11);
+            Map(m => m.Vbs).Index(12);
+            Map(m => m.Lcg).Index(13);
             Map(m => m.Thruster1RPM).Index(14);
             Map(m => m.Thruster2RPM).Index(15);
         }

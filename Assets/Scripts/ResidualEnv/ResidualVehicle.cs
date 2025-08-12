@@ -41,7 +41,7 @@ namespace ResidualEnv
             float vbsCmd,
             float lcgCmd)
         {
-            Debug.Log(chain.GetRoot().transform.position + "   " + chain.GetRoot().transform.rotation.eulerAngles);
+           // Debug.Log(chain.GetRoot().transform.position + "   " + chain.GetRoot().transform.rotation.eulerAngles);
             chain.GetRoot().immovable = true;
             chain.Restart(position, rotation);
 

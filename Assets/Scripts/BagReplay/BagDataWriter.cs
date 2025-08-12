@@ -11,7 +11,7 @@ namespace BagReplay
 
         public void WriteFile()
         {
-            using (var obsStreamWriter = new StreamWriter(Application.dataPath + "\\file.csv"))
+            using (var obsStreamWriter = new StreamWriter("C:\\Users\\Mart9\\Workspace\\SMARC\\SMARC-RL\\smarc-rl-py\\file.csv"))
             using (var obsWriter = new CsvWriter(obsStreamWriter, CultureInfo.InvariantCulture))
             {
                 obsWriter.Context.RegisterClassMap<BagCsvRowMap>();
