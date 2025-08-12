@@ -13,6 +13,7 @@ namespace BagReplay
 {
     public class BagReplay : MonoBehaviour
     {
+        [HideInInspector]public string filePath = "C:\\Users\\Mart9\\Workspace\\SMARC\\SMARC-RL\\RosBag\\TankJuly03_14_58_37\\rosbag2_2025_07_03-14_58_37_0.db3";
         public double startOffset;
         private double start;
         private double end;
@@ -30,8 +31,12 @@ namespace BagReplay
 
         private void Awake()
         {
-            var dbPath = "C:\\Users\\Mart9\\Workspace\\ROSBAGS\\TankJuly03_14_58_37\\rosbag2_2025_07_03-14_58_37_0.db3";
-            using var connection = new SqliteConnection($"Data Source={dbPath}");
+            ReadFile();
+        }
+
+        public void ReadFile()
+        {
+            using var connection = new SqliteConnection($"Data Source={filePath}");
             connection.Open();
 
             vbs_cmd = ReadMessagesOfType<PercentStampedMsg>(connection, "/sam/core/vbs_cmd");

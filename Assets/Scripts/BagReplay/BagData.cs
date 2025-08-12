@@ -41,6 +41,7 @@ namespace BagReplay
     {
         public Vector3 LinearVelocity { get; set; }
         public Vector3 AngularVelocity { get; set; }
+        public Quaternion Orientation { get; set; }
         public float Vbs { get; set; }
         public float Lcg { get; set; }
         public float Thruster1RPM { get; set; }
@@ -55,7 +56,13 @@ namespace BagReplay
         {
             Map(m => m.LinearVelocity).Ignore();
             Map(m => m.AngularVelocity).Ignore();
-            
+            Map(m => m.Orientation).Ignore();
+
+            Map(m => m.Orientation.x).Name("OrientationX");
+            Map(m => m.Orientation.y).Name("OrientationY");
+            Map(m => m.Orientation.z).Name("OrientationZ");
+            Map(m => m.Orientation.w).Name("OrientationW");
+
             Map(m => m.LinearVelocity.x).Name("LinVelX");
             Map(m => m.LinearVelocity.y).Name("LinVelY");
             Map(m => m.LinearVelocity.z).Name("LinVelZ");
@@ -66,10 +73,10 @@ namespace BagReplay
 
             Map(m => m.Vbs);
             Map(m => m.Lcg);
-            Map(m => m.Thruster1RPM);
-            Map(m => m.Thruster2RPM);
             Map(m => m.ThrusterHorizontalRad);
             Map(m => m.ThrusterVerticalRad);
+            Map(m => m.Thruster1RPM);
+            Map(m => m.Thruster2RPM);
         }
     }
 }

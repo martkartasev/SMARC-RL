@@ -9,7 +9,7 @@ namespace BagReplay
     {
         public BagReplay replay;
 
-        public void Start()
+        public void WriteFile()
         {
             using (var obsStreamWriter = new StreamWriter(Application.dataPath + "\\file.csv"))
             using (var obsWriter = new CsvWriter(obsStreamWriter, CultureInfo.InvariantCulture))
@@ -24,12 +24,14 @@ namespace BagReplay
 
                 var bagRow = replay.ReadFields(currentTime);
 
-              
+                while (bagRow != null)
+                {
                     obsWriter.WriteRecord(bagRow.ToCsv());
                     obsWriter.NextRecord();
-                    
-                    currentTime += Time.fixedDeltaTime;
+
+                    currentTime += Time.fixedDeltaTime * 1000000000;
                     bagRow = replay.ReadFields(currentTime);
+                }
             }
         }
     }
