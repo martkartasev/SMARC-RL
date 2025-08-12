@@ -12,7 +12,7 @@ def main():
     nr_agents = 100
     epochs = 50000
     unity_timestep = 0.02
-    env = UnityResidualEnv(port=50010, start_process=False, nr_agents=nr_agents, no_graphics=False)
+    env = UnityResidualEnv(port=50010, start_process=True, nr_agents=nr_agents, no_graphics=True)
     data = read_file()
 
     resets = data[:-1, np.r_[0:4, 10:14]]
@@ -22,7 +22,7 @@ def main():
     acceleration_model = ResidualModel(6, 5, 6)
     optimizer = optim.Adam(acceleration_model.parameters(), lr=1e-3)
     loss_fn = nn.MSELoss()
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=10, min_lr=1e-6)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=1000, min_lr=1e-6)
 
     for epoch in range(epochs):
         idx = np.random.choice(state_action.shape[0], size=nr_agents, replace=False)
@@ -52,7 +52,7 @@ def main():
         scheduler.step(loss.item())
 
         if epoch % 10 == 0:
-            print(f"Epoch {epoch}, Loss: {loss.item():.6f}")
+            print(f"Epoch {epoch}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
 
 
 if __name__ == '__main__':
