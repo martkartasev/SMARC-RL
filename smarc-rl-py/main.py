@@ -10,7 +10,7 @@ from residual_env import UnityResidualEnv
 
 def main():
     nr_agents = 100
-    epochs = 50000
+    epochs = 10000
     unity_timestep = 0.02
     env = UnityResidualEnv(port=50010, start_process=True, nr_agents=nr_agents, no_graphics=True)
     data = read_file()
@@ -54,6 +54,17 @@ def main():
         if epoch % 10 == 0:
             print(f"Epoch {epoch}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
 
+def export_onnx():
+    # 2. Create a dummy input
+    dummy_input = torch.randn(1, 1, 14, 14)
+
+    # 3. Export the model to ONNX
+    torch.onnx.export(model,
+                      dummy_input,
+                      "my_model.onnx",
+                      input_names=['input'],
+                      output_names=['output'],
+                      opset_version=11)
 
 if __name__ == '__main__':
     main()
