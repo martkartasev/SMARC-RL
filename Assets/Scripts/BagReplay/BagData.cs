@@ -32,6 +32,7 @@ namespace BagReplay
 
             bagCsvRow.LinearVelocity = NED.ConvertToRUF(LinearVelocityRos);
             bagCsvRow.AngularVelocity = FRD.ConvertAngularVelocityToRUF(AngularVelocityRos);
+            bagCsvRow.Orientation = NED.ConvertToRUF(OrientationRos);
 
             return bagCsvRow;
         }
@@ -58,25 +59,25 @@ namespace BagReplay
             Map(m => m.AngularVelocity).Ignore();
             Map(m => m.Orientation).Ignore();
 
-            Map(m => m.Orientation.x).Name("OrientationX");
-            Map(m => m.Orientation.y).Name("OrientationY");
-            Map(m => m.Orientation.z).Name("OrientationZ");
-            Map(m => m.Orientation.w).Name("OrientationW");
+            Map(m => m.Orientation.x).Name("OrientationX").Index(0);
+            Map(m => m.Orientation.y).Name("OrientationY").Index(1);
+            Map(m => m.Orientation.z).Name("OrientationZ").Index(2);
+            Map(m => m.Orientation.w).Name("OrientationW").Index(3);
 
-            Map(m => m.LinearVelocity.x).Name("LinVelX");
-            Map(m => m.LinearVelocity.y).Name("LinVelY");
-            Map(m => m.LinearVelocity.z).Name("LinVelZ");
+            Map(m => m.LinearVelocity.x).Name("LinVelX").Index(4);
+            Map(m => m.LinearVelocity.y).Name("LinVelY").Index(5);
+            Map(m => m.LinearVelocity.z).Name("LinVelZ").Index(6);
 
-            Map(m => m.AngularVelocity.x).Name("AngVelX");
-            Map(m => m.AngularVelocity.y).Name("AngVelY");
-            Map(m => m.AngularVelocity.z).Name("AngVelZ");
+            Map(m => m.AngularVelocity.x).Name("AngVelX").Index(7);
+            Map(m => m.AngularVelocity.y).Name("AngVelY").Index(8);
+            Map(m => m.AngularVelocity.z).Name("AngVelZ").Index(9);
 
-            Map(m => m.Vbs);
-            Map(m => m.Lcg);
-            Map(m => m.ThrusterHorizontalRad);
-            Map(m => m.ThrusterVerticalRad);
-            Map(m => m.Thruster1RPM);
-            Map(m => m.Thruster2RPM);
+            Map(m => m.Vbs).Index(10);
+            Map(m => m.Lcg).Index(11);
+            Map(m => m.ThrusterHorizontalRad).Index(12);
+            Map(m => m.ThrusterVerticalRad).Index(13);
+            Map(m => m.Thruster1RPM).Index(14);
+            Map(m => m.Thruster2RPM).Index(15);
         }
     }
 }

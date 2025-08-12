@@ -19,7 +19,7 @@ namespace BagReplay
                 obsWriter.NextRecord();
 
                 var valueTuple = replay.GetStartEnd();
-                var start = valueTuple.Item1 / 1000000000f;
+                var start = valueTuple.Item1;
                 var currentTime = replay.startOffset * 1000000000 + start;
 
                 var bagRow = replay.ReadFields(currentTime);
@@ -29,7 +29,7 @@ namespace BagReplay
                     obsWriter.WriteRecord(bagRow.ToCsv());
                     obsWriter.NextRecord();
 
-                    currentTime += Time.fixedDeltaTime * 1000000000;
+                    currentTime += (double)Time.fixedDeltaTime * 1000000000;
                     bagRow = replay.ReadFields(currentTime);
                 }
             }

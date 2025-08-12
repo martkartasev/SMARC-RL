@@ -70,7 +70,7 @@ namespace BagReplay
 
         public BagData ReadFields(double timeToReadAt)
         {
-            if (timeToReadAt <= end)
+            if (timeToReadAt >= start && timeToReadAt <= end)
             {
                 var vbsMsg = vbs_cmd.GetLatestMessage(timeToReadAt);
                 var lcgMsg = lcg_cmd.GetLatestMessage(timeToReadAt);
