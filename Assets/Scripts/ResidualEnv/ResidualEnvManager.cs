@@ -67,13 +67,13 @@ namespace ResidualEnv
             observations[2] = vehicle.chain.GetRoot().transform.rotation.z;
             observations[3] = vehicle.chain.GetRoot().transform.rotation.w;
 
-            observations[4] = vehicle.chain.GetRoot().linearVelocity.x;
-            observations[5] = vehicle.chain.GetRoot().linearVelocity.y;
-            observations[6] = vehicle.chain.GetRoot().linearVelocity.z;
+            observations[4] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.x, -1, 1);
+            observations[5] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.y, -1, 1);
+            observations[6] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.z, -1, 1);
 
-            observations[7] = vehicle.chain.GetRoot().angularVelocity.x;
-            observations[8] = vehicle.chain.GetRoot().angularVelocity.y;
-            observations[9] = vehicle.chain.GetRoot().angularVelocity.z;
+            observations[7] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.x, -1, 1);
+            observations[8] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.y, -1, 1);
+            observations[9] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.z, -1, 1);
 
             return new Observation
             {

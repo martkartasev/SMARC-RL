@@ -41,7 +41,7 @@ namespace ResidualEnv
             float vbsCmd,
             float lcgCmd)
         {
-           // Debug.Log(chain.GetRoot().transform.position + "   " + chain.GetRoot().transform.rotation.eulerAngles);
+            // Debug.Log(chain.GetRoot().transform.position + "   " + chain.GetRoot().transform.rotation.eulerAngles);
             chain.GetRoot().immovable = true;
             chain.Restart(position, rotation);
 
@@ -89,8 +89,8 @@ namespace ResidualEnv
 
         public void ApplyCorrection(Vector3 force, Vector3 torque)
         {
-            chain.GetRoot().AddRelativeForce(force);
-            chain.GetRoot().AddRelativeTorque(torque);
+            chain.GetRoot().AddRelativeForce(force, ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeTorque(torque, ForceMode.Acceleration);
 
             yaw.DoUpdate();
             pitch.DoUpdate();
