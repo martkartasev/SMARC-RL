@@ -1,4 +1,5 @@
-﻿using Unity.Robotics.ROSTCPConnector.ROSGeometry;
+﻿using MathNet.Numerics.LinearAlgebra;
+using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -51,17 +52,21 @@ namespace BagReplay
             var newAngVel = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
             var pastAngVel = FRD.ConvertAngularVelocityToRUF(replay.PreviousBagData.AngularVelocityRos);
             var linearAcc = (newVel - pastVel) / Time.fixedDeltaTime;
-            body.GetRoot().AddForce(linearAcc, ForceMode.Acceleration);
+            body.GetRoot().linearVelocity += linearAcc * Time.fixedDeltaTime;
             var angularAcc = (newAngVel - pastAngVel) / Time.fixedDeltaTime;
-            body.GetRoot().AddTorque(angularAcc, ForceMode.Acceleration);
+            body.GetRoot().angularVelocity += angularAcc * Time.fixedDeltaTime;
             Debug.Log(linearAcc + "    " + angularAcc);
         }
 
+        Vector3 storedLinVel = Vector3.zero;
+
         private void DoVelocityUpdate()
         {
-            body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
+            var convertToRuf = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
+            Debug.Log((convertToRuf - storedLinVel) / Time.fixedDeltaTime);
+            body.GetRoot().linearVelocity = convertToRuf;
             body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
-            
+            storedLinVel = body.GetRoot().linearVelocity;
         }
 
         private void DoPseudoVelocityUpdate()
