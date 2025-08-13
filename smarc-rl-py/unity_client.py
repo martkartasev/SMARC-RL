@@ -67,7 +67,7 @@ def start_unity_process(nr_agents: int = 1,
                         timescale: float = 1,
                         decision_period: int = 10,
                         no_graphics: bool = True):
-    executable_path = os.path.join(os.path.dirname(__file__), '../Build/SAM-RL.exe')
+    executable_path = os.path.join(os.path.dirname(__file__), '../Builds/SAM-RL.exe')
     args = [executable_path,
             "-agents", str(nr_agents),  # Number of agents
             "-channel", str(port),  # Param to change connection port. If you want to start multiple instances

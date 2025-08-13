@@ -66,7 +66,7 @@ namespace Network
             _processingStep = false;
             _stepsCompleted = Mathf.Max(decisionPeriod, _stepsToSimulate);
 
-            var prepareObservations = PrepareObservations();
+            var prepareObservations = PrepareObservations(resetMsg.EnvsToReset.Count);
             return prepareObservations;
         }
 
@@ -83,7 +83,7 @@ namespace Network
                 _timeScale = stepMsg.TimeScale > 0 ? stepMsg.TimeScale : Time.timeScale;
                 _startTime = Time.time;
             }
-            
+
             while (Time.time > _startTime + _stepsCompleted * Time.fixedDeltaTime / _timeScale || _timeScale > 10 || noGraphics && _stepsCompleted < _stepsToSimulate)
             {
                 foreach (var env in _envManagers) env.Value.FixedUpdateManual();
@@ -95,16 +95,16 @@ namespace Network
             if (_stepsCompleted >= _stepsToSimulate)
             {
                 _processingStep = false;
-                return PrepareObservations();
+                return PrepareObservations(stepMsg.Actions.Count);
             }
 
             return null;
         }
 
-        public Observations PrepareObservations()
+        public Observations PrepareObservations(int actionsCount)
         {
             var observations = new Observations();
-            observations.Observations_.AddRange(_envManagers.Select(env => env.Value).Select(env => env.GetMessageMapper().MapObservationToExternal(env.BuildObservationMessage())));
+            observations.Observations_.AddRange(_envManagers.Take(Mathf.Min(actionsCount, _envManagers.Count)).Select(env => env.Value).Select(env => env.GetMessageMapper().MapObservationToExternal(env.BuildObservationMessage())));
             return observations;
         }
 

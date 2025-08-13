@@ -35,16 +35,16 @@ class UnityResidualEnv(Env):
             reset_msg.envsToReset.append(map_reset_params_to_proto(i, agent_inits[i, :]))
 
         reset = self.client.reset(reset_msg)
-        obs = map_observation_to_numpy(reset, self.nr_agents)
+        obs = map_observation_to_numpy(reset, agent_inits.shape[0])
         return obs
 
     def step(self, action):
-        action_msg = map_action_to_unity(action, self.nr_agents)
+        action_msg = map_action_to_unity(action)
         action_msg.stepCount = 1
         action_msg.timeScale = 1
         step = self.client.step(action_msg)
 
-        obs = map_observation_to_numpy(step, self.nr_agents)
+        obs = map_observation_to_numpy(step, action.shape[0])
 
         done = False
         reward = 0
@@ -74,9 +74,9 @@ def map_observation_to_numpy(unity_observations: protobuf_gen.communication_pb2.
     return obs
 
 
-def map_action_to_unity(action, nr_agents):
+def map_action_to_unity(action):
     step = protobuf_gen.communication_pb2.Step()
-    for i in range(nr_agents):
+    for i in range(action.shape[0]):
         action_msg = protobuf_gen.communication_pb2.Action()
         action_msg.continuous.extend(action[i, :])
 
