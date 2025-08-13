@@ -22,11 +22,11 @@ def main():
 
     acceleration_model = ResidualModel(6, 5, 6)
     optimizer = optim.Adam(acceleration_model.parameters(), lr=1e-3)
-    loss_fn = nn.HuberLoss(delta=0.1)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.3, patience=2000, min_lr=1e-6)
+    loss_fn = nn.HuberLoss(delta=0.2)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=2000, min_lr=1e-6)
 
     for epoch in range(epochs):
-        idx = np.random.choice(state_action.shape[0], size=batch_size, replace=False)
+        idx = np.arange(batch_size)#np.random.choice(state_action.shape[0], size=batch_size, replace=False)
 
         action_tensor = torch.tensor(state_action[idx, :], dtype=torch.float32)
 
@@ -54,7 +54,7 @@ def main():
 
 
 def prepare_sim_data(resets, state_action, nr_agents=100):
-    env = UnityResidualEnv(port=50010, start_process=True, nr_agents=nr_agents, no_graphics=True)
+    env = UnityResidualEnv(port=50012, start_process=True, nr_agents=nr_agents, no_graphics=True)
 
     next_sim_state = np.zeros((state_action.shape[0], 6), dtype=state_action.dtype)
     for i in range(0, state_action.shape[0], nr_agents):

@@ -41,7 +41,7 @@ namespace ResidualEnv
             _latestAction = action;
 
             var linearVelocity = new Vector3(action.Continuous[0], action.Continuous[1], action.Continuous[2]);
-            var angularVelocity = new Vector3(action.Continuous[3] * 5, action.Continuous[4] * 5, action.Continuous[5] * 5);
+            var angularVelocity = new Vector3(action.Continuous[3] * 7, action.Continuous[4] * 7, action.Continuous[5] * 7);
             var thrusterHorizontalRad = action.Continuous[6] * 0.13f;
             var thrusterVerticalRad = action.Continuous[7] * 0.13f;
             var vbs = action.Continuous[8] * 100;
@@ -74,7 +74,7 @@ namespace ResidualEnv
             observations[6] = Mathf.Clamp(linearVelocity.z, -1, 1);
 
             var angularVelocity = vehicle.chain.GetRoot().angularVelocity;
-            angularVelocity = vehicle.chain.GetRoot().transform.InverseTransformDirection(angularVelocity);
+            angularVelocity = vehicle.chain.GetRoot().transform.InverseTransformDirection(angularVelocity) / 7;
             observations[7] = Mathf.Clamp(angularVelocity.x, -1, 1);
             observations[8] = Mathf.Clamp(angularVelocity.y, -1, 1);
             observations[9] = Mathf.Clamp(angularVelocity.z, -1, 1);

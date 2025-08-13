@@ -72,14 +72,16 @@ namespace BagReplay
 
         private void AddResidualAcceleration()
         {
+            var linearVelocity = chain.GetRoot().transform.InverseTransformVector(chain.GetRoot().linearVelocity);
+            var angularVelocity = chain.GetRoot().transform.InverseTransformDirection(chain.GetRoot().angularVelocity);
             float[] data = new float[]
             {
-                chain.GetRoot().linearVelocity.x,
-                chain.GetRoot().linearVelocity.y,
-                chain.GetRoot().linearVelocity.z,
-                chain.GetRoot().angularVelocity.x / 7f,
-                chain.GetRoot().angularVelocity.y / 7f,
-                chain.GetRoot().angularVelocity.z / 7f,
+                linearVelocity.x,
+                linearVelocity.y,
+                linearVelocity.z,
+                angularVelocity.x / 7f,
+                angularVelocity.y / 7f,
+                angularVelocity.z / 7f,
                 replay.CurrentBagData.ThrusterHorizontalRad / 0.13f,
                 replay.CurrentBagData.ThrusterVerticalRad / 0.13f,
                 replay.CurrentBagData.Vbs / 100,
@@ -96,8 +98,8 @@ namespace BagReplay
             Tensor<float> outputTensor = worker.PeekOutput() as Tensor<float>;
             var result = outputTensor.ReadbackAndClone();
 
-            chain.GetRoot().AddForce(new Vector3(result[0], result[1], result[2]), ForceMode.Acceleration);
-            chain.GetRoot().AddTorque(new Vector3(result[3], result[4], result[5]), ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeForce(new Vector3(result[0], result[1], result[2]), ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeTorque(new Vector3(result[3], result[4], result[5]), ForceMode.Acceleration);
         }
     }
 }

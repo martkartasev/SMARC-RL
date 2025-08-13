@@ -29,6 +29,7 @@ namespace BagReplay
         public SortedDictionary<long, TwistStampedMsg> twist;
 
         public BagData CurrentBagData;
+        public BagData PreviousBagData;
 
         private void Awake()
         {
@@ -55,6 +56,7 @@ namespace BagReplay
 
             CurrentBagData = new BagData();
             CurrentBagData = ReadFields(start + startOffset * 1000000000);
+            PreviousBagData = CurrentBagData;
         }
 
         public (double, double) GetStartEnd()
@@ -66,7 +68,11 @@ namespace BagReplay
         {
             var currentTime = start + startOffset * 1000000000 + Time.fixedTimeAsDouble * 1000000000;
             var bagData = ReadFields(currentTime);
-            if (bagData != null) CurrentBagData = bagData;
+            if (bagData != null)
+            {
+                PreviousBagData = CurrentBagData;
+                CurrentBagData = bagData;
+            }
 
             // Debug.Log(CurrentBagData.LinearVelocityRos + "    " + CurrentBagData.AngularVelocityRos);
         }
