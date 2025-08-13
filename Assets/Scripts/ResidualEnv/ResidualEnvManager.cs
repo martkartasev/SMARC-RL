@@ -67,13 +67,17 @@ namespace ResidualEnv
             observations[2] = vehicle.chain.GetRoot().transform.rotation.z;
             observations[3] = vehicle.chain.GetRoot().transform.rotation.w;
 
-            observations[4] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.x, -1, 1);
-            observations[5] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.y, -1, 1);
-            observations[6] = Mathf.Clamp(vehicle.chain.GetRoot().linearVelocity.z, -1, 1);
+            var linearVelocity = vehicle.chain.GetRoot().linearVelocity;
+            linearVelocity = vehicle.chain.GetRoot().transform.InverseTransformVector(linearVelocity);
+            observations[4] = Mathf.Clamp(linearVelocity.x, -1, 1);
+            observations[5] = Mathf.Clamp(linearVelocity.y, -1, 1);
+            observations[6] = Mathf.Clamp(linearVelocity.z, -1, 1);
 
-            observations[7] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.x, -1, 1);
-            observations[8] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.y, -1, 1);
-            observations[9] = Mathf.Clamp(vehicle.chain.GetRoot().angularVelocity.z, -1, 1);
+            var angularVelocity = vehicle.chain.GetRoot().angularVelocity;
+            angularVelocity = vehicle.chain.GetRoot().transform.InverseTransformDirection(angularVelocity);
+            observations[7] = Mathf.Clamp(angularVelocity.x, -1, 1);
+            observations[8] = Mathf.Clamp(angularVelocity.y, -1, 1);
+            observations[9] = Mathf.Clamp(angularVelocity.z, -1, 1);
 
             return new Observation
             {

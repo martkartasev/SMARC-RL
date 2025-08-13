@@ -6,10 +6,10 @@ def read_file(filename: str = "file.csv"):
     arr = df.to_numpy()
 
     if (df.max() > 1).any():
-        print("Warning, data not properly normalized!")
+        print("Warning, data not properly normalized! Some values above 1")
         print(df.max())
     if (df.min() < -1).any():
-        print("Warning, data not properly normalized!")
+        print("Warning, data not properly normalized! Some values below -1")
         print(df.min())
 
     return arr

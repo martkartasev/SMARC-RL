@@ -8,7 +8,7 @@ namespace BagReplay
     public class BagDataWriter : MonoBehaviour
     {
         public BagReplay replay;
-
+        public Transform helperTransform;
         public void WriteFile()
         {
             using (var obsStreamWriter = new StreamWriter("C:\\Users\\Mart9\\Workspace\\SMARC\\SMARC-RL\\smarc-rl-py\\file.csv"))
@@ -26,7 +26,7 @@ namespace BagReplay
 
                 while (bagRow != null)
                 {
-                    obsWriter.WriteRecord(bagRow.ToCsv());
+                    obsWriter.WriteRecord(bagRow.ToCsv(helperTransform));
                     obsWriter.NextRecord();
 
                     currentTime += (double)Time.fixedDeltaTime * 1000000000;

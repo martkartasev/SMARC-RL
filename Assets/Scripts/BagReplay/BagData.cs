@@ -20,7 +20,7 @@ namespace BagReplay
         public Vector3 LinearVelocityRos { get; set; }
         public Vector3 AngularVelocityRos { get; set; }
 
-        public BagCsvRow ToCsv()
+        public BagCsvRow ToCsv(Transform helperTransform)
         {
             var bagCsvRow = new BagCsvRow();
             bagCsvRow.Vbs = Vbs / 100f;
@@ -30,9 +30,11 @@ namespace BagReplay
             bagCsvRow.ThrusterHorizontalRad = ThrusterHorizontalRad / 0.13f;
             bagCsvRow.ThrusterVerticalRad = ThrusterVerticalRad / 0.13f;
 
-            bagCsvRow.LinearVelocity = NED.ConvertToRUF(LinearVelocityRos);
-            bagCsvRow.AngularVelocity = FRD.ConvertAngularVelocityToRUF(AngularVelocityRos) / 5;
             bagCsvRow.Orientation = NED.ConvertToRUF(OrientationRos);
+            helperTransform.rotation = bagCsvRow.Orientation;
+
+            bagCsvRow.LinearVelocity = helperTransform.InverseTransformVector(NED.ConvertToRUF(LinearVelocityRos));
+            bagCsvRow.AngularVelocity = helperTransform.InverseTransformDirection(FRD.ConvertAngularVelocityToRUF(AngularVelocityRos)) / 7;
 
             return bagCsvRow;
         }
