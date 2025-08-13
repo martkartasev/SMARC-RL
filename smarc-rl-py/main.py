@@ -53,18 +53,10 @@ def main():
 
         if epoch % 10 == 0:
             print(f"Epoch {epoch}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
+        if epoch != 0 and epoch % 100 == 0:
+            acceleration_model.export_onnx()
 
-def export_onnx():
-    # 2. Create a dummy input
-    dummy_input = torch.randn(1, 1, 14, 14)
 
-    # 3. Export the model to ONNX
-    torch.onnx.export(model,
-                      dummy_input,
-                      "my_model.onnx",
-                      input_names=['input'],
-                      output_names=['output'],
-                      opset_version=11)
 
 if __name__ == '__main__':
     main()
