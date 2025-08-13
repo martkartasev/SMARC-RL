@@ -22,16 +22,15 @@ def main():
 
     acceleration_model = ResidualModel(6, 5, 6)
     optimizer = optim.Adam(acceleration_model.parameters(), lr=1e-3)
-    loss_fn = nn.HuberLoss(delta=1.0)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=2000, min_lr=1e-6)
+    loss_fn = nn.HuberLoss(delta=0.1)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.3, patience=2000, min_lr=1e-6)
 
     for epoch in range(epochs):
         idx = np.random.choice(state_action.shape[0], size=batch_size, replace=False)
 
         action_tensor = torch.tensor(state_action[idx, :], dtype=torch.float32)
-        # env_action = torch.cat((action_tensor, torch.zeros((nr_agents, 6), dtype=torch.float32)), dim=1)
 
-        next_sim_vel = torch.tensor(next_sim_state[idx, :], dtype=torch.float32)  # fixed slice
+        next_sim_vel = torch.tensor(next_sim_state[idx, :], dtype=torch.float32)
         next_data_vel = torch.tensor(next_state_action[idx, 0:6], dtype=torch.float32)
         start_vel = torch.tensor(state_action[idx, 0:6], dtype=torch.float32)
 

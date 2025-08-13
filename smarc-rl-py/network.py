@@ -9,11 +9,13 @@ class ResidualModel(nn.Module):
         self.action_dim = action_dim
 
         self.net = nn.Sequential(
-            nn.Linear(state_dim + action_dim, 128),
+            nn.Linear(state_dim + action_dim, 256),
             nn.ReLU(),
-            nn.Linear(128, 128),
+            nn.Linear(256, 256),
             nn.ReLU(),
-            nn.Linear(128, force_dim)
+            nn.Linear(256, 256),
+            nn.ReLU(),
+            nn.Linear(256, force_dim)
         )
 
         final_layer = self.net[-1]

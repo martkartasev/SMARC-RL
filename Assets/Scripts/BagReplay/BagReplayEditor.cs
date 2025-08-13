@@ -21,7 +21,7 @@ namespace BagReplay
                 string path = EditorUtility.OpenFilePanel("Select Text File", "", "db3");
                 if (!string.IsNullOrEmpty(path))
                 {
-                    replay.filePath = path;
+                    replay.SetDB3Path(path);
                     EditorUtility.SetDirty(replay); // mark scene dirty so changes save
                 }
             }
