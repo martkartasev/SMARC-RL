@@ -48,25 +48,16 @@ namespace BagReplay
         private void DoAccelerationUpdate()
         {
             var newVel = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
-            var pastVel = NED.ConvertToRUF(replay.PreviousBagData.LinearVelocityRos);
             var newAngVel = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
-            var pastAngVel = FRD.ConvertAngularVelocityToRUF(replay.PreviousBagData.AngularVelocityRos);
-            var linearAcc = (newVel - pastVel) / Time.fixedDeltaTime;
-            body.GetRoot().linearVelocity += linearAcc * Time.fixedDeltaTime;
-            var angularAcc = (newAngVel - pastAngVel) / Time.fixedDeltaTime;
-            body.GetRoot().angularVelocity += angularAcc * Time.fixedDeltaTime;
-            Debug.Log(linearAcc + "    " + angularAcc);
+            var linearAcc = (newVel - body.GetRoot().linearVelocity) / Time.fixedDeltaTime;
+            body.GetRoot().AddForce(linearAcc, ForceMode.Acceleration);
+            var angularAcc = (newAngVel - body.GetRoot().angularVelocity) / Time.fixedDeltaTime;
+            body.GetRoot().AddTorque(angularAcc, ForceMode.Acceleration);
         }
-
-        Vector3 storedLinVel = Vector3.zero;
-
         private void DoVelocityUpdate()
         {
-            var convertToRuf = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
-            Debug.Log((convertToRuf - storedLinVel) / Time.fixedDeltaTime);
-            body.GetRoot().linearVelocity = convertToRuf;
+            body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);;
             body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
-            storedLinVel = body.GetRoot().linearVelocity;
         }
 
         private void DoPseudoVelocityUpdate()
