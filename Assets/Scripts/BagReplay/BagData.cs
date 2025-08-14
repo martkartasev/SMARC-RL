@@ -34,7 +34,7 @@ namespace BagReplay
             helperTransform.rotation = bagCsvRow.Orientation;
 
             bagCsvRow.LinearVelocity = helperTransform.InverseTransformVector(NED.ConvertToRUF(LinearVelocityRos));
-            bagCsvRow.AngularVelocity = helperTransform.InverseTransformDirection(FRD.ConvertAngularVelocityToRUF(AngularVelocityRos)) / 7;
+            bagCsvRow.AngularVelocity = helperTransform.InverseTransformVector(FRD.ConvertAngularVelocityToRUF(AngularVelocityRos)) / 7;
 
             return bagCsvRow;
         }

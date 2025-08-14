@@ -47,12 +47,13 @@ namespace BagReplay
 
         private void DoAccelerationUpdate()
         {
-            var newVel = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);
-            var newAngVel = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
-            var linearAcc = (newVel - body.GetRoot().linearVelocity) / Time.fixedDeltaTime;
-            body.GetRoot().AddForce(linearAcc, ForceMode.Acceleration);
-            var angularAcc = (newAngVel - body.GetRoot().angularVelocity) / Time.fixedDeltaTime;
-            body.GetRoot().AddTorque(angularAcc, ForceMode.Acceleration);
+            var newVel = body.GetRoot().transform.InverseTransformVector(NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos));
+            var newAngVel = body.GetRoot().transform.InverseTransformVector(FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos));
+          
+            var linearAcc = (newVel - body.GetRoot().transform.InverseTransformVector(body.GetRoot().linearVelocity)) / Time.fixedDeltaTime;
+            body.GetRoot().AddRelativeForce(linearAcc, ForceMode.Acceleration);
+            var angularAcc = (newAngVel - body.GetRoot().transform.InverseTransformVector(body.GetRoot().angularVelocity)) / Time.fixedDeltaTime;
+            body.GetRoot().AddRelativeTorque(angularAcc, ForceMode.Acceleration);
         }
         private void DoVelocityUpdate()
         {

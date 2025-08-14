@@ -73,7 +73,7 @@ namespace BagReplay
         private void AddResidualAcceleration()
         {
             var linearVelocity = chain.GetRoot().transform.InverseTransformVector(chain.GetRoot().linearVelocity);
-            var angularVelocity = chain.GetRoot().transform.InverseTransformDirection(chain.GetRoot().angularVelocity);
+            var angularVelocity = chain.GetRoot().transform.InverseTransformVector(chain.GetRoot().angularVelocity);
             float[] data = new float[]
             {
                 linearVelocity.x,

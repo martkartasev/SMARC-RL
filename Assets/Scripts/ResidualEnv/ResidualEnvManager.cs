@@ -74,7 +74,7 @@ namespace ResidualEnv
             observations[6] = Mathf.Clamp(linearVelocity.z, -1, 1);
 
             var angularVelocity = vehicle.chain.GetRoot().angularVelocity;
-            angularVelocity = vehicle.chain.GetRoot().transform.InverseTransformDirection(angularVelocity) / 7;
+            angularVelocity = vehicle.chain.GetRoot().transform.InverseTransformVector(angularVelocity) / 7;
             observations[7] = Mathf.Clamp(angularVelocity.x, -1, 1);
             observations[8] = Mathf.Clamp(angularVelocity.y, -1, 1);
             observations[9] = Mathf.Clamp(angularVelocity.z, -1, 1);

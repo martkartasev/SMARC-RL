@@ -9,13 +9,11 @@ class ResidualModel(nn.Module):
         self.action_dim = action_dim
 
         self.net = nn.Sequential(
-            nn.Linear(state_dim + action_dim, 256),
+            nn.Linear(state_dim + action_dim, 128),
             nn.ReLU(),
-            nn.Linear(256, 256),
+            nn.Linear(128, 128),
             nn.ReLU(),
-            nn.Linear(256, 256),
-            nn.ReLU(),
-            nn.Linear(256, force_dim)
+            nn.Linear(128, force_dim)
         )
 
         final_layer = self.net[-1]
@@ -32,7 +30,7 @@ class ResidualModel(nn.Module):
         # 3. Export the model to ONNX
         torch.onnx.export(self,
                           dummy_input,
-                          "residualAcceleration.onnx",
+                          "residual.onnx",
                           input_names=['input'],
                           output_names=['output'],
                           opset_version=15)

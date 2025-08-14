@@ -67,8 +67,8 @@ namespace ResidualEnv
             float thrusterRpm)
         {
             chain.GetRoot().immovable = false;
-            chain.GetRoot().linearVelocity = linearVelocity;
-            chain.GetRoot().angularVelocity = angularVelocity;
+            chain.GetRoot().linearVelocity = chain.GetRoot().transform.TransformVector(linearVelocity);
+            chain.GetRoot().angularVelocity = chain.GetRoot().transform.TransformVector(angularVelocity);
 
             yaw.SetAngle(thrusterHorizontalRad);
             pitch.SetAngle(thrusterVerticalRad);
@@ -89,8 +89,8 @@ namespace ResidualEnv
 
         public void ApplyCorrection(Vector3 force, Vector3 torque)
         {
-            chain.GetRoot().AddRelativeForce(force, ForceMode.Acceleration);
-            chain.GetRoot().AddRelativeTorque(torque, ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeForce(force / Time.fixedDeltaTime , ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeTorque(torque / Time.fixedDeltaTime, ForceMode.Acceleration);
 
             yaw.DoUpdate();
             pitch.DoUpdate();

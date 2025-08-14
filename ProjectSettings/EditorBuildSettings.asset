@@ -23,5 +23,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/ExternalControlScene.unity
     guid: 68db7cb2228f57f4f8df5e856a830b69
+  - enabled: 0
+    path: Assets/Scenes/Residual/BagReader.unity
+    guid: 549e5e604c9236447a70a9c7355edea9
   m_configObjects: {}
   m_UseUCBPForAssetBundles: 0

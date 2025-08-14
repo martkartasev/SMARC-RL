@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from sympy.abc import delta
 from torch import optim, nn
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
@@ -9,8 +10,8 @@ from residual_env import UnityResidualEnv
 
 
 def main():
-    batch_size = 512
-    epochs = 25000
+    batch_size = 1000
+    epochs = 5000
     unity_timestep = 0.02
 
     data = read_file()
@@ -20,37 +21,61 @@ def main():
 
     next_sim_state = prepare_sim_data(resets, state_action)
 
-    acceleration_model = ResidualModel(6, 5, 6)
-    optimizer = optim.Adam(acceleration_model.parameters(), lr=1e-3)
-    loss_fn = nn.HuberLoss(delta=0.2)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=2000, min_lr=1e-6)
+    residual_model = ResidualModel(6, 5, 6)
+    optimizer = optim.Adam(residual_model.parameters(), lr=1e-3)
+    loss_fn = nn.MSELoss()
+    scheduler = ReduceLROnPlateau(
+        optimizer, mode='min', factor=0.1, patience=100, min_lr=1e-6
+    )
+
+    num_samples = state_action.shape[0]
+    num_batches_per_epoch = num_samples // batch_size
+
+    state_action_tensor = torch.tensor(state_action, dtype=torch.float32)
+    next_sim_vel_tensor = torch.tensor(next_sim_state, dtype=torch.float32)
+    next_data_vel_tensor = torch.tensor(next_state_action[:, 0:6], dtype=torch.float32)
 
     for epoch in range(epochs):
-        idx = np.arange(batch_size)#np.random.choice(state_action.shape[0], size=batch_size, replace=False)
+        # Shuffle indices at the start of each epoch
+        indices = np.random.permutation(num_samples)
 
-        action_tensor = torch.tensor(state_action[idx, :], dtype=torch.float32)
+        epoch_loss_total = 0.0
 
-        next_sim_vel = torch.tensor(next_sim_state[idx, :], dtype=torch.float32)
-        next_data_vel = torch.tensor(next_state_action[idx, 0:6], dtype=torch.float32)
-        start_vel = torch.tensor(state_action[idx, 0:6], dtype=torch.float32)
+        for batch_num in range(num_batches_per_epoch):
+            # Mini-batch indices
+            batch_idx = indices[batch_num * batch_size: (batch_num + 1) * batch_size]
 
-        sim_acc = (next_sim_vel - start_vel) / unity_timestep
-        data_acc = (next_data_vel - start_vel) / unity_timestep
-        acc_delta = data_acc - sim_acc
+            # Slice batch data
+            action_batch = state_action_tensor[batch_idx]
+            sim_vel_batch = next_sim_vel_tensor[batch_idx]
+            data_vel_batch = next_data_vel_tensor[batch_idx]
 
-        predicted_acceleration_residual = acceleration_model(action_tensor)
+            # Compute velocity residual target
+            vel_delta = data_vel_batch - sim_vel_batch
 
-        loss = loss_fn(predicted_acceleration_residual, acc_delta)
+            # Forward pass
+            predicted_residual = residual_model(action_batch)
+            loss = loss_fn(predicted_residual, vel_delta)
 
-        optimizer.zero_grad()
-        loss.backward()
-        optimizer.step()
-        scheduler.step(loss.item())
+            # Backprop
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            epoch_loss_total += loss.item()
+
+        # Average loss for scheduler
+        avg_epoch_loss = epoch_loss_total / num_batches_per_epoch
+        scheduler.step(avg_epoch_loss)
 
         if epoch % 10 == 0:
             print(f"Epoch {epoch}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
         if epoch != 0 and epoch % 1000 == 0:
-            acceleration_model.export_onnx()
+            was_training = residual_model.training
+            residual_model.eval()
+            residual_model.export_onnx()
+            if was_training:
+                residual_model.train()
 
 
 def prepare_sim_data(resets, state_action, nr_agents=100):
