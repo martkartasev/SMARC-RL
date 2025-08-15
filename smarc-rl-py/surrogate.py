@@ -44,7 +44,7 @@ def train_surrogate_model():
     optimizer_surrogate = optim.Adam(surrogate.parameters(), lr=1e-3)
     loss_fn_surrogate = nn.MSELoss()
     # Training loop for the surrogate model
-    for epoch in range(1000):
+    for epoch in range(10000):
         optimizer_surrogate.zero_grad()
         predictions = surrogate(inputs)
         loss = loss_fn_surrogate(predictions, targets)

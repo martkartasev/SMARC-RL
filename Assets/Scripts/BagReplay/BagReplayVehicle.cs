@@ -30,12 +30,12 @@ namespace BagReplay
 
         void Start()
         {
-            yaw = yawHingeGo.GetComponent<Hinge>();
-            pitch = pitchHingeGo.GetComponent<Hinge>();
-            frontProp = frontPropGo.GetComponent<Propeller>();
-            backProp = backPropGo.GetComponent<Propeller>();
-            vbs = vbsGo.GetComponent<VBS>();
-            lcg = lcgGo.GetComponent<Prismatic>();
+            if (yawHingeGo != null) yaw = yawHingeGo.GetComponent<Hinge>();
+            if (pitch != null) pitch = pitchHingeGo.GetComponent<Hinge>();
+            if (frontProp != null) frontProp = frontPropGo.GetComponent<Propeller>();
+            if (backProp != null) backProp = backPropGo.GetComponent<Propeller>();
+            if (vbs != null) vbs = vbsGo.GetComponent<VBS>();
+            if (lcg != null) lcg = lcgGo.GetComponent<Prismatic>();
             chain.Restart(NED.ConvertToRUF(replay.CurrentBagData.PositionRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
 
             if (modelAsset != null)
@@ -61,14 +61,14 @@ namespace BagReplay
                 chain.GetRoot().immovable = true;
             }
 
-            yaw.SetAngle(replay.CurrentBagData.ThrusterHorizontalRad);
-            pitch.SetAngle(replay.CurrentBagData.ThrusterVerticalRad);
+            yaw?.SetAngle(replay.CurrentBagData.ThrusterHorizontalRad);
+            pitch?.SetAngle(replay.CurrentBagData.ThrusterVerticalRad);
 
-            vbs.SetPercentage(replay.CurrentBagData.Vbs);
-            lcg.SetPercentage(replay.CurrentBagData.Lcg);
+            vbs?.SetPercentage(replay.CurrentBagData.Vbs);
+            lcg?.SetPercentage(replay.CurrentBagData.Lcg);
 
-            frontProp.SetRpm(replay.CurrentBagData.Thruster1RPM);
-            backProp.SetRpm(replay.CurrentBagData.Thruster2RPM);
+            frontProp?.SetRpm(replay.CurrentBagData.Thruster1RPM);
+            backProp?.SetRpm(replay.CurrentBagData.Thruster2RPM);
 
             if (runtimeModel != null) AddResidualAcceleration();
         }

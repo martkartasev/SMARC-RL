@@ -26,12 +26,12 @@ namespace ResidualEnv
 
         public void Awake()
         {
-            yaw = yawHingeGo.GetComponent<Hinge>();
-            pitch = pitchHingeGo.GetComponent<Hinge>();
-            frontProp = frontPropGo.GetComponent<Propeller>();
-            backProp = backPropGo.GetComponent<Propeller>();
-            vbs = vbsGo.GetComponent<VBS>();
-            lcg = lcgGo.GetComponent<Prismatic>();
+            if (yawHingeGo != null) yaw = yawHingeGo.GetComponent<Hinge>();
+            if (pitch != null) pitch = pitchHingeGo.GetComponent<Hinge>();
+            if (frontProp != null) frontProp = frontPropGo.GetComponent<Propeller>();
+            if (backProp != null) backProp = backPropGo.GetComponent<Propeller>();
+            if (vbs != null) vbs = vbsGo.GetComponent<VBS>();
+            if (lcg != null) lcg = lcgGo.GetComponent<Prismatic>();
             _forcePoints = transform.FindInChildrenRecursive<ForcePoint>();
         }
 
@@ -45,15 +45,15 @@ namespace ResidualEnv
             chain.GetRoot().immovable = true;
             chain.Restart(position, rotation);
 
-            yaw.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterHorizontalRad);
-            pitch.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterVerticalRad);
-            vbs.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(vbs.ComputeTargetValue(vbsCmd));
-            lcg.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(lcg.ComputeTargetValue(lcgCmd));
+            if (yaw != null) yaw.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterHorizontalRad);
+            if (pitch != null) pitch.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(thrusterVerticalRad);
+            if (vbs != null) vbs.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(vbs.ComputeTargetValue(vbsCmd));
+            if (lcg != null) lcg.GetComponentInParent<ArticulationBody>().jointPosition = new ArticulationReducedSpace(lcg.ComputeTargetValue(lcgCmd));
 
-            yaw.SetAngle(thrusterHorizontalRad);
-            pitch.SetAngle(thrusterVerticalRad);
-            vbs.SetPercentage(100 - vbsCmd);
-            lcg.SetPercentage(100 - lcgCmd);
+            yaw?.SetAngle(thrusterHorizontalRad);
+            pitch?.SetAngle(thrusterVerticalRad);
+            vbs?.SetPercentage(100 - vbsCmd);
+            lcg?.SetPercentage(100 - lcgCmd);
         }
 
 
@@ -70,38 +70,42 @@ namespace ResidualEnv
             chain.GetRoot().linearVelocity = chain.GetRoot().transform.TransformVector(linearVelocity);
             chain.GetRoot().angularVelocity = chain.GetRoot().transform.TransformVector(angularVelocity);
 
-            yaw.SetAngle(thrusterHorizontalRad);
-            pitch.SetAngle(thrusterVerticalRad);
+            yaw?.SetAngle(thrusterHorizontalRad);
+            pitch?.SetAngle(thrusterVerticalRad);
 
-            vbs.SetPercentage(vbsCmd);
-            lcg.SetPercentage(lcgCmd);
+            vbs?.SetPercentage(vbsCmd);
+            lcg?.SetPercentage(lcgCmd);
 
-            frontProp.SetRpm(thrusterRpm);
-            backProp.SetRpm(thrusterRpm);
+            frontProp?.SetRpm(thrusterRpm);
+            backProp?.SetRpm(thrusterRpm);
 
-            yaw.DoUpdate();
-            pitch.DoUpdate();
-            frontProp.DoUpdate();
-            backProp.DoUpdate();
-            lcg.DoUpdate();
-            vbs.DoUpdate();
+            yaw?.DoUpdate();
+            pitch?.DoUpdate();
+            frontProp?.DoUpdate();
+            backProp?.DoUpdate();
+            lcg?.DoUpdate();
+            vbs?.DoUpdate();
         }
 
         public void ApplyCorrection(Vector3 force, Vector3 torque)
         {
-            chain.GetRoot().AddRelativeForce(force / Time.fixedDeltaTime , ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeForce(force / Time.fixedDeltaTime, ForceMode.Acceleration);
             chain.GetRoot().AddRelativeTorque(torque / Time.fixedDeltaTime, ForceMode.Acceleration);
 
-            yaw.DoUpdate();
-            pitch.DoUpdate();
-            frontProp.DoUpdate();
-            backProp.DoUpdate();
-            lcg.DoUpdate();
-            vbs.DoUpdate();
+            yaw?.DoUpdate();
+            pitch?.DoUpdate();
+            frontProp?.DoUpdate();
+            backProp?.DoUpdate();
+            lcg?.DoUpdate();
+            vbs?.DoUpdate();
 
-            foreach (var forcePoint in _forcePoints)
+
+            if (_forcePoints != null)
             {
-                forcePoint.DoUpdate();
+                foreach (var forcePoint in _forcePoints)
+                {
+                    forcePoint.DoUpdate();
+                }
             }
         }
     }

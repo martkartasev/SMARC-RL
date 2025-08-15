@@ -9,7 +9,7 @@ from residual_env import UnityResidualEnv
 
 
 def main():
-    env = UnityResidualEnv(port=50012, start_process=True, nr_agents=100, no_graphics=True)
+    env = UnityResidualEnv(port=50010, start_process=True, nr_agents=100, no_graphics=True)
     try:
         training(env)
     finally:
@@ -63,10 +63,10 @@ def training(env):
             action_batch = state_action_tensor_train[batch_idx]
             predicted_residual = residual_model(action_batch)
 
-            surrogate_input = torch.cat((action_batch, predicted_residual), dim=1)
+            # surrogate_input = torch.cat((action_batch, predicted_residual), dim=1)
             # sim_vel_batch = surrogate_model(surrogate_input)
-            # sim_vel_batch = torch.tensor(run_sim_batches(env=env, resets=resets[batch_idx], state_action=state_action[batch_idx], residuals=predicted_residual.detach().numpy()), dtype=torch.float32)
-            sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
+            sim_vel_batch = torch.tensor(run_sim_batches(env=env, resets=resets[batch_idx], state_action=state_action[batch_idx], residuals=predicted_residual.detach().numpy()), dtype=torch.float32)
+            #sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
             data_vel_batch = next_data_vel_tensor_train[batch_idx]
 
             vel_delta = data_vel_batch - sim_vel_batch
