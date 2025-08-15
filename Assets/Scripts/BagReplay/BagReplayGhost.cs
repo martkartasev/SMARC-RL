@@ -57,6 +57,7 @@ namespace BagReplay
         }
         private void DoVelocityUpdate()
         {
+            Debug.Log("Ghost:" + body.GetRoot().linearVelocity);
             body.GetRoot().linearVelocity = NED.ConvertToRUF(replay.CurrentBagData.LinearVelocityRos);;
             body.GetRoot().angularVelocity = FRD.ConvertAngularVelocityToRUF(replay.CurrentBagData.AngularVelocityRos);
         }

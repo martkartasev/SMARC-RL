@@ -4,7 +4,7 @@ from torch import optim, nn
 from torch.optim.lr_scheduler import ReduceLROnPlateau
 
 from file_parsing import read_file
-from network import ResidualModel
+from network import ResidualModel, SurrogateModel
 from residual_env import UnityResidualEnv
 
 
@@ -34,14 +34,16 @@ def training(env):
                                            resets=resets[train_idx],
                                            state_action=state_action[train_idx])
 
-
     residual_model = ResidualModel(6, 5, 6)
     optimizer = optim.Adam(residual_model.parameters(), lr=1e-3)
     loss_fn = nn.MSELoss()
     scheduler = ReduceLROnPlateau(
-        optimizer, mode='min', factor=0.1, patience=50, min_lr=1e-6
+        optimizer, mode='min', factor=0.1, patience=1000, min_lr=1e-6
     )
 
+    # surrogate_model = SurrogateModel(11 + 6, 6)  # 11 for state_action, 6 for residuals
+    # surrogate_model.load_state_dict(torch.load('surrogate_model.pth'))
+    # surrogate_model.eval()  # Set to evaluation mode
 
     state_action_tensor_train = torch.tensor(state_action[train_idx], dtype=torch.float32)
     next_sim_vel_tensor_train = torch.tensor(next_sim_state_train, dtype=torch.float32)
@@ -61,8 +63,10 @@ def training(env):
             action_batch = state_action_tensor_train[batch_idx]
             predicted_residual = residual_model(action_batch)
 
-            sim_vel_batch = torch.tensor(run_sim_batches(env=env, resets=resets[batch_idx], state_action=state_action[batch_idx], residuals=predicted_residual.detach().numpy()), dtype=torch.float32)
-            #sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
+            surrogate_input = torch.cat((action_batch, predicted_residual), dim=1)
+            # sim_vel_batch = surrogate_model(surrogate_input)
+            # sim_vel_batch = torch.tensor(run_sim_batches(env=env, resets=resets[batch_idx], state_action=state_action[batch_idx], residuals=predicted_residual.detach().numpy()), dtype=torch.float32)
+            sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
             data_vel_batch = next_data_vel_tensor_train[batch_idx]
 
             vel_delta = data_vel_batch - sim_vel_batch
@@ -96,7 +100,7 @@ def training(env):
                   f"Validation Loss: {validation_loss:.6f}, "
                   f"Lr: {optimizer.param_groups[0]['lr']:.6f}")
 
-        if epoch != 0 and epoch % 10 == 0:
+        if epoch != 0 and epoch % 100 == 0:
             residual_model.export_onnx(epoch)
 
 

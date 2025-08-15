@@ -41,7 +41,7 @@ class UnityResidualEnv(Env):
 
     def step(self, action):
         action_msg = map_action_to_proto(action)
-        action_msg.stepCount = 1
+        action_msg.stepCount = 2
         action_msg.timeScale = 1
         step = self.client.step(action_msg)
 

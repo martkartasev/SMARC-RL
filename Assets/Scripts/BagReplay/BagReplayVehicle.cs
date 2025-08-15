@@ -64,8 +64,8 @@ namespace BagReplay
             yaw.SetAngle(replay.CurrentBagData.ThrusterHorizontalRad);
             pitch.SetAngle(replay.CurrentBagData.ThrusterVerticalRad);
 
-            vbs.SetPercentage(100 - replay.CurrentBagData.Vbs);
-            lcg.SetPercentage(100 - replay.CurrentBagData.Lcg);
+            vbs.SetPercentage(replay.CurrentBagData.Vbs);
+            lcg.SetPercentage(replay.CurrentBagData.Lcg);
 
             frontProp.SetRpm(replay.CurrentBagData.Thruster1RPM);
             backProp.SetRpm(replay.CurrentBagData.Thruster2RPM);
@@ -103,6 +103,7 @@ namespace BagReplay
 
             chain.GetRoot().AddRelativeForce(new Vector3(result[0], result[1], result[2]) / Time.fixedDeltaTime, ForceMode.Acceleration);
             chain.GetRoot().AddRelativeTorque(new Vector3(result[3] * 7, result[4] * 7, result[5] * 7) / Time.fixedDeltaTime, ForceMode.Acceleration);
+            Debug.Log("Residual:" + chain.GetRoot().linearVelocity);
         }
     }
 }

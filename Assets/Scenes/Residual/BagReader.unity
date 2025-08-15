@@ -833,7 +833,7 @@ MonoBehaviour:
   lcgGo: {fileID: 1513573437}
   chain: {fileID: 1365190172}
   replay: {fileID: 954455512}
-  modelAsset: {fileID: 5022602860645237092, guid: d567d51fff1e7fd41abd53be69799185, type: 3}
+  modelAsset: {fileID: 5022602860645237092, guid: 6e67d114392aedc4f9e589b627211cc6, type: 3}
 --- !u!1 &1381283821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8691695954288732116, guid: bba92ee73daf062419a0bbcdbe75a68e, type: 3}
@@ -855,6 +855,10 @@ PrefabInstance:
       propertyPath: replay
       value: 
       objectReference: {fileID: 954455512}
+    - target: {fileID: 88051647080115264, guid: e809510ad16438a45a763f3a7810f64a, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4460260676697141228, guid: e809510ad16438a45a763f3a7810f64a, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -862,6 +866,10 @@ PrefabInstance:
     - target: {fileID: 4979426215844570258, guid: e809510ad16438a45a763f3a7810f64a, type: 3}
       propertyPath: m_Name
       value: Ghost (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979426215844570258, guid: e809510ad16438a45a763f3a7810f64a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8429149854566608341, guid: e809510ad16438a45a763f3a7810f64a, type: 3}
       propertyPath: m_LocalPosition.x

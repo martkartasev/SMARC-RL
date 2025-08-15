@@ -73,8 +73,8 @@ namespace ResidualEnv
             yaw.SetAngle(thrusterHorizontalRad);
             pitch.SetAngle(thrusterVerticalRad);
 
-            vbs.SetPercentage(100 - vbsCmd);
-            lcg.SetPercentage(100 - lcgCmd);
+            vbs.SetPercentage(vbsCmd);
+            lcg.SetPercentage(lcgCmd);
 
             frontProp.SetRpm(thrusterRpm);
             backProp.SetRpm(thrusterRpm);
