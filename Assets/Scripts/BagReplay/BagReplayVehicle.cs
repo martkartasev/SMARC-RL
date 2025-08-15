@@ -38,8 +38,11 @@ namespace BagReplay
             lcg = lcgGo.GetComponent<Prismatic>();
             chain.Restart(NED.ConvertToRUF(replay.CurrentBagData.PositionRos), NED.ConvertToRUF(replay.CurrentBagData.OrientationRos));
 
-            runtimeModel = ModelLoader.Load(modelAsset);
-            worker = new Worker(runtimeModel, BackendType.CPU);
+            if (modelAsset != null)
+            {
+                runtimeModel = ModelLoader.Load(modelAsset);
+                worker = new Worker(runtimeModel, BackendType.CPU);
+            }
         }
 
         private void FixedUpdate()
@@ -98,8 +101,8 @@ namespace BagReplay
             Tensor<float> outputTensor = worker.PeekOutput() as Tensor<float>;
             var result = outputTensor.ReadbackAndClone();
 
-            chain.GetRoot().AddRelativeForce(new Vector3(result[0], result[1], result[2]), ForceMode.Acceleration);
-            chain.GetRoot().AddRelativeTorque(new Vector3(result[3], result[4], result[5]), ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeForce(new Vector3(result[0], result[1], result[2]) / Time.fixedDeltaTime, ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeTorque(new Vector3(result[3], result[4], result[5]) / Time.fixedDeltaTime, ForceMode.Acceleration);
         }
     }
 }

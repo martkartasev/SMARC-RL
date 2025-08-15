@@ -1,3 +1,4 @@
+import subprocess
 from typing import Optional
 
 import numpy as np
@@ -12,7 +13,7 @@ class UnityResidualEnv(Env):
 
     def __init__(self,
                  start_process: bool = True,
-                 no_graphics:  bool = False,
+                 no_graphics: bool = False,
                  port: int = 10000,
                  nr_agents: int = 1):
         super(UnityResidualEnv, self).__init__()
@@ -58,6 +59,11 @@ class UnityResidualEnv(Env):
     def close(self):
         if self.process is not None:
             self.process.terminate()
+            try:
+                self.process.wait(timeout=5)
+            except subprocess.TimeoutExpired:
+                self.process.kill()
+                self.process.wait()
 
 
 def map_reset_params_to_proto(i, initialization):
