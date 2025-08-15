@@ -90,7 +90,7 @@ namespace ResidualEnv
         public override void FixedUpdateManual()
         {
             var correctiveForce = new Vector3(_latestAction.Continuous[11], _latestAction.Continuous[12], _latestAction.Continuous[13]);
-            var correctiveTorque = new Vector3(_latestAction.Continuous[14], _latestAction.Continuous[15], _latestAction.Continuous[16]);
+            var correctiveTorque = new Vector3(_latestAction.Continuous[14] * 7, _latestAction.Continuous[15] * 7, _latestAction.Continuous[16] * 7);
 
             vehicle.ApplyCorrection(correctiveForce, correctiveTorque);
         }

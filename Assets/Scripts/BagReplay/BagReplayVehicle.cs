@@ -102,7 +102,7 @@ namespace BagReplay
             var result = outputTensor.ReadbackAndClone();
 
             chain.GetRoot().AddRelativeForce(new Vector3(result[0], result[1], result[2]) / Time.fixedDeltaTime, ForceMode.Acceleration);
-            chain.GetRoot().AddRelativeTorque(new Vector3(result[3], result[4], result[5]) / Time.fixedDeltaTime, ForceMode.Acceleration);
+            chain.GetRoot().AddRelativeTorque(new Vector3(result[3] * 7, result[4] * 7, result[5] * 7) / Time.fixedDeltaTime, ForceMode.Acceleration);
         }
     }
 }
