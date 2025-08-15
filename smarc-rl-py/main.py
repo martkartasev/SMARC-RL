@@ -78,7 +78,6 @@ def training(env):
         scheduler.step(avg_epoch_loss)
 
         if epoch % 10 == 0:
-
             residual_model.eval()
             with torch.no_grad():
                 action_validation = torch.tensor(state_action[validation_idx], dtype=torch.float32)
@@ -97,7 +96,7 @@ def training(env):
                   f"Validation Loss: {validation_loss:.6f}, "
                   f"Lr: {optimizer.param_groups[0]['lr']:.6f}")
 
-        if epoch != 0 and epoch % 100 == 0:
+        if epoch != 0 and epoch % 10 == 0:
             residual_model.export_onnx(epoch)
 
 

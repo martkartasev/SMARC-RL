@@ -40,7 +40,7 @@ class UnityResidualEnv(Env):
         return obs
 
     def step(self, action):
-        action_msg = map_action_to_unity(action)
+        action_msg = map_action_to_proto(action)
         action_msg.stepCount = 1
         action_msg.timeScale = 1
         step = self.client.step(action_msg)
@@ -80,7 +80,7 @@ def map_observation_to_numpy(unity_observations: protobuf_gen.communication_pb2.
     return obs
 
 
-def map_action_to_unity(action):
+def map_action_to_proto(action):
     step = protobuf_gen.communication_pb2.Step()
     for i in range(action.shape[0]):
         action_msg = protobuf_gen.communication_pb2.Action()
