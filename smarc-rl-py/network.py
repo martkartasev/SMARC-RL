@@ -23,14 +23,14 @@ class ResidualModel(nn.Module):
     def forward(self, state_action):
         return self.net(state_action)
 
-    def export_onnx(self):
+    def export_onnx(self, epoch):
         # 2. Create a dummy input
         dummy_input = torch.randn(1, self.state_dim + self.action_dim)
 
         # 3. Export the model to ONNX
         torch.onnx.export(self,
                           dummy_input,
-                          "residual.onnx",
+                          f"residual_{epoch}.onnx",
                           input_names=['input'],
                           output_names=['output'],
                           opset_version=15)

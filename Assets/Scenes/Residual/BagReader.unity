@@ -833,7 +833,7 @@ MonoBehaviour:
   lcgGo: {fileID: 1513573437}
   chain: {fileID: 1365190172}
   replay: {fileID: 954455512}
-  modelAsset: {fileID: 5022602860645237092, guid: 9a71279a03aea2c44a2a01d67e9d4f57, type: 3}
+  modelAsset: {fileID: 5022602860645237092, guid: d567d51fff1e7fd41abd53be69799185, type: 3}
 --- !u!1 &1381283821 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8691695954288732116, guid: bba92ee73daf062419a0bbcdbe75a68e, type: 3}

@@ -28,7 +28,7 @@ def training(env):
 
     split_idx = int((1 - val_split) * state_action.shape[0])
     train_idx = np.arange(0, split_idx)
-    val_idx = np.arange(split_idx, state_action.shape[0])
+    validation_idx = np.arange(split_idx, state_action.shape[0])
 
     next_sim_state_train = run_sim_batches(env=env,
                                            resets=resets[train_idx],
@@ -81,24 +81,24 @@ def training(env):
 
             residual_model.eval()
             with torch.no_grad():
-                action_val = torch.tensor(state_action[val_idx], dtype=torch.float32)
-                predicted_val = residual_model(action_val)
+                action_validation = torch.tensor(state_action[validation_idx], dtype=torch.float32)
+                predicted_validation = residual_model(action_validation)
 
-                next_sim_state_val = run_sim_batches(env=env, resets=resets[val_idx], state_action=state_action[val_idx], residuals=predicted_val)
+                next_sim_state_validation = run_sim_batches(env=env, resets=resets[validation_idx], state_action=state_action[validation_idx], residuals=predicted_validation)
 
-                sim_vel_val = torch.tensor(next_sim_state_val, dtype=torch.float32)
-                data_vel_val = torch.tensor(next_state_action[val_idx, 0:6], dtype=torch.float32)
+                sim_vel_validation = torch.tensor(next_sim_state_validation, dtype=torch.float32)
+                data_vel_validation = torch.tensor(next_state_action[validation_idx, 0:6], dtype=torch.float32)
 
-                vel_delta_val = data_vel_val - sim_vel_val
-                val_loss = loss_fn(predicted_val, vel_delta_val).item()
+                vel_delta_val = data_vel_validation - sim_vel_validation
+                validation_loss = loss_fn(predicted_validation, vel_delta_val).item()
 
             print(f"Epoch {epoch}, "
                   f"Train Loss: {avg_epoch_loss:.6f}, "
-                  f"Val Loss: {val_loss:.6f}, "
+                  f"Validation Loss: {validation_loss:.6f}, "
                   f"Lr: {optimizer.param_groups[0]['lr']:.6f}")
 
         if epoch != 0 and epoch % 100 == 0:
-            residual_model.export_onnx()
+            residual_model.export_onnx(epoch)
 
 
 def run_sim_batches(env, resets, state_action, residuals=None):
