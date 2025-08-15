@@ -36,40 +36,34 @@ def main():
     next_data_vel_tensor = torch.tensor(next_state_action[:, 0:6], dtype=torch.float32)
 
     for epoch in range(epochs):
-        # Shuffle indices at the start of each epoch
         indices = np.random.permutation(num_samples)
 
         epoch_loss_total = 0.0
 
         for batch_num in range(num_batches_per_epoch):
-            # Mini-batch indices
             batch_idx = indices[batch_num * batch_size: (batch_num + 1) * batch_size]
 
-            # Slice batch data
             action_batch = state_action_tensor[batch_idx]
             sim_vel_batch = next_sim_vel_tensor[batch_idx]
             data_vel_batch = next_data_vel_tensor[batch_idx]
 
-            # Compute velocity residual target
             vel_delta = data_vel_batch - sim_vel_batch
 
-            # Forward pass
             predicted_residual = residual_model(action_batch)
             loss = loss_fn(predicted_residual, vel_delta)
 
-            # Backprop
             optimizer.zero_grad()
             loss.backward()
             optimizer.step()
 
             epoch_loss_total += loss.item()
 
-        # Average loss for scheduler
+
         avg_epoch_loss = epoch_loss_total / num_batches_per_epoch
         scheduler.step(avg_epoch_loss)
 
         if epoch % 10 == 0:
-            print(f"Epoch {epoch}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
+            print(f"Epoch {avg_epoch_loss}, Loss: {loss.item():.6f}, Lr: {optimizer.param_groups[0]['lr']:.6f}")
         if epoch != 0 and epoch % 1000 == 0:
             was_training = residual_model.training
             residual_model.eval()
