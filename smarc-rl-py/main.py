@@ -62,7 +62,7 @@ def training(env):
             predicted_residual = residual_model(action_batch)
 
             sim_vel_batch = torch.tensor(run_sim_batches(env=env, resets=resets[batch_idx], state_action=state_action[batch_idx], residuals=predicted_residual.detach().numpy()), dtype=torch.float32)
-            # sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
+            #sim_vel_batch = next_sim_vel_tensor_train[batch_idx] #For training without sim in the loop
             data_vel_batch = next_data_vel_tensor_train[batch_idx]
 
             vel_delta = data_vel_batch - sim_vel_batch
